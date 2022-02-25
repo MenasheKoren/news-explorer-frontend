@@ -1,24 +1,40 @@
 .page {
-	box-sizing: border-box;
-	max-width: 100%;
-	margin: 0;
-	padding: 0;
-	background: rgba(0, 0, 0, 1);
-	color: rgba(255, 255, 255, 1);
-	font-family: Inter, Arial, Helvetica, sans-serif;
-	font-style: normal;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
-	-moz-text-size-adjust: 100%;
-	text-rendering: optimizeLegibility;
-	position: relative;
-	
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 1);
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  position: relative;
 }
 
 .content {
-	max-width: 880px;
-	min-width: 320px;
-	margin: 0 auto;
+  max-width: 880px;
+  min-width: 320px;
+  margin: 0 auto;
+}
+
+.link {
+  text-decoration: none;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+}
+
+.link__hover:hover {
+  opacity: 60%;
+}
+
+.ellipses {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	flex: 1;
 }
