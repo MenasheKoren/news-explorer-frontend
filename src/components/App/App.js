@@ -5,16 +5,26 @@ import "./App.css";
 import { Main } from "../Main/Main";
 import { SavedNews } from "../SavedNews/SavedNews";
 import { Layout } from "../Layout/Layout";
+import { MobileMenu } from "../mobile-menu/mobile-menu";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState("");
-  const [isRegistered, setIsRegistered] = useState(false);
-  const localEmail = localStorage.getItem("localEmail");
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [userName, setUserName] = useState("");
+  // const [isRegistered, setIsRegistered] = useState(false);
+  const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState(false);
+  // const localEmail = localStorage.getItem("localEmail");
   const navigate = useNavigate();
   const location = useLocation();
+
+  function handleOpenHamburgerMenu() {
+    setIsHamburgerMenuOpen(true);
+  }
+
+  function closeAllPopups() {
+    setIsHamburgerMenuOpen(false);
+  }
 
   return (
     <Routes>
@@ -22,11 +32,16 @@ function App() {
         path="/"
         element={
           <Layout
-          // handleLogout={handleLogout}
-          // handleLogin={handleLogin}
-          // isRegistered={isRegistered}
-          // localEmail={localEmail}
-          />
+            // handleLogout={handleLogout}
+            // handleLogin={handleLogin}
+            // isRegistered={isRegistered}
+            // localEmail={localEmail}
+            isOpen={isHamburgerMenuOpen}
+            handleOpenHamburgerMenu={handleOpenHamburgerMenu}
+            closeAllPopups={closeAllPopups}
+          >
+            <MobileMenu />
+          </Layout>
         }
       >
         <Route index element={<Main />} />
