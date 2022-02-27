@@ -1,2 +1,4 @@
 @import url('./components/Layout/Layout.css');
 @import url('./components/Header/Header.css');
+@import url('components/MobileMenu/MobileMenu.css');
+@import url('./components/Main/Main.css');

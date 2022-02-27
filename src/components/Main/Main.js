@@ -2,9 +2,14 @@ import * as React from "react";
 
 export function Main() {
   return (
-    <main>
-      <h2>Welcome to the homepage!</h2>
-      <p>You can do this, I believe in you.</p>
+    <main className="main">
+      <section className="main__jumbotron">
+        <h2>What's going on in the world?</h2>
+        <p>
+          Find the latest news on any topic and save them in your personal
+          account.
+        </p>
+      </section>
     </main>
   );
 }
