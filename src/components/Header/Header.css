@@ -69,9 +69,7 @@
   border: none;
 }
 
-.dropdown__svg {
-  /*background-color: transparent;*/
-}
+
 
 @media screen and (min-width: 481px) and (max-width: 768px) {
   .header {

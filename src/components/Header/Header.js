@@ -1,9 +1,10 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
-import MediaQuery from "react-responsive";
+import { useMediaQuery } from "react-responsive";
 
-export function Header({ handleOpenDropdownMenu }) {
+export function Header({ handleOpenDropdownMenu, isDropdownMenuOpen }) {
   const location = useLocation();
-
+  const isBigScreenOrTablet = useMediaQuery({ query: "(min-width: 481px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 480px)" });
   return (
     <header
       className="header"
@@ -22,14 +23,19 @@ export function Header({ handleOpenDropdownMenu }) {
       }
     >
       <div className="header__content">
-        <h2 className="header__title">NewsExplorer</h2>
-        <MediaQuery minWidth={481}>
+        <h2
+          className="header__title"
+          style={isDropdownMenuOpen && isMobile ? { color: "white" } : {}}
+        >
+          NewsExplorer
+        </h2>
+        {isBigScreenOrTablet && (
           <nav className="header__nav">
             <NavLink
               to="/"
               className={({ isActive }) =>
                 "nav__item link link__hover" +
-                (isActive ? " nav__item_active" : "")
+                (isActive ? " nav__item_active" : "  nav__item_inactive")
               }
             >
               Home
@@ -49,8 +55,9 @@ export function Header({ handleOpenDropdownMenu }) {
               Sign in
             </Link>
           </nav>
-        </MediaQuery>
-        <MediaQuery maxWidth={480}>
+        )}
+
+        {isMobile && (
           <button
             className="nav__dropdown-button button"
             onClick={handleOpenDropdownMenu}
@@ -76,7 +83,7 @@ export function Header({ handleOpenDropdownMenu }) {
               />
             </svg>
           </button>
-        </MediaQuery>
+        )}
       </div>
     </header>
   );

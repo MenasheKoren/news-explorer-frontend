@@ -36,11 +36,11 @@
 //   setIsRegistered(true);
 // }
 //
-// function handleOpenHamburgerMenu() {
-//   setIsHamburgerMenuOpen(true);
+// function handleOpenDropdownMenu() {
+//   setIsDropdownMenuOpen(true);
 // }
 //
 // function closeAllPopups() {
-//   setIsHamburgerMenuOpen(false);
+//   setIsDropdownMenuOpen(false);
 // }
 //

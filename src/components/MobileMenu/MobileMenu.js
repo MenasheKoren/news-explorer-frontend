@@ -1,12 +1,13 @@
 import React from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-export const MobileMenu = ({ closeAllPopups, isOpen }) => {
-  const location = useLocation();
-
+export const MobileMenu = ({ closeAllPopups, isDropdownMenuOpen }) => {
   return (
     <section
-      className={["mobile-menu", isOpen ? "mobile-menu_opened" : ""].join(" ")}
+      className={[
+        "mobile-menu",
+        isDropdownMenuOpen ? "mobile-menu_opened" : "",
+      ].join(" ")}
     >
       <div className="mobile-menu__container">
         <div className="mobile-menu__content">

@@ -35,7 +35,7 @@ function App() {
             // handleLogin={handleLogin}
             // isRegistered={isRegistered}
             // localEmail={localEmail}
-            isOpen={isDropdownMenuOpen}
+            isDropdownMenuOpen={isDropdownMenuOpen}
             handleOpenDropdownMenu={handleOpenDropdownMenu}
             closeAllPopups={closeAllPopups}
           />
