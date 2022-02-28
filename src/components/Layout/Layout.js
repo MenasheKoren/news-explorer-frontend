@@ -7,6 +7,13 @@ export function Layout({
   handleOpenDropdownMenu,
   closeAllPopups,
   isDropdownMenuOpen,
+  isRegistered,
+  handleLogin,
+  handleLogout,
+  handleRegister,
+  isLoggedIn,
+  isMonitorOrTablet,
+  isMobile,
 }) {
   return (
     <div className="page">
@@ -14,8 +21,20 @@ export function Layout({
         <Header
           handleOpenDropdownMenu={handleOpenDropdownMenu}
           isDropdownMenuOpen={isDropdownMenuOpen}
+          handleLogout={handleLogout}
+          handleLogin={handleLogin}
+          handleRegister={handleRegister}
+          isRegistered={isRegistered}
+          isLoggedIn={isLoggedIn}
+          isMonitorOrTablet={isMonitorOrTablet}
+          isMobile={isMobile}
         />
         <MobileMenu
+          handleLogout={handleLogout}
+          handleLogin={handleLogin}
+          handleRegister={handleRegister}
+          isRegistered={isRegistered}
+          isLoggedIn={isLoggedIn}
           isDropdownMenuOpen={isDropdownMenuOpen}
           closeAllPopups={closeAllPopups}
         />

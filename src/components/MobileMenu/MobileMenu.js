@@ -1,7 +1,15 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
-export const MobileMenu = ({ closeAllPopups, isDropdownMenuOpen }) => {
+export const MobileMenu = ({
+  closeAllPopups,
+  isDropdownMenuOpen,
+  isRegistered,
+  handleLogin,
+  handleLogout,
+  handleRegister,
+  isLoggedIn,
+}) => {
   return (
     <section
       className={[
@@ -23,30 +31,52 @@ export const MobileMenu = ({ closeAllPopups, isDropdownMenuOpen }) => {
               onClick={closeAllPopups}
               className={({ isActive }) =>
                 "nav__item link link__hover" +
-                (isActive ? " nav__item_active" : "")
+                (isActive && isLoggedIn ? " nav__item_active" : "")
               }
             >
               Home
             </NavLink>
+            {isLoggedIn && (
+              <>
+                <NavLink
+                  to="/saved-news"
+                  onClick={closeAllPopups}
+                  className={({ isActive }) =>
+                    "nav__item link link__hover" +
+                    (isActive ? " nav__item_active" : " nav__item_inactive")
+                  }
+                >
+                  Saved articles
+                </NavLink>
 
-            <NavLink
-              to="/saved-news"
-              onClick={closeAllPopups}
-              className={({ isActive }) =>
-                "nav__item link link__hover" +
-                (isActive ? " nav__item_active" : " nav__item_inactive")
-              }
-            >
-              Saved articles
-            </NavLink>
+                <Link
+                  to="/"
+                  onClick={handleLogout}
+                  className="nav__item link link__hover nav__entry"
+                >
+                  Log out
+                </Link>
+              </>
+            )}
 
-            <Link
-              to="/"
-              onClick={closeAllPopups}
-              className="nav__item link link__hover nav__entry"
-            >
-              Sign in
-            </Link>
+            {isRegistered && !isLoggedIn && (
+              <Link
+                to="/"
+                onClick={handleLogin}
+                className="nav__item link link__hover nav__entry"
+              >
+                Sign in
+              </Link>
+            )}
+            {!isRegistered && !isLoggedIn && (
+              <Link
+                to="/"
+                onClick={handleRegister}
+                className="nav__item link link__hover nav__entry"
+              >
+                Sign up
+              </Link>
+            )}
           </nav>
         </div>
       </div>

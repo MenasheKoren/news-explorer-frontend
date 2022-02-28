@@ -1,10 +1,18 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
 
-export function Header({ handleOpenDropdownMenu, isDropdownMenuOpen }) {
+export function Header({
+  handleOpenDropdownMenu,
+  isDropdownMenuOpen,
+  isRegistered,
+  handleLogin,
+  handleLogout,
+  handleRegister,
+  isLoggedIn,
+  isMobile,
+  isMonitorOrTablet,
+}) {
   const location = useLocation();
-  const isBigScreenOrTablet = useMediaQuery({ query: "(min-width: 481px)" });
-  const isMobile = useMediaQuery({ query: "(max-width: 480px)" });
+
   return (
     <header
       className="header"
@@ -29,7 +37,7 @@ export function Header({ handleOpenDropdownMenu, isDropdownMenuOpen }) {
         >
           NewsExplorer
         </h2>
-        {isBigScreenOrTablet && (
+        {isMonitorOrTablet && (
           <nav className="header__nav">
             <NavLink
               to="/"
@@ -40,20 +48,45 @@ export function Header({ handleOpenDropdownMenu, isDropdownMenuOpen }) {
             >
               Home
             </NavLink>
+            {isLoggedIn && (
+              <NavLink
+                to="/saved-news"
+                className={({ isActive }) =>
+                  "nav__item link link__hover" +
+                  (isActive ? " nav__item_active" : " nav__item_inactive")
+                }
+              >
+                Saved articles
+              </NavLink>
+            )}
 
-            <NavLink
-              to="/saved-news"
-              className={({ isActive }) =>
-                "nav__item link link__hover" +
-                (isActive ? " nav__item_active" : " nav__item_inactive")
-              }
-            >
-              Saved articles
-            </NavLink>
-
-            <Link to="/" className="nav__item link link__hover nav__entry">
-              Sign in
-            </Link>
+            {isLoggedIn && (
+              <Link
+                to="/"
+                onClick={handleLogout}
+                className="nav__item link link__hover nav__entry"
+              >
+                Log out
+              </Link>
+            )}
+            {isRegistered && !isLoggedIn && (
+              <Link
+                to="/"
+                onClick={handleLogin}
+                className="nav__item link link__hover nav__entry"
+              >
+                Sign in
+              </Link>
+            )}
+            {!isRegistered && !isLoggedIn && (
+              <Link
+                to="/"
+                onClick={handleRegister}
+                className="nav__item link link__hover nav__entry"
+              >
+                Sign up
+              </Link>
+            )}
           </nav>
         )}
 
