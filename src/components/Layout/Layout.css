@@ -4,9 +4,11 @@
   margin: 0;
   padding: 0;
   color: rgb(255, 255, 255);
-  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
   font-style: normal;
-  
+  line-height: 1.5rem;
+	font-size: 1.125rem;
+	font-weight: 500;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
@@ -38,3 +40,17 @@
 	white-space: nowrap;
 	flex: 1;
 }
+
+.button {
+	transition: all 0.2s;
+}
+
+.button:hover {
+	cursor: pointer;
+	opacity: 0.6;
+}
+
+.button:active {
+	transform: translateY(0.25em);
+}
+

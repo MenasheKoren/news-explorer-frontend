@@ -1,32 +1,75 @@
 .mobile-menu {
-	background-color: rgba(0, 0, 0, 0.5);
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 1;
-	margin: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	visibility: hidden;
-	opacity: 0;
-	transition: visibility 0.5s, opacity 0.5s ease-in-out;
-}
-
-.mobile-menu__container {
-	box-shadow: 0 0 1.5625rem rgba(0, 0, 0, 0.15);
-	border-radius: 0.625rem;
-	background: black;
-	width: 17.625rem;
-	text-align: left;
-	position: relative;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s ease-in-out;
 }
 
 .mobile-menu_opened {
-	visibility: visible;
-	opacity: 1;
-	transition: visibility 0s, opacity 0.5s ease-in-out;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.5s ease-in-out;
+}
+
+.mobile-menu__container {
+  box-shadow: 0 0 1.5625rem rgb(26 27 34);
+	border-bottom-left-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+  background: black;
+  width: 100%;
+}
+
+.mobile-menu__content {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem 1.5rem;
+	font-size: 1.125rem;
+	font-weight: 500;
+}
+
+.mobile-menu__close {
+  align-self: end;
+  background: transparent url(../../images/close-icon.svg) no-repeat center;
+  background-size: 1.5rem 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-style: none;
+  cursor: pointer;
+}
+
+.mobile-menu__nav {
+  display: flex;
+  flex-direction: column;
+	align-items: baseline;
+	padding: 0 16px;
+}
+
+.mobile-menu .nav__item {
+	padding: 1rem 0;
+}
+
+.mobile-menu .nav__item:last-of-type {
+	margin: 1.375rem 0 1.5rem;
+}
+
+
+
+.mobile-menu .nav__item_active {
+  padding: 1.375rem 0 1.25rem;
+}
+
+.mobile-menu .nav__entry  {
+  width: 100%;
+  height: 3.5rem;
+  padding: 1rem 7.3125rem;
 }

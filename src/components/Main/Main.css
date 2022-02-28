@@ -1,7 +1,7 @@
 .main__jumbotron {
   background: url("../../images/georgia-de-lotz--UsJoNxLaNo-unsplash.jpg")
     no-repeat top;
-  background-size: contain;
+  background-size: cover;
   height: 36rem;
   display: flex;
   flex-direction: column;

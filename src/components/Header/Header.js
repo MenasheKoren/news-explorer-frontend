@@ -1,7 +1,7 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import MediaQuery from "react-responsive";
 
-export function Header({ handleOpenHamburgerMenu, closeAllPopups }) {
+export function Header({ handleOpenDropdownMenu }) {
   const location = useLocation();
 
   return (
@@ -21,8 +21,8 @@ export function Header({ handleOpenHamburgerMenu, closeAllPopups }) {
             }
       }
     >
-      <div className="header__text">
-        <h2>NewsExplorer</h2>
+      <div className="header__content">
+        <h2 className="header__title">NewsExplorer</h2>
         <MediaQuery minWidth={481}>
           <nav className="header__nav">
             <NavLink
@@ -52,11 +52,11 @@ export function Header({ handleOpenHamburgerMenu, closeAllPopups }) {
         </MediaQuery>
         <MediaQuery maxWidth={480}>
           <button
-            className="nav__hamburger-button"
-            onClick={handleOpenHamburgerMenu}
+            className="nav__dropdown-button button"
+            onClick={handleOpenDropdownMenu}
           >
             <svg
-              className="hamburger__svg"
+              className="dropdown__svg"
               width="24"
               height="24"
               fill="none"
