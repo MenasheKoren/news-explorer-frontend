@@ -1,7 +1,15 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
-export function Header({ handleOpenDropdownMenu, isDropdownMenuOpen }) {
+export function Header({
+  handleOpenDropdownMenu,
+  isDropdownMenuOpen,
+  isRegistered,
+  handleLogin,
+  handleLogout,
+  handleRegister,
+  isLoggedIn,
+}) {
   const location = useLocation();
   const isBigScreenOrTablet = useMediaQuery({ query: "(min-width: 481px)" });
   const isMobile = useMediaQuery({ query: "(max-width: 480px)" });
@@ -50,10 +58,33 @@ export function Header({ handleOpenDropdownMenu, isDropdownMenuOpen }) {
             >
               Saved articles
             </NavLink>
-
-            <Link to="/" className="nav__item link link__hover nav__entry">
-              Sign in
-            </Link>
+            {isLoggedIn && (
+              <Link
+                to="/"
+                onClick={handleLogout}
+                className="nav__item link link__hover nav__entry"
+              >
+                Log out
+              </Link>
+            )}
+            {isRegistered && !isLoggedIn && (
+              <Link
+                to="/"
+                onClick={handleLogin}
+                className="nav__item link link__hover nav__entry"
+              >
+                Sign in
+              </Link>
+            )}
+            {!isRegistered && !isLoggedIn && (
+              <Link
+                to="/"
+                onClick={handleRegister}
+                className="nav__item link link__hover nav__entry"
+              >
+                Sign up
+              </Link>
+            )}
           </nav>
         )}
 

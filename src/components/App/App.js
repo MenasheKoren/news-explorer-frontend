@@ -7,15 +7,26 @@ import { SavedNews } from "../SavedNews/SavedNews";
 import { Layout } from "../Layout/Layout";
 
 function App() {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
   // const [userName, setUserName] = useState("");
-  // const [isRegistered, setIsRegistered] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false);
   // const localEmail = localStorage.getItem("localEmail");
   // const navigate = useNavigate();
   // const location = useLocation();
+  function handleRegister() {
+    setIsRegistered(!isRegistered);
+  }
+
+  function handleLogin() {
+    setIsLoggedIn(true);
+  }
+
+  function handleLogout() {
+    setIsLoggedIn(false);
+  }
 
   function handleOpenDropdownMenu() {
     setIsDropdownMenuOpen(true);
@@ -31,10 +42,11 @@ function App() {
         path="/"
         element={
           <Layout
-            // handleLogout={handleLogout}
-            // handleLogin={handleLogin}
-            // isRegistered={isRegistered}
-            // localEmail={localEmail}
+            handleLogout={handleLogout}
+            handleLogin={handleLogin}
+            handleRegister={handleRegister}
+            isRegistered={isRegistered}
+            isLoggedIn={isLoggedIn}
             isDropdownMenuOpen={isDropdownMenuOpen}
             handleOpenDropdownMenu={handleOpenDropdownMenu}
             closeAllPopups={closeAllPopups}
