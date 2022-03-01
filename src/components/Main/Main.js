@@ -17,8 +17,11 @@ export function Main() {
                 type="text"
                 className="search__input"
                 placeholder="Enter topic"
+                required
               />
-              <button className="search__button">Search</button>
+              <button className="search__button button" type="submit">
+                Search
+              </button>
             </div>
           </form>
         </div>
