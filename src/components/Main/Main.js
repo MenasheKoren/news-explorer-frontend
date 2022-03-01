@@ -1,4 +1,5 @@
 import * as React from "react";
+import { About } from "../About/About";
 
 export function Main() {
   return (
@@ -10,6 +11,7 @@ export function Main() {
           account.
         </p>
       </section>
+      <About />
     </main>
   );
 }
