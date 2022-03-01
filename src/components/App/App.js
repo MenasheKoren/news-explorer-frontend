@@ -8,10 +8,10 @@ import { Layout } from "../Layout/Layout";
 import { useMediaQuery } from "react-responsive";
 
 function App() {
-  const isMonitorOrTablet = useMediaQuery({ minWidth: 535 });
-  const isMonitor = useMediaQuery({ minWidth: 769 });
-  const isTablet = useMediaQuery({ minWidth: 535, maxWidth: 768 });
-  const isMobile = useMediaQuery({ maxWidth: 534 });
+  const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });
+  const isMonitor = useMediaQuery({ minWidth: 1024 });
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const [email, setEmail] = useState("");
