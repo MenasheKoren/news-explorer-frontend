@@ -1,4 +1,4 @@
-.main__jumbotron {
+.search {
   background: url("../../images/georgia-de-lotz--UsJoNxLaNo-unsplash.jpg")
     no-repeat top;
   background-size: cover;
@@ -7,4 +7,57 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.search__content {
+  width: 38rem;
+  font-weight: 400;
+}
+
+.search__title {
+  line-height: 4rem;
+  font-size: 3.75rem;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+  padding-bottom: 2rem;
+  margin: 0 auto;
+}
+
+.search__text {
+  margin: 0 auto;
+  padding-bottom: 5.5rem;
+}
+
+.search__bar {
+  background-color: rgb(255, 255, 255);
+  border: 0.0625rem solid rgb(209, 210, 214);
+  backdrop-filter: blur(0.5rem);
+  border-radius: 6.25rem;
+  display: flex;
+  justify-content: space-between;
+  height: 4rem;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.search__input {
+  height: 1.375rem;
+  width: 23.5rem;
+  margin-left: 1.5rem;
+  color: rgba(182, 188, 191, 1);
+  border: none;
+  font-size: 1rem;
+  line-height: 1.375rem;
+}
+
+.search__button {
+  background-color: rgba(47, 113, 229, 1);
+  height: 4rem;
+  width: 10.5rem;
+  border-radius: 6.25rem;
+  box-shadow: 0 0.3125rem 0.9375rem rgba(14, 26, 57, 0.2);
+  color: white;
+  padding: 1.25rem 3.5rem;
+  font-weight: 500;
+  border: none;
+  margin-right: -0.0625rem;
 }

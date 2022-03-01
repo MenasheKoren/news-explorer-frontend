@@ -4,12 +4,24 @@ import { About } from "../About/About";
 export function Main() {
   return (
     <main className="main">
-      <section className="main__jumbotron">
-        <h2>What's going on in the world?</h2>
-        <p>
-          Find the latest news on any topic and save them in your personal
-          account.
-        </p>
+      <section className="search">
+        <div className="search__content">
+          <h2 className="search__title">What's going on in the world?</h2>
+          <p className="search__text">
+            Find the latest news on any topic and save them in your personal
+            account.
+          </p>
+          <form className="search__form">
+            <div className="search__bar">
+              <input
+                type="text"
+                className="search__input"
+                placeholder="Enter topic"
+              />
+              <button className="search__button">Search</button>
+            </div>
+          </form>
+        </div>
       </section>
       <About />
     </main>
