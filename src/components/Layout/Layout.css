@@ -19,8 +19,7 @@
 }
 
 .content {
-  max-width: 90rem;
-  min-width: 20rem;
+  min-width: 320px;
   margin: 0 auto;
 }
 
@@ -32,13 +31,6 @@
 
 .link__hover:hover {
   opacity: 60%;
-}
-
-.ellipses {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  flex: 1;
 }
 
 .button {

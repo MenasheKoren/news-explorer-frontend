@@ -18,17 +18,14 @@ const PopupWithForm = ({
     >
       <div className="popup__container">
         <button
-          className="popup__close button button_hover_dark"
+          className="popup__close button "
           type="button"
           onClick={closeAllPopups}
         />
         <h2 className="popup__title">{title}</h2>
         <form className="popup__form" onSubmit={handleSubmit}>
           {children}
-          <button
-            className="popup__save button button_hover_darker"
-            type="submit"
-          >
+          <button className="popup__save button er" type="submit">
             {buttonText}
           </button>
         </form>

@@ -37,7 +37,7 @@ export default function Login({
           pattern=".*\S.*"
         />
         <span className="error-message" id="password-input-error" />
-        <button className="entry__save button button_hover_dark" type="submit">
+        <button className="entry__save button " type="submit">
           Log in
         </button>
       </form>
