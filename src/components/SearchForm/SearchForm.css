@@ -1,0 +1,138 @@
+.search {
+  background: url("../../images/georgia-de-lotz--UsJoNxLaNo-unsplash.jpg")
+    no-repeat top;
+  background-size: cover;
+  height: 36rem;
+  display: flex;
+  width: 100%;
+}
+
+.search__content {
+  width: 38rem;
+  font-weight: 400;
+  margin: 10rem auto 5rem;
+}
+
+.search__title {
+  line-height: 4rem;
+  font-size: 3.75rem;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+  padding-bottom: 2rem;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+.search__text {
+  margin: 0 auto;
+  padding-bottom: 5.5rem;
+}
+
+.search__bar {
+  background-color: rgb(255, 255, 255);
+  border: 0.0625rem solid rgb(209, 210, 214);
+  backdrop-filter: blur(0.5rem);
+  border-radius: 6.25rem;
+  display: flex;
+  justify-content: space-between;
+  height: 4rem;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.search__input {
+  height: 1.375rem;
+  width: 23.5rem;
+  margin-left: 1.5rem;
+  color: rgb(26, 27, 34);
+  border: none;
+  font-size: 1rem;
+  line-height: 1.375rem;
+}
+
+.search__input::placeholder {
+  color: rgb(182, 188, 191);
+}
+
+.search__button {
+  background-color: rgb(47, 113, 229);
+  height: 4rem;
+  width: 10.5rem;
+  border-radius: 6.25rem;
+  box-shadow: 0 0.3125rem 0.9375rem rgba(14, 26, 57, 0.2);
+  color: white;
+  padding: 1.25rem 3.5rem;
+  font-weight: 500;
+  border: none;
+  margin-right: -0.0625rem;
+}
+
+@media screen and (max-width: 1023px) {
+  .search {
+    height: 25rem;
+  }
+
+  .search__content {
+    width: 28rem;
+    margin: 6.5rem auto 3rem;
+  }
+
+  .search__title {
+    line-height: 2.5rem;
+    font-size: 2.25rem;
+    padding-bottom: 1rem;
+  }
+
+  .search__text {
+    padding-bottom: 3rem;
+  }
+
+  .search__bar {
+    height: 3.5rem;
+    backdrop-filter: blur(6.25rem);
+  }
+
+  .search__input {
+    width: 14.25rem;
+  }
+
+  .search__button {
+    height: 3.5rem;
+    width: 10rem;
+    padding: 1rem 3.25rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .search {
+    height: 33.5rem;
+  }
+
+  .search__content {
+    width: 17.8125rem;
+    margin: 5.375rem auto 2rem;
+  }
+
+  .search__text {
+    padding-bottom: 7.625rem;
+  }
+
+  .search__bar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .search__input {
+    height: 1.375rem;
+    width: 16rem;
+    margin: 1.0625rem 1rem;
+  }
+
+  .search__button {
+    width: 18rem;
+    padding: 1rem 7.25rem;
+    margin-top: 1rem;
+  }
+}

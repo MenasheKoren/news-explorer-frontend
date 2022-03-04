@@ -25,7 +25,7 @@ export function Header({
             }
           : {
               color: "white",
-              borderColor: "rgba(26, 27, 34, 1)",
+              borderColor: "rgb(26, 27, 34)",
               fill: "white",
             }
       }

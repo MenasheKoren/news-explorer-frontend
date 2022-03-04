@@ -25,7 +25,7 @@
 .popup__container {
 	box-shadow: 0 0 1.5625rem rgba(0, 0, 0, 0.15);
 	border-radius: 0.625rem;
-	background: rgba(255, 255, 255, 1);
+	background: rgb(255, 255, 255);
 	width: 17.625rem;
 	text-align: left;
 	position: relative;
@@ -62,7 +62,7 @@
 .popup__form {
 	max-width: calc(100% - 2.75rem);
 	margin: 0 auto 1.5625rem;
-	color: rgba(0, 0, 0, 1);
+	color: rgb(0, 0, 0);
 }
 
 @media screen and (min-width: 515px) {
