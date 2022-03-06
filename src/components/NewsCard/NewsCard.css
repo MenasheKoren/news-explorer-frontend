@@ -9,7 +9,7 @@
   font-weight: 400;
   border-radius: 0.625rem;
   position: relative;
-  flex: max(25rem, 100%/4 + 0.1%);
+  flex: max(18rem, 100%/4 + 0.1%);
 }
 
 .newsCard__bookmark {
@@ -85,7 +85,7 @@
   .newsCard {
     max-width: 14rem;
     height: 26.25rem;
-    flex: max(14rem, 100%/4 + 0.1%);
+    /*flex: max(14rem, 100%/4 + 0.1%);*/
   }
 
   .newsCard__bookmark {
@@ -121,7 +121,7 @@
   .newsCard {
     max-width: 18rem;
     height: 27.5rem;
-    flex: max(18rem, 100% + 0.1%);
+    /*flex: max(18rem, 100%/2 + 0.1%);*/
   }
 
   .newsCard__bookmark {

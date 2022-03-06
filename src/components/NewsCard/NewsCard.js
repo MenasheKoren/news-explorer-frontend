@@ -4,7 +4,7 @@ import bookmarkIcon from "../../images/bookmark-icon.svg";
 export function NewsCard() {
   return (
     <li className="newsCard">
-      <button className="newsCard__bookmark button" type="button">
+      <button className="button newsCard__bookmark" type="button">
         <img
           src={bookmarkIcon}
           alt="Bookmark icon"

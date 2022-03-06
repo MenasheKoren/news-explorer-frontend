@@ -16,7 +16,7 @@ export function NewsCardList() {
           {/*  return <NewsCard newsCard={newsCard} key={newsCard._id} />;*/}
           {/*})}*/}
         </ul>
-        <button className="newsCards__more-button" type="button">
+        <button className="button newsCards__more-button" type="button">
           Show more
         </button>
       </div>

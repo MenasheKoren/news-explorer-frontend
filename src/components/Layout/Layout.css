@@ -19,8 +19,12 @@
 }
 
 .content {
-  min-width: 320px;
+  min-width: 20rem;
+  max-width: 90rem;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .link {
@@ -39,7 +43,7 @@
 
 .button:hover {
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.9;
 }
 
 .button:active {
