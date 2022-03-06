@@ -19,9 +19,13 @@ function App() {
   // const [userName, setUserName] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false);
+
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
   // const localEmail = localStorage.getItem("localEmail");
   // const navigate = useNavigate();
   // const location = useLocation();
+
   function handleRegister() {
     setIsRegistered(!isRegistered);
   }
@@ -36,6 +40,10 @@ function App() {
 
   function handleOpenDropdownMenu() {
     setIsDropdownMenuOpen(true);
+  }
+
+  function handleToggleBookmarkIcon() {
+    setIsBookmarked(!isBookmarked);
   }
 
   function closeAllPopups() {
@@ -61,7 +69,18 @@ function App() {
           />
         }
       >
-        <Route index element={<Main />} />
+        <Route
+          index
+          element={
+            <Main
+              isMobile={isMobile}
+              isTablet={isTablet}
+              isMonitor={isMonitor}
+              handleToggleBookmarkIcon={handleToggleBookmarkIcon}
+              isBookmarked={isBookmarked}
+            />
+          }
+        />
         <Route path="/saved-news" element={<SavedNews />} />
         <Route
           path="*"

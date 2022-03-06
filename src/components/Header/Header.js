@@ -14,6 +14,7 @@ export function Header({
   const location = useLocation();
 
   return (
+    /* todo split header connected to saved news */
     <header
       className="header"
       style={
@@ -59,7 +60,7 @@ export function Header({
                 Saved articles
               </NavLink>
             )}
-
+            {/* todo add username and logout icon  */}
             {isLoggedIn && (
               <Link
                 to="/"

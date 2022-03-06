@@ -1,22 +1,29 @@
 import React from "react";
-import bookmarkIcon from "../../images/bookmark-icon.svg";
 
-export function NewsCard() {
+export function NewsCard({ handleToggleBookmarkIcon, isBookmarked }) {
   return (
     <li className="newsCard">
-      <button className="button newsCard__bookmark" type="button">
-        <img
-          src={bookmarkIcon}
-          alt="Bookmark icon"
-          className="newsCard__bookmark-icon"
+      {/*todo Set the bookmarks to only change one card at a time*/}
+      {!isBookmarked && (
+        <button
+          className="button newsCard__bookmark bookmark__unselected"
+          type="button"
+          onClick={handleToggleBookmarkIcon}
         />
-      </button>
+      )}
+      {isBookmarked && (
+        <button
+          className="button newsCard__bookmark bookmark__selected"
+          type="button"
+          onClick={handleToggleBookmarkIcon}
+        />
+      )}
+      {/*todo make a demo json for about 5 cards*/}
       <img
         className="newsCard__image"
         src="https://i.picsum.photos/id/509/400/272.jpg?hmac=r798Bqv86D-CdN5qZhPRuX3M3bLD10icoQf3xGjwoHM"
         alt="#"
       />
-
       <div className="newsCard__text-container">
         <p className="newsCard__date">
           {new Date().toLocaleString("en-US", {

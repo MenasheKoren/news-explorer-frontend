@@ -17,6 +17,7 @@ export function SearchForm() {
               placeholder="Enter topic"
               required
             />
+            {/* todo set styles for different states */}
             <button className="search__button button" type="submit">
               Search
             </button>
