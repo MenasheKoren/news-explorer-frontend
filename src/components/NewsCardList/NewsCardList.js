@@ -1,15 +1,10 @@
 import React from "react";
 import { NewsCard } from "../NewsCard/NewsCard";
+import { ShowMoreButton } from "../ShowMoreButton/ShowMoreButton";
+import articlesArray from "../NewsCard/articles";
 
 export function NewsCardList({ handleToggleBookmarkIcon, isBookmarked }) {
-  // const [height, setHeight] = useState(0);
-  // const ref = useRef();
-  //
-  // useEffect(() => {
-  //   setHeight(ref.current);
-  //   console.log(`height`);
-  // }, [height]);
-
+  console.log(`Articles Array ${articlesArray.isArray}`);
   return (
     <section className="newsCards">
       <div className="newsCards__content">
@@ -28,6 +23,7 @@ export function NewsCardList({ handleToggleBookmarkIcon, isBookmarked }) {
             handleToggleBookmarkIcon={handleToggleBookmarkIcon}
             isBookmarked={isBookmarked}
           />
+
           <NewsCard
             handleToggleBookmarkIcon={handleToggleBookmarkIcon}
             isBookmarked={isBookmarked}
@@ -37,14 +33,12 @@ export function NewsCardList({ handleToggleBookmarkIcon, isBookmarked }) {
             isBookmarked={isBookmarked}
           />
           {/*todo Make a map index of the cards*/}
-          {/*{newsCardList.map((newsCard) => {*/}
-          {/*  return <NewsCard newsCard={newsCard} key={newsCard._id} />;*/}
-          {/*})}*/}
+          {articlesArray.map((newsCard) => {
+            return <NewsCard newsCard={newsCard} key={newsCard._id} />;
+          })}
         </ul>
-        {/*todo Implement show more button*/}
-        <button className="button newsCards__more-button" type="button">
-          Show more
-        </button>
+
+        <ShowMoreButton />
       </div>
     </section>
   );

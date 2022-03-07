@@ -12,40 +12,6 @@
   /*flex: max(18rem, 100%/4 + 0.1%);*/
 }
 
-.newsCard__bookmark {
-  width: 2.5rem;
-  height: 2.5rem;
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  border-radius: 0.5rem;
-  /*display: flex;*/
-  border: 0.125rem solid rgb(182, 188, 191);
-  /*justify-content: center;*/
-  /*align-items: center;*/
-  padding: 0;
-  background-position: center;
-  /*background-color: rgb(255, 255, 255);*/
-}
-
-.bookmark__unselected {
-  background-image: url(../../images/bookmark-empty.svg);
-}
-
-.newsCard__bookmark:hover {
-  background: url(../../images/bookmark-hover.svg);
-}
-
-.bookmark__selected {
-  background: url(../../images/bookmark-filled.svg);
-}
-
-.newsCard__bookmark-icon {
-  box-sizing: border-box;
-  height: 1.1875rem;
-  width: 0.875rem;
-}
-
 .newsCard__image {
   object-fit: contain;
   border-top-left-radius: 0.625rem;

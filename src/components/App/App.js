@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Main } from "../Main/Main";
@@ -25,6 +25,18 @@ function App() {
   // const localEmail = localStorage.getItem("localEmail");
   // const navigate = useNavigate();
   // const location = useLocation();
+
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        closeAllPopups();
+      }
+    };
+
+    document.addEventListener("keydown", closeByEscape);
+
+    return () => document.removeEventListener("keydown", closeByEscape);
+  }, []);
 
   function handleRegister() {
     setIsRegistered(!isRegistered);
