@@ -20,8 +20,6 @@ function App() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false);
 
-  const [isBookmarked, setIsBookmarked] = useState(false);
-
   // const localEmail = localStorage.getItem("localEmail");
   // const navigate = useNavigate();
   // const location = useLocation();
@@ -54,10 +52,6 @@ function App() {
     setIsDropdownMenuOpen(true);
   }
 
-  function handleToggleBookmarkIcon() {
-    setIsBookmarked(!isBookmarked);
-  }
-
   function closeAllPopups() {
     setIsDropdownMenuOpen(false);
   }
@@ -88,8 +82,6 @@ function App() {
               isMobile={isMobile}
               isTablet={isTablet}
               isMonitor={isMonitor}
-              handleToggleBookmarkIcon={handleToggleBookmarkIcon}
-              isBookmarked={isBookmarked}
             />
           }
         />

@@ -1,6 +1,7 @@
 .footer {
   height: 5rem;
   width: 100%;
+  position: relative;
 }
 
 .footer__content {
@@ -15,11 +16,10 @@
   line-height: 1.2;
   margin: 0;
   color: rgb(84, 84, 84);
-	text-align: center;
+  text-align: center;
 }
 
 .footer__nav {
-  
   display: flex;
   justify-content: space-between;
 }
@@ -28,7 +28,7 @@
   display: flex;
   justify-content: space-evenly;
   width: 19rem;
-	color: rgb(26, 27, 34);
+  color: rgb(26, 27, 34);
 }
 
 .footer__icons {
@@ -37,18 +37,18 @@
   width: 4.5rem;
 }
 
-@media screen and (max-width: 1023px){
-	.footer {
-		height: 4rem;
-	}
-	
-	.footer__content {
-		padding: 1.3125rem 2.5rem;
-	}
+@media screen and (max-width: 1023px) {
+  .footer {
+    height: 4rem;
+  }
+
+  .footer__content {
+    padding: 1.3125rem 2.5rem;
+  }
 }
 
 .footer__links {
-	max-width: 16.5rem;
+  max-width: 16.5rem;
 }
 
 @media screen and (max-width: 767px) {
@@ -78,6 +78,6 @@
 
   .footer__icons {
     width: 25%;
-		justify-content: space-around;
+    justify-content: space-around;
   }
 }
