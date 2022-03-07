@@ -23,11 +23,17 @@ export function Header({
               color: "black",
               borderColor: "black",
               fill: "black",
+              position: "relative",
+              background: "rgb(255, 255, 255)",
+              boxShadow: "inset 0 -0.0625rem 0 rgb(209, 210, 214)",
             }
           : {
               color: "white",
               borderColor: "rgb(26, 27, 34)",
               fill: "white",
+              position: "absolute",
+              background: "rgba(196, 196, 196, 0.01)",
+              boxShadow: "inset 0 -0.0625rem 0 rgba(255, 255, 255, 0.2)",
             }
       }
     >
@@ -67,7 +73,7 @@ export function Header({
                 onClick={handleLogout}
                 className="nav__item link link__hover nav__entry"
               >
-                Log out
+                Elise <span className="nav__logout-icon" />
               </Link>
             )}
             {isRegistered && !isLoggedIn && (

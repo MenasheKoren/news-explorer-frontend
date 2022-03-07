@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Bookmark } from "../Bookmark/Bookmark";
 
-export function NewsCard({
-  handleToggleBookmarkIcon,
-  isBookmarked,
-  newsCard: { _id, image, source, text, title },
-}) {
+export function NewsCard({ articleCard: { _id, image, source, text, title } }) {
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  function handleToggleBookmarkIcon() {
+    setIsBookmarked(!isBookmarked);
+  }
   return (
     <li className="newsCard" key={_id}>
       <Bookmark
