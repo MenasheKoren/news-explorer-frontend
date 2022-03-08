@@ -1,4 +1,6 @@
 import React from "react";
+import { SearchButton } from "../SearchButton/SearchButton";
+import { SearchInput } from "../SearchInput/SearchInput";
 
 export function SearchForm() {
   return (
@@ -11,16 +13,9 @@ export function SearchForm() {
         </p>
         <form className="search__form">
           <div className="search__bar">
-            <input
-              type="text"
-              className="search__input"
-              placeholder="Enter topic"
-              required
-            />
+            <SearchInput />
             {/* todo set styles for different states */}
-            <button className="search__button button" type="submit">
-              Search
-            </button>
+            <SearchButton />
           </div>
         </form>
       </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import { MobileCloseButton } from "../MobileCloseButton/MobileCloseButton";
 
 export const MobileMenu = ({
   closeAllPopups,
@@ -19,11 +20,7 @@ export const MobileMenu = ({
     >
       <div className="mobile-menu__container">
         <div className="mobile-menu__content">
-          <button
-            className="mobile-menu__close button"
-            type="button"
-            onClick={closeAllPopups}
-          />
+          <MobileCloseButton onClick={closeAllPopups} />
 
           <nav className="mobile-menu__nav">
             <NavLink

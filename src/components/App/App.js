@@ -40,12 +40,12 @@ function App() {
   }, []);
 
   function handleSubmitRegister() {
-    setIsRegistered(!isRegistered);
-    setUserName(userName);
+    setIsRegistered(true);
   }
 
   function handleSubmitLogin() {
     setIsLoggedIn(true);
+    setUserName(userName);
   }
 
   function handleLogout() {
@@ -130,6 +130,9 @@ function App() {
                 isLoginPopupOpen={isLoginPopupOpen}
                 isRegistered={isRegistered}
                 isLoggedIn={isLoggedIn}
+                isMonitorOrTablet={isMonitorOrTablet}
+                isMobile={isMobile}
+                closeAllPopups={closeAllPopups}
               >
                 <Register
                   closeAllPopups={closeAllPopups}

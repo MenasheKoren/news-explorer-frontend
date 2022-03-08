@@ -67,11 +67,10 @@
 }
 
 .nav__logout-icon {
-  background: url("../../images/logout-icon.svg") red center 1.5rem;
+  background: url("../../images/logout-icon.svg") center 1.5rem;
   z-index: 5;
   width: 1.5rem;
   height: 1.5rem;
-  color: blue;
 }
 
 .nav__dropdown-button {

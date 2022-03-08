@@ -1,19 +1,16 @@
 import React from "react";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import { PopupCloseButton } from "../PopupCloseButton/PopupCloseButton";
+import { MobileCloseButton } from "../MobileCloseButton/MobileCloseButton";
 
 const PopupWithForm = ({
-  name,
-  title,
-  children,
-  isOpen,
   closeAllPopups,
-  buttonText,
-  handleSubmit,
   isLoginPopupOpen,
   isRegisterPopupOpen,
-  isLoggedIn,
   isRegistered,
+  isMobile,
+  isMonitorOrTablet,
 }) => {
   return (
     <section
@@ -23,11 +20,9 @@ const PopupWithForm = ({
       ].join(" ")}
     >
       <div className="popup__container">
-        <button
-          className="popup__close button "
-          type="button"
-          onClick={closeAllPopups}
-        />
+        {isMonitorOrTablet && <PopupCloseButton onClick={closeAllPopups} />}
+        {isMobile && <MobileCloseButton onClick={closeAllPopups} />}
+
         {!isRegistered && <Register />}
         {isRegistered && <Login />}
       </div>
