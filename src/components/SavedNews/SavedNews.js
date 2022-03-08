@@ -5,10 +5,10 @@ import { ShowMoreButton } from "../ShowMoreButton/ShowMoreButton";
 import { SavedNewsSubheader } from "../SavedNewsSubheader/SavedNewsSubheader";
 import { Preloader } from "../Preloader/Preloader";
 
-export function SavedNews() {
+export function SavedNews({ userName }) {
   return (
     <section className="saved-news">
-      <SavedNewsSubheader />
+      <SavedNewsSubheader userName={userName} />
       <Preloader />
       <div className="newsCards__content">
         <ul className="newsCards__list">

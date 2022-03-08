@@ -10,6 +10,13 @@ export function Header({
   isLoggedIn,
   isMobile,
   isMonitorOrTablet,
+  handleLoginClick,
+  handleRegisterClick,
+  handleSubmitInfoToolTip,
+  isInfoToolTipOpen,
+  isLoginPopupOpen,
+  isRegisterPopupOpen,
+  userName,
 }) {
   const location = useLocation();
 
@@ -73,13 +80,13 @@ export function Header({
                 onClick={handleLogout}
                 className="nav__item link link__hover nav__entry"
               >
-                Elise <span className="nav__logout-icon" />
+                {userName} <svg className="nav__logout-icon" />
               </Link>
             )}
             {isRegistered && !isLoggedIn && (
               <Link
                 to="/"
-                onClick={handleLogin}
+                onClick={handleLoginClick}
                 className="nav__item link link__hover nav__entry"
               >
                 Sign in
@@ -88,7 +95,7 @@ export function Header({
             {!isRegistered && !isLoggedIn && (
               <Link
                 to="/"
-                onClick={handleRegister}
+                onClick={handleRegisterClick}
                 className="nav__item link link__hover nav__entry"
               >
                 Sign up

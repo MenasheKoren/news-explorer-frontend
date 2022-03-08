@@ -1,4 +1,6 @@
 import React from "react";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
 
 const PopupWithForm = ({
   name,
@@ -8,12 +10,16 @@ const PopupWithForm = ({
   closeAllPopups,
   buttonText,
   handleSubmit,
+  isLoginPopupOpen,
+  isRegisterPopupOpen,
+  isLoggedIn,
+  isRegistered,
 }) => {
   return (
     <section
       className={[
-        `popup popup_type_${name}`,
-        isOpen ? "popup_opened" : "",
+        `popup `,
+        isRegisterPopupOpen || isLoginPopupOpen ? "popup_opened" : "",
       ].join(" ")}
     >
       <div className="popup__container">
@@ -22,13 +28,8 @@ const PopupWithForm = ({
           type="button"
           onClick={closeAllPopups}
         />
-        <h2 className="popup__title">{title}</h2>
-        <form className="popup__form" onSubmit={handleSubmit}>
-          {children}
-          <button className="popup__save button er" type="submit">
-            {buttonText}
-          </button>
-        </form>
+        {!isRegistered && <Register />}
+        {isRegistered && <Login />}
       </div>
     </section>
   );

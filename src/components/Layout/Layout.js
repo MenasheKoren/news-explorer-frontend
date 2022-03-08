@@ -14,6 +14,13 @@ export function Layout({
   isLoggedIn,
   isMonitorOrTablet,
   isMobile,
+  handleLoginClick,
+  handleRegisterClick,
+  handleSubmitInfoToolTip,
+  isInfoToolTipOpen,
+  isLoginPopupOpen,
+  isRegisterPopupOpen,
+  userName,
 }) {
   return (
     <div className="page">
@@ -28,6 +35,13 @@ export function Layout({
           isLoggedIn={isLoggedIn}
           isMonitorOrTablet={isMonitorOrTablet}
           isMobile={isMobile}
+          isRegisterPopupOpen={isRegisterPopupOpen}
+          isLoginPopupOpen={isLoginPopupOpen}
+          isInfoToolTipOpen={isInfoToolTipOpen}
+          handleLoginClick={handleLoginClick}
+          handleRegisterClick={handleRegisterClick}
+          handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+          userName={userName}
         />
         <MobileMenu
           handleLogout={handleLogout}
