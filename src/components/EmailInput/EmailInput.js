@@ -6,7 +6,7 @@ export function EmailInput(props) {
       Email
       <input
         type="email"
-        className="field-input field-input_type_entry"
+        className="field-input "
         placeholder="Email"
         id="emailInput"
         name="email"

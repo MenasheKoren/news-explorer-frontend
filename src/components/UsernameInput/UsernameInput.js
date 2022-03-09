@@ -4,7 +4,7 @@ export function UsernameInput(props) {
       Username
       <input
         type="username"
-        className="field-input field-input_type_entry"
+        className="field-input "
         placeholder="Username"
         id="usernameInput"
         name="username"

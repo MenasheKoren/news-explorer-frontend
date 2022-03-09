@@ -4,7 +4,7 @@ export function PasswordInput(props) {
       Password
       <input
         type="password"
-        className="field-input field-input_type_entry"
+        className="field-input"
         placeholder="Password"
         id="passwordInput"
         name="password"
@@ -15,7 +15,7 @@ export function PasswordInput(props) {
         maxLength="40"
         pattern=".*\S.*"
       />
-      <span className="error-message" id="password-input-error" />
+      <span className="error-message" id="password-input-error"></span>
     </label>
   );
 }

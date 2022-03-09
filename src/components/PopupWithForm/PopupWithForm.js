@@ -1,17 +1,17 @@
 import React from "react";
-import Register from "../Register/Register";
-import Login from "../Login/Login";
+import { Register } from "../Register/Register";
+import { Login } from "../Login/Login";
 import { PopupCloseButton } from "../PopupCloseButton/PopupCloseButton";
 import { MobileCloseButton } from "../MobileCloseButton/MobileCloseButton";
 
-const PopupWithForm = ({
+export function PopupWithForm({
   closeAllPopups,
   isLoginPopupOpen,
   isRegisterPopupOpen,
   isRegistered,
   isMobile,
   isMonitorOrTablet,
-}) => {
+}) {
   return (
     <section
       className={[
@@ -28,6 +28,4 @@ const PopupWithForm = ({
       </div>
     </section>
   );
-};
-
-export default PopupWithForm;
+}

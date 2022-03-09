@@ -6,10 +6,16 @@ import { Main } from "../Main/Main";
 import { SavedNews } from "../SavedNews/SavedNews";
 import { Layout } from "../Layout/Layout";
 import { useMediaQuery } from "react-responsive";
-import Register from "../Register/Register";
-import Login from "../Login/Login";
+import { Register } from "../Register/Register";
+import { Login } from "../Login/Login";
 import { InfoToolTip } from "../InfoToolTip/InfoToolTip";
-import PopupWithForm from "../PopupWithForm/PopupWithForm";
+import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
+import {
+  FormValidator,
+  loginForm,
+  registerForm,
+} from "../FormValidator/FormValidator";
+import { settings } from "eslint-config-airbnb/rules/react";
 
 function App() {
   const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });
@@ -38,6 +44,16 @@ function App() {
 
     return () => document.removeEventListener("keydown", closeByEscape);
   }, []);
+
+  const registerFormValidator = new FormValidator(settings, registerForm);
+  const loginFormValidator = new FormValidator(settings, loginForm);
+
+  registerFormValidator.enableValidation();
+  loginFormValidator.enableValidation();
+  registerFormValidator.resetValidation();
+  loginFormValidator.resetValidation();
+  // registerForm._setEventListeners();
+  // loginForm._setEventListeners();
 
   function handleSubmitRegister() {
     setIsRegistered(true);
@@ -136,7 +152,8 @@ function App() {
               >
                 <Register
                   closeAllPopups={closeAllPopups}
-                  isOpen={isRegisterPopupOpen}
+                  isRegisterPopupOpen={isRegisterPopupOpen}
+                  isLoginPopupOpen={isLoginPopupOpen}
                   handleInputUsername={handleInputUsername}
                   handleInputEmail={handleInputEmail}
                   handleInputPassword={handleInputPassword}
@@ -146,7 +163,8 @@ function App() {
                 />
                 <Login
                   closeAllPopups={closeAllPopups}
-                  isOpen={isLoginPopupOpen}
+                  isRegisterPopupOpen={isRegisterPopupOpen}
+                  isLoginPopupOpen={isLoginPopupOpen}
                   handleInputEmail={handleInputEmail}
                   handleInputPassword={handleInputPassword}
                   email={email}
