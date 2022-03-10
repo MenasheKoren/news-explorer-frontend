@@ -1,8 +1,8 @@
 .newsCards {
   display: flex;
   flex-direction: column;
-  color: rgb(26, 27, 34);
-  background: rgb(245, 246, 247);
+  color: #1a1b22;
+  background: #f5f6f7;
   justify-content: center;
 }
 

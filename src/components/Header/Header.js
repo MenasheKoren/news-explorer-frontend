@@ -20,17 +20,20 @@ export function Header({
   const location = useLocation();
 
   return (
-    /* todo split header connected to saved news */
     <header
       className="header"
-      style={{
-        color: "white",
-        borderColor: "rgb(26, 27, 34)",
-        fill: "white",
-        position: "absolute",
-        background: "rgba(196, 196, 196, 0.01)",
-        boxShadow: "inset 0 -0.0625rem 0 rgba(255, 255, 255, 0.2)",
-      }}
+      style={
+        location.pathname === "/saved-news"
+          ? {
+              color: "#000",
+              borderColor: "#000",
+              fill: "#000",
+              position: "relative",
+              background: "#FFF",
+              boxShadow: "inset 0 -0.0625rem 0 #D1D2D6",
+            }
+          : {}
+      }
     >
       <div className="header__content">
         <HeaderTitle dropdownMenuOpen={isDropdownMenuOpen} mobile={isMobile} />

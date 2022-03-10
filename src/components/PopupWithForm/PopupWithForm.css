@@ -80,18 +80,7 @@
   background: transparent;
   color: #000;
 }
-/*.field-input:invalid {*/
-/*  color: #f00;*/
-/*  display: flex;*/
-/*  border-style: none;*/
-/*  padding: 0.5rem 0 0.75rem;*/
-/*  width: 100%;*/
-/*  font-size: 0.875em;*/
-/*  line-height: 1.2;*/
-/*  transition: all 0.2s;*/
-/*  border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.2);*/
-/*  background: transparent;*/
-/*}*/
+
 .error-message {
   color: #f00;
   font-size: 0.75rem;

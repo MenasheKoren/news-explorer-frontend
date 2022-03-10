@@ -1,3 +1,5 @@
+import { useLocation } from "react-router-dom";
+
 export function HeaderButton({
   loggedIn,
   onClick: onLogoutClick,
@@ -6,19 +8,37 @@ export function HeaderButton({
   registered,
   userName,
 }) {
+  const location = useLocation();
   return (
     <>
       {loggedIn && (
         <button
           onClick={onLogoutClick}
-          className="nav__item button  nav__entry"
+          className="nav__item button  nav__entry logout__button "
+          style={
+            location.pathname === "/saved-news"
+              ? {
+                  filter: "invert(0)",
+                }
+              : {}
+          }
         >
           {userName ? { userName } : "Gollum"}
-          <svg className="nav__logout-icon" />
+          <svg className="logout__icon" />
         </button>
       )}
       {registered && !loggedIn && (
-        <button onClick={onLoginClick} className="nav__item button nav__entry">
+        <button
+          onClick={onLoginClick}
+          className="nav__item button nav__entry"
+          style={
+            location.pathname === "/saved-news"
+              ? {
+                  filter: "invert(0)",
+                }
+              : {}
+          }
+        >
           Sign in
         </button>
       )}
@@ -26,6 +46,13 @@ export function HeaderButton({
         <button
           onClick={onRegisterClick}
           className="nav__item button nav__entry"
+          style={
+            location.pathname === "/saved-news"
+              ? {
+                  filter: "invert(0)",
+                }
+              : {}
+          }
         >
           Sign up
         </button>

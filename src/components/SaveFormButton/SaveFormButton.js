@@ -1,7 +1,7 @@
-export function SaveFormButton() {
+export function SaveFormButton({ saveFormButtonText }) {
   return (
-    <button className="entry__save button " type="submit">
-      Sign up
+    <button className="entry__save button" disabled={true} type="submit">
+      {saveFormButtonText}
     </button>
   );
 }

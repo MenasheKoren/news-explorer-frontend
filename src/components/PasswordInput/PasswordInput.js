@@ -15,7 +15,7 @@ export function PasswordInput(props) {
         maxLength="40"
         pattern=".*\S.*"
       />
-      <span className="error-message" id="password-input-error"></span>
+      <span className="error-message" id="password-input-error" />
     </label>
   );
 }

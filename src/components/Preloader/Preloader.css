@@ -1,8 +1,11 @@
 .preloader {
   height: 7.5rem;
   width: 7.5rem;
-  background: transparent;
-  margin: 3.125rem auto 0;
+  background: #f5f6f7;
+  margin: 5rem auto 8rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
 }
 .preloader__spinner {
   width: 100%;
@@ -14,12 +17,13 @@
 
 .preloader__spinner circle {
   fill: transparent;
-  stroke: rgb(76, 225, 42);
+  stroke: #4ce12a;
   stroke-width: 0.25rem;
   stroke-linecap: round;
   stroke-dasharray: 376.8;
   transform-origin: 3.75rem 3.75rem 0;
   animation: 4s linear infinite spinner;
+  opacity: 30%;
 }
 
 @keyframes spinner {
@@ -38,4 +42,11 @@
     stroke-dashoffset: 79.2;
     stroke: rgb(30, 234, 241);
   }
+}
+
+.preloader__text {
+  margin: 1.5rem auto 0;
+  font-weight: 400;
+  white-space: nowrap;
+  color: #b6bcbf;
 }

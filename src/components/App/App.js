@@ -10,12 +10,6 @@ import { Register } from "../Register/Register";
 import { Login } from "../Login/Login";
 import { InfoToolTip } from "../InfoToolTip/InfoToolTip";
 import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
-import {
-  FormValidator,
-  loginForm,
-  registerForm,
-} from "../FormValidator/FormValidator";
-import { settings } from "eslint-config-airbnb/rules/react";
 
 function App() {
   const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });
@@ -44,16 +38,6 @@ function App() {
 
     return () => document.removeEventListener("keydown", closeByEscape);
   }, []);
-
-  const registerFormValidator = new FormValidator(settings, registerForm);
-  const loginFormValidator = new FormValidator(settings, loginForm);
-
-  registerFormValidator.enableValidation();
-  loginFormValidator.enableValidation();
-  registerFormValidator.resetValidation();
-  loginFormValidator.resetValidation();
-  // registerForm._setEventListeners();
-  // loginForm._setEventListeners();
 
   function handleSubmitRegister() {
     setIsRegistered(true);
@@ -104,6 +88,16 @@ function App() {
   function handleInputPassword(e) {
     e.preventDefault();
     setPassword(e.target.value);
+  }
+
+  function handleSwitchRegisterToLoginPopup() {
+    setIsRegisterPopupOpen(false);
+    setIsLoginPopupOpen(true);
+  }
+
+  function handleSwitchLoginToRegisterPopup() {
+    setIsLoginPopupOpen(false);
+    setIsRegisterPopupOpen(true);
   }
 
   return (
@@ -160,6 +154,9 @@ function App() {
                   userName={userName}
                   email={email}
                   password={password}
+                  handleSwitchRegisterToLoginPopup={
+                    handleSwitchRegisterToLoginPopup
+                  }
                 />
                 <Login
                   closeAllPopups={closeAllPopups}
@@ -169,6 +166,9 @@ function App() {
                   handleInputPassword={handleInputPassword}
                   email={email}
                   password={password}
+                  handleSwitchLoginToRegisterPopup={
+                    handleSwitchLoginToRegisterPopup
+                  }
                 />
               </PopupWithForm>
 

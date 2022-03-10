@@ -1,6 +1,3 @@
-export const registerForm = document.querySelector(".entry_type_register");
-export const loginForm = document.querySelector(".entry_type_login");
-
 export class FormValidator {
   constructor(settings, formElement) {
     this._settings = settings;
@@ -9,12 +6,13 @@ export class FormValidator {
 
   _showError(input) {
     const error = input.validationMessage;
-    const errorElement = this._formElement.querySelector(`#${input.id}-error`);
+    const errorElement = input.nextSibling;
+
     errorElement.textContent = error;
   }
 
   _hideError(input) {
-    const errorElement = this._formElement.querySelector(`#${input.id}-error`);
+    const errorElement = input.nextSibling;
     errorElement.textContent = "";
   }
 
@@ -29,7 +27,6 @@ export class FormValidator {
   _setEventListeners = () => {
     const { inputSelector } = this._settings;
     this.inputs = [...this._formElement.querySelectorAll(inputSelector)];
-
     this.inputs.forEach((input) => {
       input.addEventListener("input", () => {
         this._checkValidity(input);
@@ -55,5 +52,6 @@ export class FormValidator {
     this._formElement.addEventListener("submit", (evt) => evt.preventDefault());
 
     this._setEventListeners();
+    return this._formElement;
   }
 }

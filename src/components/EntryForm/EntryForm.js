@@ -4,7 +4,7 @@ import { UsernameInput } from "../UsernameInput/UsernameInput";
 import { SaveFormButton } from "../SaveFormButton/SaveFormButton";
 import React from "react";
 
-export function EntryForm({
+function EntryForm({
   email,
   onChange,
   onChange1,
