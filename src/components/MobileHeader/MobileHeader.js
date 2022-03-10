@@ -1,8 +1,11 @@
-export function MobileHeader(props) {
+export function MobileHeader({ location, mobile, onOpenDropdownClick }) {
   return (
     <>
-      {props.mobile && (
-        <button className="nav__dropdown-button button" onClick={props.onClick}>
+      {mobile && (
+        <button
+          className="nav__dropdown-button button"
+          onClick={onOpenDropdownClick}
+        >
           <svg
             className="dropdown__svg"
             width="24"
@@ -12,7 +15,7 @@ export function MobileHeader(props) {
           >
             <path
               style={
-                props.location.pathname === "/saved-news"
+                location.pathname === "/saved-news"
                   ? {
                       fill: "black",
                     }

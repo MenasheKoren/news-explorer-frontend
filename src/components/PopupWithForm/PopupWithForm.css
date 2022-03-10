@@ -127,3 +127,25 @@
   color: #2f71e5;
   font-weight: 500;
 }
+
+@media screen and (max-width: 767px) {
+  .popup__container {
+    width: 20rem;
+    height: 32.5rem;
+  }
+
+  .entry {
+    width: calc(100% - 2rem);
+    margin: 1rem auto 0;
+  }
+
+  .entry__form {
+    margin: 1.125rem 0 1rem;
+    width: 100%;
+  }
+
+  .entry__save {
+    padding: 1.25rem 4.75rem;
+    margin: 1.4375rem 0 0;
+  }
+}

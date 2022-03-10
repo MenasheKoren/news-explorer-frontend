@@ -5,7 +5,7 @@ export function PasswordInput(props) {
       <input
         type="password"
         className="field-input"
-        placeholder="Password"
+        placeholder="Enter password"
         id="passwordInput"
         name="password"
         defaultValue={props.password || ""}

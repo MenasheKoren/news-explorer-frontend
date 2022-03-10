@@ -2,9 +2,9 @@ import { useLocation } from "react-router-dom";
 
 export function HeaderButton({
   loggedIn,
-  onClick: onLogoutClick,
-  onClick1: onLoginClick,
-  onClick2: onRegisterClick,
+  onLogoutClick,
+  onLoginClick,
+  onRegisterClick,
   registered,
   userName,
 }) {

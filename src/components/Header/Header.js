@@ -54,18 +54,18 @@ export function Header({
             />
             <HeaderButton
               loggedIn={isLoggedIn}
-              onClick={handleLogout}
+              onLogoutClick={handleLogout}
               userName={userName}
               registered={isRegistered}
-              onClick1={handleLoginClick}
-              onClick2={handleRegisterClick}
+              onLoginClick={handleLoginClick}
+              onRegisterClick={handleRegisterClick}
             />
           </nav>
         )}
 
         <MobileHeader
           mobile={isMobile}
-          onClick={handleOpenDropdownMenu}
+          onOpenDropdownClick={handleOpenDropdownMenu}
           location={location}
         />
       </div>

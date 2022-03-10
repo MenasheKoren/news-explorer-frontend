@@ -5,7 +5,7 @@ export function UsernameInput(props) {
       <input
         type="username"
         className="field-input "
-        placeholder="Username"
+        placeholder="Enter username"
         id="usernameInput"
         name="username"
         defaultValue={props.userName || ""}
