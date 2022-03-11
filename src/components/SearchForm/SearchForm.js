@@ -14,7 +14,7 @@ export function SearchForm() {
         <form className="search__form">
           <div className="search__bar">
             <SearchInput />
-            {/* todo set styles for different states */}
+
             <SearchButton />
           </div>
         </form>

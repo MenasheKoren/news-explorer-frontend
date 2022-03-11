@@ -13,10 +13,13 @@
 }
 
 .newsCard__image {
-  object-fit: cover;
   border-top-left-radius: 0.625rem;
   border-top-right-radius: 0.625rem;
   height: 17rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 25rem;
 }
 
 .newsCard__text-container {

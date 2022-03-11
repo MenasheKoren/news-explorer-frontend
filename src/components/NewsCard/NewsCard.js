@@ -12,12 +12,18 @@ export function NewsCard({
   }
   return (
     <li className="newsCard" key={_id}>
-      <Bookmark
-        handleToggleBookmarkIcon={handleToggleBookmarkIcon}
-        isBookmarked={isBookmarked}
-        isLoggedIn={isLoggedIn}
-      />
-      <img className="newsCard__image" src={image} alt="#" />
+      <image
+        className="newsCard__image"
+        style={{
+          backgroundImage: `url(${image})`,
+        }}
+      >
+        <Bookmark
+          handleToggleBookmarkIcon={handleToggleBookmarkIcon}
+          isBookmarked={isBookmarked}
+          isLoggedIn={isLoggedIn}
+        />
+      </image>
       <div className="newsCard__text-container">
         <p className="newsCard__date">
           {new Date().toLocaleString("en-US", {

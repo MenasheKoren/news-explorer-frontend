@@ -1,7 +1,4 @@
-/* todo Sort import order */
-
 @import url("./vendor/fonts/fonts.css");
-/* todo Fix  */
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
 @import url("./components/Layout/Layout.css");
 @import url("./components/ShowMoreButton/ShowMoreButton.css");

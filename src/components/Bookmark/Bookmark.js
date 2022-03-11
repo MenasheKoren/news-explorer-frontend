@@ -22,15 +22,17 @@ export function Bookmark({
         </div>
       )}
       {isBookmarked && location.pathname === "/" && (
-        <button
-          className="button bookmark bookmark__selected"
-          type="button"
-          onClick={handleToggleBookmarkIcon}
-        />
+        <div className="bookmarks__container">
+          <button
+            className="button bookmark bookmark__selected"
+            type="button"
+            onClick={handleToggleBookmarkIcon}
+          />
+        </div>
       )}
       {location.pathname === "/saved-news" && (
-        <div className="bookmark bookmark__container">
-          <button className="button bookmark__delete" type="button" />
+        <div className="bookmarks__container">
+          <button className="button bookmark bookmark__delete" type="button" />
           <span className="bookmark__tool-tip">Remove from saved</span>
         </div>
       )}
