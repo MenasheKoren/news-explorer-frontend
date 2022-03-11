@@ -19,7 +19,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  width: 25rem;
+  max-width: 25rem;
 }
 
 .newsCard__text-container {
