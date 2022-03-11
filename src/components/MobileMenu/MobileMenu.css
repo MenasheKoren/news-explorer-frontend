@@ -22,10 +22,10 @@
 }
 
 .mobile-menu__container {
-  box-shadow: 0 0 1.5625rem rgb(26 27 34);
+  box-shadow: 0 0 1.5625rem #1a1b22;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
-  background: black;
+  background: #000;
   width: 100%;
 }
 
@@ -35,16 +35,6 @@
   padding: 1rem 1rem 1.5rem;
   font-size: 1.125rem;
   font-weight: 500;
-}
-
-.mobile-menu__close {
-  align-self: end;
-  background: transparent url(../../images/close-icon.svg) no-repeat center;
-  background-size: 1.5rem 1.5rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-style: none;
-  cursor: pointer;
 }
 
 .mobile-menu__nav {

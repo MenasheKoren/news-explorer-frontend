@@ -1,13 +1,12 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { MobileCloseButton } from "../MobileCloseButton/MobileCloseButton";
+import { HomeNavLink } from "../HomeNavLink/HomeNavLink";
+import { SavedArticlesNavLink } from "../SavedArticlesNavLink/SavedArticlesNavLink";
+import { HeaderButton } from "../HeaderButton/HeaderButton";
 
 export const MobileMenu = ({
   closeAllPopups,
   isDropdownMenuOpen,
-  isRegistered,
-  handleLogin,
-  handleLogout,
-  handleRegister,
   isLoggedIn,
 }) => {
   return (
@@ -19,64 +18,23 @@ export const MobileMenu = ({
     >
       <div className="mobile-menu__container">
         <div className="mobile-menu__content">
-          <button
-            className="mobile-menu__close button"
-            type="button"
-            onClick={closeAllPopups}
-          />
+          <MobileCloseButton onClick={closeAllPopups} />
 
           <nav className="mobile-menu__nav">
-            <NavLink
-              to="/"
-              onClick={closeAllPopups}
+            <HomeNavLink
               className={({ isActive }) =>
                 "nav__item link link__hover" +
-                (isActive && isLoggedIn ? " nav__item_active" : "")
+                (isActive ? " nav__item_active" : "  nav__item_inactive")
               }
-            >
-              Home
-            </NavLink>
-            {isLoggedIn && (
-              <>
-                <NavLink
-                  to="/saved-news"
-                  onClick={closeAllPopups}
-                  className={({ isActive }) =>
-                    "nav__item link link__hover" +
-                    (isActive ? " nav__item_active" : " nav__item_inactive")
-                  }
-                >
-                  Saved articles
-                </NavLink>
-
-                <Link
-                  to="/"
-                  onClick={handleLogout}
-                  className="nav__item link link__hover nav__entry"
-                >
-                  Log out
-                </Link>
-              </>
-            )}
-
-            {isRegistered && !isLoggedIn && (
-              <Link
-                to="/"
-                onClick={handleLogin}
-                className="nav__item link link__hover nav__entry"
-              >
-                Sign in
-              </Link>
-            )}
-            {!isRegistered && !isLoggedIn && (
-              <Link
-                to="/"
-                onClick={handleRegister}
-                className="nav__item link link__hover nav__entry"
-              >
-                Sign up
-              </Link>
-            )}
+            />
+            <SavedArticlesNavLink
+              loggedIn={isLoggedIn}
+              className={({ isActive }) =>
+                "nav__item link link__hover" +
+                (isActive ? " nav__item_active" : " nav__item_inactive")
+              }
+            />
+            <HeaderButton />
           </nav>
         </div>
       </div>

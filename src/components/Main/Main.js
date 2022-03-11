@@ -1,16 +1,19 @@
-import * as React from "react";
 import { About } from "../About/About";
+import { SearchForm } from "../SearchForm/SearchForm";
+import { NewsCardList } from "../NewsCardList/NewsCardList";
+import React from "react";
 
-export function Main() {
+export function Main({ isMobile, isMonitor, isTablet, isLoggedIn }) {
   return (
     <main className="main">
-      <section className="main__jumbotron">
-        <h2>What's going on in the world?</h2>
-        <p>
-          Find the latest news on any topic and save them in your personal
-          account.
-        </p>
-      </section>
+      <SearchForm />
+
+      <NewsCardList
+        isMobile={isMobile}
+        isTablet={isTablet}
+        isMonitor={isMonitor}
+        isLoggedIn={isLoggedIn}
+      />
       <About />
     </main>
   );

@@ -1,0 +1,17 @@
+.popup__container_type_info-tool-tip {
+  height: 11.375rem;
+  z-index: 9;
+}
+
+.info-tool-tip__title {
+  font-weight: 900;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  color: #000;
+  margin: 2.6875rem 4.9375rem 0.875rem 2.25rem;
+}
+.info-tool-tip__redirect-link {
+  color: #2f71e5;
+  font-weight: 500;
+  margin: 0 0 3.1875rem 2.25rem;
+}

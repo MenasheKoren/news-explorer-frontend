@@ -3,7 +3,7 @@
   max-width: 100%;
   margin: 0;
   padding: 0;
-  color: rgb(255, 255, 255);
+  color: #fff;
   font-family: Roboto, Arial, Helvetica, sans-serif;
   font-style: normal;
   line-height: 1.5rem;
@@ -15,13 +15,16 @@
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
-  position: relative;
 }
 
 .content {
-  max-width: 90rem;
   min-width: 20rem;
+  max-width: 90rem;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
 
 .link {
@@ -34,20 +37,13 @@
   opacity: 60%;
 }
 
-.ellipses {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  flex: 1;
-}
-
 .button {
   transition: all 0.2s;
 }
 
 .button:hover {
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.9;
 }
 
 .button:active {

@@ -1,40 +1,31 @@
 import React from "react";
+import { PopupCloseButton } from "../PopupCloseButton/PopupCloseButton";
+import { MobileCloseButton } from "../MobileCloseButton/MobileCloseButton";
+import { Register } from "../Register/Register";
+import { Login } from "../Login/Login";
 
-const PopupWithForm = ({
-  name,
-  title,
-  children,
-  isOpen,
+export function PopupWithForm({
   closeAllPopups,
-  buttonText,
-  handleSubmit,
-}) => {
+  isLoginPopupOpen,
+  isRegisterPopupOpen,
+  isRegistered,
+  isMobile,
+  isMonitorOrTablet,
+}) {
   return (
     <section
       className={[
-        `popup popup_type_${name}`,
-        isOpen ? "popup_opened" : "",
+        `popup `,
+        isRegisterPopupOpen || isLoginPopupOpen ? "popup_opened" : "",
       ].join(" ")}
     >
       <div className="popup__container">
-        <button
-          className="popup__close button button_hover_dark"
-          type="button"
-          onClick={closeAllPopups}
-        />
-        <h2 className="popup__title">{title}</h2>
-        <form className="popup__form" onSubmit={handleSubmit}>
-          {children}
-          <button
-            className="popup__save button button_hover_darker"
-            type="submit"
-          >
-            {buttonText}
-          </button>
-        </form>
+        <PopupCloseButton onClick={closeAllPopups} />
+        {isMobile && <MobileCloseButton onClick={closeAllPopups} />}
+
+        {!isRegistered && <Register />}
+        {isRegistered && <Login />}
       </div>
     </section>
   );
-};
-
-export default PopupWithForm;
+}

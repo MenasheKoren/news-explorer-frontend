@@ -1,11 +1,15 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Main } from "../Main/Main";
 import { SavedNews } from "../SavedNews/SavedNews";
 import { Layout } from "../Layout/Layout";
 import { useMediaQuery } from "react-responsive";
+import { Register } from "../Register/Register";
+import { Login } from "../Login/Login";
+import { InfoToolTip } from "../InfoToolTip/InfoToolTip";
+import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
 
 function App() {
   const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });
@@ -14,20 +18,34 @@ function App() {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false);
-  // const localEmail = localStorage.getItem("localEmail");
-  // const navigate = useNavigate();
-  // const location = useLocation();
-  function handleRegister() {
-    setIsRegistered(!isRegistered);
+  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
+
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        closeAllPopups();
+      }
+    };
+
+    document.addEventListener("keydown", closeByEscape);
+
+    return () => document.removeEventListener("keydown", closeByEscape);
+  }, []);
+
+  function handleSubmitRegister() {
+    setIsRegistered(true);
   }
 
-  function handleLogin() {
+  function handleSubmitLogin() {
     setIsLoggedIn(true);
+    setUserName(userName);
   }
 
   function handleLogout() {
@@ -38,8 +56,48 @@ function App() {
     setIsDropdownMenuOpen(true);
   }
 
+  function handleRegisterClick() {
+    setIsRegisterPopupOpen(true);
+  }
+
+  function handleLoginClick() {
+    setIsLoginPopupOpen(true);
+  }
+
+  function handleSubmitInfoToolTip() {
+    setIsInfoToolTipOpen(true);
+  }
+
   function closeAllPopups() {
     setIsDropdownMenuOpen(false);
+    setIsRegisterPopupOpen(false);
+    setIsInfoToolTipOpen(false);
+    setIsLoginPopupOpen(false);
+  }
+
+  function handleInputUsername(e) {
+    e.preventDefault();
+    setUserName(e.target.value);
+  }
+
+  function handleInputEmail(e) {
+    e.preventDefault();
+    setEmail(e.target.value);
+  }
+
+  function handleInputPassword(e) {
+    e.preventDefault();
+    setPassword(e.target.value);
+  }
+
+  function handleSwitchRegisterToLoginPopup() {
+    setIsRegisterPopupOpen(false);
+    setIsLoginPopupOpen(true);
+  }
+
+  function handleSwitchLoginToRegisterPopup() {
+    setIsLoginPopupOpen(false);
+    setIsRegisterPopupOpen(true);
   }
 
   return (
@@ -49,8 +107,8 @@ function App() {
         element={
           <Layout
             handleLogout={handleLogout}
-            handleLogin={handleLogin}
-            handleRegister={handleRegister}
+            handleLogin={handleSubmitLogin}
+            handleRegister={handleSubmitRegister}
             isRegistered={isRegistered}
             isLoggedIn={isLoggedIn}
             isDropdownMenuOpen={isDropdownMenuOpen}
@@ -58,11 +116,72 @@ function App() {
             closeAllPopups={closeAllPopups}
             isMonitorOrTablet={isMonitorOrTablet}
             isMobile={isMobile}
+            isRegisterPopupOpen={isRegisterPopupOpen}
+            isLoginPopupOpen={isLoginPopupOpen}
+            isInfoToolTipOpen={isInfoToolTipOpen}
+            handleLoginClick={handleLoginClick}
+            handleRegisterClick={handleRegisterClick}
+            handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+            userName={userName}
           />
         }
       >
-        <Route index element={<Main />} />
-        <Route path="/saved-news" element={<SavedNews />} />
+        <Route
+          index
+          element={
+            <>
+              <Main
+                isMobile={isMobile}
+                isTablet={isTablet}
+                isMonitor={isMonitor}
+                isLoggedIn={isLoggedIn}
+              />
+              <PopupWithForm
+                isRegisterPopupOpen={isRegisterPopupOpen}
+                isLoginPopupOpen={isLoginPopupOpen}
+                isRegistered={isRegistered}
+                isLoggedIn={isLoggedIn}
+                isMonitorOrTablet={isMonitorOrTablet}
+                isMobile={isMobile}
+                closeAllPopups={closeAllPopups}
+              >
+                <Register
+                  closeAllPopups={closeAllPopups}
+                  isRegisterPopupOpen={isRegisterPopupOpen}
+                  isLoginPopupOpen={isLoginPopupOpen}
+                  handleInputUsername={handleInputUsername}
+                  handleInputEmail={handleInputEmail}
+                  handleInputPassword={handleInputPassword}
+                  handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+                  userName={userName}
+                  email={email}
+                  password={password}
+                  handleSwitchRegisterToLoginPopup={
+                    handleSwitchRegisterToLoginPopup
+                  }
+                />
+                <Login
+                  closeAllPopups={closeAllPopups}
+                  isRegisterPopupOpen={isRegisterPopupOpen}
+                  isLoginPopupOpen={isLoginPopupOpen}
+                  handleInputEmail={handleInputEmail}
+                  handleInputPassword={handleInputPassword}
+                  email={email}
+                  password={password}
+                  handleSwitchLoginToRegisterPopup={
+                    handleSwitchLoginToRegisterPopup
+                  }
+                />
+              </PopupWithForm>
+
+              <InfoToolTip
+                closeAllPopups={closeAllPopups}
+                isOpen={isInfoToolTipOpen}
+              />
+            </>
+          }
+        />
+        <Route path="/saved-news" element={<SavedNews userName={userName} />} />
         <Route
           path="*"
           element={

@@ -1,49 +1,59 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { EmailInput } from "../EmailInput/EmailInput";
+import { PasswordInput } from "../PasswordInput/PasswordInput";
+import { UsernameInput } from "../UsernameInput/UsernameInput";
+import { SaveFormButton } from "../SaveFormButton/SaveFormButton";
+import { FormValidator } from "../../utils/FormValidator/FormValidator";
+import { formSettings } from "../../utils/helpers";
 
-export default function Register({
+export function Register({
   handleInputEmail,
   handleInputPassword,
+  userName,
   email,
   password,
   handleSubmitRegister,
+  handleInputUsername,
+  handleSwitchRegisterToLoginPopup,
+  handleSubmitInfoToolTip,
 }) {
+  const [form, setForm] = React.useState({});
+  const formRef = React.useRef();
+
+  React.useEffect(() => {
+    const validatedForm = new FormValidator(formSettings, formRef.current);
+    validatedForm.enableValidation();
+    setForm(validatedForm);
+  }, []);
+
   return (
-    <section className={`entry entry_type_signup`}>
+    <div className="entry entry_type_register">
       <h2 className="entry__title">Sign up</h2>
-      <form className="entry__form" onSubmit={handleSubmitRegister}>
-        <input
-          type="email"
-          className="field-input field-input_type_entry"
-          placeholder="Email"
-          id="email-input"
-          name="email"
-          value={email || ""}
-          onChange={handleInputEmail}
-          required
+      <form
+        className="entry__form"
+        ref={formRef}
+        onSubmit={handleSubmitRegister}
+      >
+        <div className="form__inputs">
+          <EmailInput email={email} onChange={handleInputEmail} />
+          <PasswordInput password={password} onChange={handleInputPassword} />
+          <UsernameInput userName={userName} onChange={handleInputUsername} />
+        </div>
+        <SaveFormButton
+          saveFormButtonText="Sign up"
+          handleSubmitInfoToolTip={handleSubmitInfoToolTip}
         />
-        <span className="error-message" id="email-input-error" />
-        <input
-          type="password"
-          className="field-input field-input_type_entry"
-          placeholder="Password"
-          id="password-input"
-          name="password"
-          value={password || ""}
-          onChange={handleInputPassword}
-          required
-          minLength="2"
-          maxLength="40"
-          pattern=".*\S.*"
-        />
-        <span className="error-message" id="password-input-error" />
-        <button className="entry__save button button_hover_dark" type="submit">
-          Sign up
-        </button>
       </form>
-      <Link to="/signin" className="link link__hover entry__redirect-text">
-        Already a member? Log in here!
-      </Link>
-    </section>
+      <p className="entry__redirect-text">
+        or{" "}
+        <a
+          href="#"
+          className="link link__hover entry__redirect-link"
+          onClick={handleSwitchRegisterToLoginPopup}
+        >
+          Sign in
+        </a>
+      </p>
+    </div>
   );
 }
