@@ -14,9 +14,8 @@ export function Register({
   password,
   handleSubmitRegister,
   handleInputUsername,
-  isRegisterPopupOpen,
-  isLoginPopupOpen,
   handleSwitchRegisterToLoginPopup,
+  handleSubmitInfoToolTip,
 }) {
   const [form, setForm] = React.useState({});
   const formRef = React.useRef();
@@ -40,7 +39,10 @@ export function Register({
           <PasswordInput password={password} onChange={handleInputPassword} />
           <UsernameInput userName={userName} onChange={handleInputUsername} />
         </div>
-        <SaveFormButton saveFormButtonText="Sign up" />
+        <SaveFormButton
+          saveFormButtonText="Sign up"
+          handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+        />
       </form>
       <p className="entry__redirect-text">
         or{" "}

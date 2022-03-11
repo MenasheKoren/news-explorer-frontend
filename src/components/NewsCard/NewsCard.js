@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Bookmark } from "../Bookmark/Bookmark";
 
-export function NewsCard({ articleCard: { _id, image, source, text, title } }) {
+export function NewsCard({
+  articleCard: { _id, image, source, text, title },
+  isLoggedIn,
+}) {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   function handleToggleBookmarkIcon() {
@@ -12,8 +15,8 @@ export function NewsCard({ articleCard: { _id, image, source, text, title } }) {
       <Bookmark
         handleToggleBookmarkIcon={handleToggleBookmarkIcon}
         isBookmarked={isBookmarked}
+        isLoggedIn={isLoggedIn}
       />
-      {/*todo make a demo json for about 5 cards*/}
       <img className="newsCard__image" src={image} alt="#" />
       <div className="newsCard__text-container">
         <p className="newsCard__date">

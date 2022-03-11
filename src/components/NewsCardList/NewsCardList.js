@@ -5,7 +5,7 @@ import articlesArray from "../NewsCard/articles";
 import { Preloader } from "../Preloader/Preloader";
 import { NothingFound } from "../NothingFound/NothingFound";
 
-export function NewsCardList() {
+export function NewsCardList({ isLoggedIn }) {
   return (
     <section className="newsCards">
       <Preloader />
@@ -14,7 +14,13 @@ export function NewsCardList() {
         <h2 className="newsCards__title">Search results</h2>
         <ul className="newsCards__list">
           {articlesArray.map((articleCard) => {
-            return <NewsCard articleCard={articleCard} key={articleCard._id} />;
+            return (
+              <NewsCard
+                articleCard={articleCard}
+                key={articleCard._id}
+                isLoggedIn={isLoggedIn}
+              />
+            );
           })}
         </ul>
 

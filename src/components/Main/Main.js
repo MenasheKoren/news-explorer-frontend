@@ -3,7 +3,7 @@ import { SearchForm } from "../SearchForm/SearchForm";
 import { NewsCardList } from "../NewsCardList/NewsCardList";
 import React from "react";
 
-export function Main({ isMobile, isMonitor, isTablet }) {
+export function Main({ isMobile, isMonitor, isTablet, isLoggedIn }) {
   return (
     <main className="main">
       <SearchForm />
@@ -12,6 +12,7 @@ export function Main({ isMobile, isMonitor, isTablet }) {
         isMobile={isMobile}
         isTablet={isTablet}
         isMonitor={isMonitor}
+        isLoggedIn={isLoggedIn}
       />
       <About />
     </main>

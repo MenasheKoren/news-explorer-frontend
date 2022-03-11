@@ -1,15 +1,15 @@
 .newsCard {
   display: flex;
   flex-direction: column;
-  color: rgb(26, 27, 34);
-  background: rgb(255, 255, 255);
+  color: #1a1b22;
+  background: #fff;
   max-width: 25rem;
   height: 36rem;
   list-style-type: none;
   font-weight: 400;
   border-radius: 0.625rem;
   position: relative;
-  /*flex: max(18rem, 100%/4 + 0.1%);*/
+  flex: max(18rem, 100%/4 + 0.1%);
 }
 
 .newsCard__image {
@@ -25,7 +25,7 @@
 
 .newsCard__date {
   font-family: "Source Sans Pro", Roboto, Arial, Helvetica, sans-serif;
-  color: rgb(182, 188, 191);
+  color: #b6bcbf;
   margin: 0 0 0.75rem 0;
 }
 
@@ -65,7 +65,7 @@
   .newsCard {
     max-width: 14rem;
     height: 26.25rem;
-    /*flex: max(14rem, 100%/4 + 0.1%);*/
+    flex: max(14rem, 100%/4 + 0.1%);
   }
 
   .newsCard__bookmark {
@@ -101,7 +101,7 @@
   .newsCard {
     max-width: 18rem;
     height: 27.5rem;
-    /*flex: max(18rem, 100%/2 + 0.1%);*/
+    flex: max(18rem, 100%/2 + 0.1%);
   }
 
   .newsCard__bookmark {

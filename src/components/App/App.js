@@ -134,6 +134,7 @@ function App() {
                 isMobile={isMobile}
                 isTablet={isTablet}
                 isMonitor={isMonitor}
+                isLoggedIn={isLoggedIn}
               />
               <PopupWithForm
                 isRegisterPopupOpen={isRegisterPopupOpen}
@@ -151,6 +152,7 @@ function App() {
                   handleInputUsername={handleInputUsername}
                   handleInputEmail={handleInputEmail}
                   handleInputPassword={handleInputPassword}
+                  handleSubmitInfoToolTip={handleSubmitInfoToolTip}
                   userName={userName}
                   email={email}
                   password={password}

@@ -20,7 +20,7 @@ export function PopupWithForm({
       ].join(" ")}
     >
       <div className="popup__container">
-        {isMonitorOrTablet && <PopupCloseButton onClick={closeAllPopups} />}
+        <PopupCloseButton onClick={closeAllPopups} />
         {isMobile && <MobileCloseButton onClick={closeAllPopups} />}
 
         {!isRegistered && <Register />}

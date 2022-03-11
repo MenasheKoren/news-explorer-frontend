@@ -35,13 +35,12 @@ export function Login({
       </form>
       <p className="entry__redirect-text">
         or{" "}
-        <a
-          href="#"
+        <button
           className="link link__hover entry__redirect-link"
           onClick={handleSwitchLoginToRegisterPopup}
         >
           Sign up
-        </a>
+        </button>
       </p>
     </div>
   );
