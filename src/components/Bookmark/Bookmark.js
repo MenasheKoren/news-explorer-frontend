@@ -38,7 +38,7 @@ export function Bookmark({
           />
           <span className="bookmarks__tool-tip">Remove from saved</span>
           <button className="button bookmarks__keyword" type="button">
-            Painting
+            Paint
           </button>
         </div>
       )}
