@@ -7,6 +7,7 @@ export function HeaderButton({
   onRegisterClick,
   registered,
   userName,
+  dropdownMenuOpen,
 }) {
   const location = useLocation();
   return (
@@ -16,7 +17,7 @@ export function HeaderButton({
           onClick={onLogoutClick}
           className="nav__item button  nav__entry logout__button "
           style={
-            location.pathname === "/saved-news"
+            location.pathname === "/saved-news" && !dropdownMenuOpen
               ? {
                   filter: "invert(0)",
                 }
@@ -47,7 +48,7 @@ export function HeaderButton({
           onClick={onRegisterClick}
           className="nav__item button nav__entry"
           style={
-            location.pathname === "/saved-news"
+            location.pathname === "/saved-news" || dropdownMenuOpen
               ? {
                   filter: "invert(0)",
                 }

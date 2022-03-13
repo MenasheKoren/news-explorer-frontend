@@ -11,9 +11,9 @@ export function NewsCard({
     setIsBookmarked(!isBookmarked);
   }
   return (
-    <li className="newsCard" key={_id}>
+    <li className="news-card" key={_id}>
       <image
-        className="newsCard__image"
+        className="news-card__image"
         style={{
           backgroundImage: `url(${image})`,
         }}
@@ -24,17 +24,17 @@ export function NewsCard({
           isLoggedIn={isLoggedIn}
         />
       </image>
-      <div className="newsCard__text-container">
-        <p className="newsCard__date">
+      <div className="news-card__text-container">
+        <p className="news-card__date">
           {new Date().toLocaleString("en-US", {
             month: "long",
             day: "numeric",
             year: "numeric",
           })}
         </p>
-        <h3 className="newsCard__title">{title}</h3>
-        <p className="newsCard__text">{text}</p>
-        <h4 className="newsCard__source">{source}</h4>
+        <h3 className="news-card__title">{title}</h3>
+        <p className="news-card__text">{text}</p>
+        <h4 className="news-card__source">{source}</h4>
       </div>
     </li>
   );

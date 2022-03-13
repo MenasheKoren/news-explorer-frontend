@@ -2,11 +2,11 @@
   width: 18rem;
   height: 4rem;
   border-radius: 5rem;
-  background: rgb(255, 255, 255);
+  background: #fff;
   margin: 4rem auto 0;
   font-weight: 500;
   line-height: 1.5rem;
-  color: rgb(26, 27, 34);
+  color: #1a1b22;
 }
 
 .show-more-button:hover {

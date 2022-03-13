@@ -10,7 +10,6 @@ export function PopupWithForm({
   isRegisterPopupOpen,
   isRegistered,
   isMobile,
-  isMonitorOrTablet,
 }) {
   return (
     <section

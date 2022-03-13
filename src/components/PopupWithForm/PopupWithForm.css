@@ -129,9 +129,13 @@
 }
 
 @media screen and (max-width: 767px) {
+  .popup {
+    justify-content: flex-start;
+  }
   .popup__container {
     width: 20rem;
     height: 32.5rem;
+    margin-top: 3.5rem;
   }
 
   .entry {

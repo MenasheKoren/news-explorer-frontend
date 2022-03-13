@@ -18,7 +18,9 @@ export const MobileMenu = ({
     >
       <div className="mobile-menu__container">
         <div className="mobile-menu__content">
-          <MobileCloseButton onClick={closeAllPopups} />
+          <div className="mobile-menu__header">
+            <MobileCloseButton onClick={closeAllPopups} />
+          </div>
 
           <nav className="mobile-menu__nav">
             <HomeNavLink
