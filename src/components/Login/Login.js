@@ -11,8 +11,6 @@ export function Login({
   email,
   password,
   handleSubmitLogin,
-  isLoginPopupOpen,
-  isRegisterPopupOpen,
   handleSwitchLoginToRegisterPopup,
 }) {
   const [form, setForm] = React.useState({});

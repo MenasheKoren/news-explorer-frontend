@@ -31,14 +31,14 @@ export function Bookmark({
         </div>
       )}
       {location.pathname === "/saved-news" && (
-        <div className="bookmarks">
+        <div className="bookmarks" style={{ justifyContent: "space-between" }}>
           <button
             className="button bookmarks__bookmark bookmarks__delete"
             type="button"
           />
           <span className="bookmarks__tool-tip">Remove from saved</span>
           <button className="button bookmarks__keyword" type="button">
-            Painting
+            Paint
           </button>
         </div>
       )}

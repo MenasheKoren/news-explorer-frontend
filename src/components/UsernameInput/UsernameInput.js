@@ -1,4 +1,4 @@
-export function UsernameInput(props) {
+export function UsernameInput({ onChange, userName }) {
   return (
     <label htmlFor="usernameInput" className="form__label">
       Username
@@ -8,8 +8,8 @@ export function UsernameInput(props) {
         placeholder="Enter username"
         id="usernameInput"
         name="username"
-        defaultValue={props.userName || ""}
-        onChange={props.onChange}
+        defaultValue={userName || ""}
+        onChange={onChange}
         required
       />
       <span className="error-message" id="username-input-error" />

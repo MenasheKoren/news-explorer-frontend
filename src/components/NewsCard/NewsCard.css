@@ -72,11 +72,6 @@
     flex: max(14rem, 100%/4 + 0.1%);
   }
 
-  .news-card__bookmark {
-    /*top: 0.5rem;*/
-    /*right: 0.5rem;*/
-  }
-
   .news-card__image {
     height: 9.375rem;
   }
@@ -106,11 +101,6 @@
     max-width: 18rem;
     max-height: 27.5rem;
     flex: max(18rem, 100%/2 + 0.1%);
-  }
-
-  .news-card__bookmark {
-    /*top: 1rem;*/
-    /*right: 1rem;*/
   }
 
   .news-card__image {

@@ -1,19 +1,21 @@
 .bookmarks {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-between;
-  margin: 1.5rem auto;
+  justify-content: flex-start;
+  margin: 1.5rem;
   height: 2.5rem;
-  width: 100%;
 }
 
 .bookmarks__bookmark {
   width: 2.5rem;
   border-radius: 0.5rem;
-  border: 0.125rem solid #b6bcbf;
+  border: none;
   padding: 0;
   margin-left: 0.3125rem;
-  flex-shrink: 0;
+  height: 2.5rem;
+  background-size: 2.5rem;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .bookmarks__tool-tip {
@@ -50,7 +52,7 @@
 
 .bookmarks__delete,
 .bookmarks__delete:hover {
-  background: url(../../images/delete-icon.svg) no-repeat center;
+  background-image: url(../../images/delete-icon.svg);
 }
 
 .bookmarks__delete,
@@ -70,18 +72,16 @@
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.5rem;
-  flex-shrink: 1;
 }
 
 @media screen and (max-width: 1023px) {
   .bookmarks {
-    margin: 0.5rem auto;
-    width: calc(100% - 1rem);
+    margin: 0.5rem;
   }
 
   .bookmarks__bookmark {
-    /*top: 0.5rem;*/
-    /*right: 0.5rem;*/
+    min-height: 2.5rem;
+    min-width: 2.5rem;
   }
 
   .bookmarks__keyword {
@@ -89,8 +89,7 @@
   }
 }
 @media screen and (max-width: 767px) {
-  .bookmarks__bookmark {
-    /*top: 1rem;*/
-    /*right: 1rem;*/
+  .bookmarks {
+    margin: 1rem;
   }
 }

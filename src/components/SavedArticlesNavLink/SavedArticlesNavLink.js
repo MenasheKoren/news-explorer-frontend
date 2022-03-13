@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 
-export function SavedArticlesNavLink(props) {
+export function SavedArticlesNavLink({ className, loggedIn }) {
   return (
     <>
-      {props.loggedIn && (
-        <NavLink to="/saved-news" className={props.className}>
+      {loggedIn && (
+        <NavLink to="/saved-news" className={className}>
           Saved articles
         </NavLink>
       )}
