@@ -10,30 +10,36 @@ export function Bookmark({
   return (
     <>
       {!isBookmarked && location.pathname === "/" && (
-        <div className="bookmarks__container">
+        <div className="bookmarks">
           <button
-            className="button bookmark bookmark__unselected"
+            className="button bookmarks__bookmark bookmarks__unselected"
             type="button"
             onClick={handleToggleBookmarkIcon}
           />
           {!isLoggedIn && (
-            <div className="bookmark__tool-tip">Sign in to save articles</div>
+            <div className="bookmarks__tool-tip">Sign in to save articles</div>
           )}
         </div>
       )}
       {isBookmarked && location.pathname === "/" && (
-        <div className="bookmarks__container">
+        <div className="bookmarks">
           <button
-            className="button bookmark bookmark__selected"
+            className="button bookmarks__bookmark bookmarks__selected"
             type="button"
             onClick={handleToggleBookmarkIcon}
           />
         </div>
       )}
       {location.pathname === "/saved-news" && (
-        <div className="bookmarks__container">
-          <button className="button bookmark bookmark__delete" type="button" />
-          <span className="bookmark__tool-tip">Remove from saved</span>
+        <div className="bookmarks">
+          <button
+            className="button bookmarks__bookmark bookmarks__delete"
+            type="button"
+          />
+          <span className="bookmarks__tool-tip">Remove from saved</span>
+          <button className="button bookmarks__keyword" type="button">
+            Painting
+          </button>
         </div>
       )}
     </>

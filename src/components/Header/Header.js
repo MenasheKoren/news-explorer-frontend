@@ -52,7 +52,7 @@ export function Header({
                 (isActive ? " nav__item_active" : " nav__item_inactive")
               }
             />
-            {/* todo Get header button to work on dropdown menu */}
+
             <HeaderButton
               loggedIn={isLoggedIn}
               onLogoutClick={handleLogout}

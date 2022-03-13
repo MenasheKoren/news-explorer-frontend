@@ -1,20 +1,22 @@
-.bookmarks__container {
+.bookmarks {
   display: flex;
   flex-direction: row-reverse;
-  margin: 1.5rem 1.5rem 0 0;
+  justify-content: space-between;
+  margin: 1.5rem auto;
   height: 2.5rem;
+  width: 100%;
 }
 
-.bookmark {
+.bookmarks__bookmark {
   width: 2.5rem;
   border-radius: 0.5rem;
   border: 0.125rem solid #b6bcbf;
   padding: 0;
-  background-position: center;
   margin-left: 0.3125rem;
+  flex-shrink: 0;
 }
 
-.bookmark__tool-tip {
+.bookmarks__tool-tip {
   visibility: hidden;
   opacity: 0;
   color: #000;
@@ -31,41 +33,64 @@
   line-height: 0.875rem;
 }
 
-.bookmark__unselected {
-  background-image: url(../../images/bookmark-empty.svg);
+.bookmarks__unselected {
+  background: url(../../images/bookmark-empty.svg) no-repeat center;
 }
-.bookmark:hover {
-  background: url(../../images/bookmark-hover.svg);
+.bookmarks__bookmark:hover {
+  background: url(../../images/bookmark-hover.svg) no-repeat center;
 }
-.bookmark:hover ~ .bookmark__tool-tip {
+.bookmarks__bookmark:hover ~ .bookmarks__tool-tip {
   visibility: visible;
   opacity: 1;
 }
 
-.bookmark__selected {
-  background: url(../../images/bookmark-filled.svg);
+.bookmarks__selected {
+  background: url(../../images/bookmark-filled.svg) no-repeat center;
 }
 
-.bookmark__delete,
-.bookmark__delete:hover {
-  background: url(../../images/delete-icon.svg);
+.bookmarks__delete,
+.bookmarks__delete:hover {
+  background: url(../../images/delete-icon.svg) no-repeat center;
 }
 
-.bookmark__delete,
-.bookmark__delete:hover ~ .bookmark__tool-tip {
+.bookmarks__delete,
+.bookmarks__delete:hover ~ .bookmarks__tool-tip {
   visibility: visible;
   opacity: 1;
+}
+
+.bookmarks__keyword {
+  color: #000;
+  background: #fff;
+  padding: 0.5rem 1.375rem;
+  box-shadow: 0 0.625rem 1.375rem rgba(59, 74, 116, 0.1);
+  border-radius: 0.625rem;
+  text-align: center;
+  border: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  flex-shrink: 1;
 }
 
 @media screen and (max-width: 1023px) {
-  .bookmark {
-    top: 0.5rem;
-    right: 0.5rem;
+  .bookmarks {
+    margin: 0.5rem auto;
+    width: calc(100% - 1rem);
+  }
+
+  .bookmarks__bookmark {
+    /*top: 0.5rem;*/
+    /*right: 0.5rem;*/
+  }
+
+  .bookmarks__keyword {
+    padding: 0.5rem 1.25rem;
   }
 }
 @media screen and (max-width: 767px) {
-  .bookmark {
-    top: 1rem;
-    right: 1rem;
+  .bookmarks__bookmark {
+    /*top: 1rem;*/
+    /*right: 1rem;*/
   }
 }

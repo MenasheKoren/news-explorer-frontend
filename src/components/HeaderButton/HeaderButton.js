@@ -48,7 +48,7 @@ export function HeaderButton({
           onClick={onRegisterClick}
           className="nav__item button nav__entry"
           style={
-            location.pathname === "/saved-news" && dropdownMenuOpen
+            location.pathname === "/saved-news" || dropdownMenuOpen
               ? {
                   filter: "invert(0)",
                 }
