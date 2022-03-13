@@ -1,11 +1,9 @@
-export function HeaderTitle(props) {
+export function HeaderTitle({ dropdownMenuOpen, mobile }) {
   return (
     <h2
       className="header__title"
       style={
-        props.dropdownMenuOpen && props.mobile
-          ? { color: "white", position: "fixed" }
-          : {}
+        dropdownMenuOpen && mobile ? { color: "white", position: "fixed" } : {}
       }
     >
       NewsExplorer
