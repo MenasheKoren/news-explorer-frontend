@@ -1,4 +1,4 @@
-.newsCard {
+.news-card {
   display: flex;
   flex-direction: column;
   color: #1a1b22;
@@ -12,7 +12,7 @@
   flex: max(18rem, 100%/4 + 0.1%);
 }
 
-.newsCard__image {
+.news-card__image {
   border-top-left-radius: 0.625rem;
   border-top-right-radius: 0.625rem;
   height: 17rem;
@@ -22,17 +22,17 @@
   max-width: 25rem;
 }
 
-.newsCard__text-container {
+.news-card__text-container {
   margin: 1.25rem 1.5rem 1.5rem;
 }
 
-.newsCard__date {
+.news-card__date {
   font-family: "Source Sans Pro", Roboto, Arial, Helvetica, sans-serif;
   color: #b6bcbf;
   margin: 0 0 0.75rem 0;
 }
 
-.newsCard__title {
+.news-card__title {
   font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
   font-weight: 400;
   margin: 0 0 1rem 0;
@@ -40,7 +40,7 @@
   line-height: 1.875rem;
 }
 
-.newsCard__text {
+.news-card__text {
   height: 6.875rem;
   width: 100%;
   margin: 0 0 1.125rem 0;
@@ -53,7 +53,7 @@
   -webkit-box-orient: vertical;
 }
 
-.newsCard__source {
+.news-card__source {
   margin: 0;
   text-transform: uppercase;
   font-size: 1rem;
@@ -66,70 +66,70 @@
 }
 
 @media screen and (max-width: 1023px) {
-  .newsCard {
+  .news-card {
     max-width: 14rem;
     max-height: 26.25rem;
     flex: max(14rem, 100%/4 + 0.1%);
   }
 
-  .newsCard__bookmark {
+  .news-card__bookmark {
     top: 0.5rem;
     right: 0.5rem;
   }
 
-  .newsCard__image {
+  .news-card__image {
     height: 9.375rem;
   }
 
-  .newsCard__text-container {
+  .news-card__text-container {
     margin: 1rem;
   }
 
-  .newsCard__date {
+  .news-card__date {
     margin: 0 0 0.75rem 0;
   }
 
-  .newsCard__title {
+  .news-card__title {
     margin: 0 0 0.625rem 0;
     font-size: 1.375rem;
     line-height: 1.5rem;
   }
 
-  .newsCard__text {
+  .news-card__text {
     height: 5.5rem;
     margin: 0 0 0.75rem 0;
     -webkit-line-clamp: 4;
   }
 }
 @media screen and (max-width: 767px) {
-  .newsCard {
+  .news-card {
     max-width: 18rem;
     max-height: 27.5rem;
     flex: max(18rem, 100%/2 + 0.1%);
   }
 
-  .newsCard__bookmark {
+  .news-card__bookmark {
     top: 1rem;
     right: 1rem;
   }
 
-  .newsCard__image {
+  .news-card__image {
     height: 12.25rem;
   }
 
-  .newsCard__text-container {
+  .news-card__text-container {
     margin: 1rem;
   }
 
-  .newsCard__date {
+  .news-card__date {
     margin: 0 0 0.625rem 0;
   }
 
-  .newsCard__title {
+  .news-card__title {
     margin: 0 0 0.875rem 0;
   }
 
-  .newsCard__text {
+  .news-card__text {
     margin: 0 0 0.5rem 0;
     -webkit-line-clamp: 4;
     height: 5.5rem;

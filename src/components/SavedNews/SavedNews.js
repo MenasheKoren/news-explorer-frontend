@@ -8,8 +8,8 @@ export function SavedNews({ userName }) {
   return (
     <section className="saved-news">
       <SavedNewsSubheader userName={userName} />
-      <div className="newsCards__content">
-        <ul className="newsCards__list">
+      <div className="news-cards__content">
+        <ul className="news-cards__list">
           {articlesArray.map((articleCard) => {
             return <NewsCard articleCard={articleCard} key={articleCard._id} />;
           })}
