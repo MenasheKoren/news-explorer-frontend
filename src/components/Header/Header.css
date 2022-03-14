@@ -1,0 +1,129 @@
+.header {
+  margin: 0 auto;
+  border-bottom: 0.0625rem solid;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  background: rgba(196, 196, 196, 0.01);
+  box-shadow: inset 0 -0.0625rem 0 rgba(255, 255, 255, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  border-color: #1a1b22;
+  fill: #fff;
+}
+
+.header__content {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 6.5rem;
+  position: relative;
+}
+
+.header__title {
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  z-index: 5;
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+}
+
+.header__nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+.nav__item {
+  margin-right: 2.125rem;
+}
+
+.nav__item_inactive {
+  color: #b6bcbf;
+}
+
+.nav__item_active {
+  border-bottom: 0.02rem solid;
+  padding: 1.875rem 0 1.625rem;
+  height: 100%;
+}
+
+.nav__entry {
+  border: 0.01rem solid;
+  box-sizing: border-box;
+  border-radius: 6.25rem;
+  height: 3rem;
+  width: 11rem;
+  text-align: center;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(196, 196, 196, 0.01);
+  box-shadow: inset 0 -0.0625rem 0 rgba(255, 255, 255, 0.2);
+  filter: invert(100%);
+}
+
+.logout__button {
+  justify-content: space-between;
+  display: flex;
+  padding: 0.75rem 0.9375rem;
+  gap: 0.9375rem;
+  width: auto;
+}
+
+.logout__icon {
+  background: url("../../images/logout-icon.svg") no-repeat center/cover;
+  z-index: 5;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.nav__dropdown-button {
+  background-color: transparent;
+  border: none;
+}
+
+@media screen and (max-width: 1023px) {
+  .header {
+    height: 4.125rem;
+  }
+
+  .header__content {
+    padding: 0.875rem 2.5rem 0.75rem;
+  }
+
+  .nav__item_active {
+    padding: 1.375rem 0 1.25rem;
+  }
+
+  .nav__entry {
+    width: 9.5rem;
+    height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__content {
+    padding: 0 1rem;
+  }
+
+  .header__title {
+    font-size: 1rem;
+  }
+}
