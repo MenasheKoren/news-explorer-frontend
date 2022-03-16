@@ -4,21 +4,37 @@ import { ShowMoreButton } from "../ShowMoreButton/ShowMoreButton";
 import { Preloader } from "../Preloader/Preloader";
 import { NothingFound } from "../NothingFound/NothingFound";
 import newsApi from "../../utils/NewsApi";
+import { SearchInput } from "../SearchInput/SearchInput";
 
 export function NewsCardList({ isLoggedIn }) {
   const [isLoading, setIsLoading] = useState(false);
   const [articlesData, setArticlesData] = useState([]);
-
   const [showArticles, setShowArticles] = useState(false);
-  let keyword = "cat";
+
+  const [isEndIndex, setIsEndIndex] = useState(3);
+
+  function handleAddThreeMoreCards() {
+    setIsEndIndex(isEndIndex + 3);
+  }
+
+  const keyword = SearchInput().valueOf().toString();
+  console.log(`Keyword: ${keyword}`);
+  const keywordString = JSON.stringify(keyword);
+  console.log(`KeywordString: ${keywordString}`);
+
   useEffect(() => {
     setIsLoading(true);
     setShowArticles(true);
-    return () => {
-      setIsLoading(false);
-      setArticlesData(newsApi.getArticleData(keyword));
-    };
-  }, [setArticlesData, keyword]);
+
+    newsApi
+      .getArticleData(keywordString)
+      .then((data) => {
+        setArticlesData(data);
+      })
+      .then(() => {
+        setIsLoading(false);
+      });
+  }, [keywordString]);
 
   return (
     <section className="news-cards">
@@ -32,7 +48,7 @@ export function NewsCardList({ isLoggedIn }) {
             <NothingFound />
           ) : (
             <ul className="news-cards__list">
-              {articlesData.map((articles, i) => {
+              {articlesData.slice(0, isEndIndex).map((articles, i) => {
                 return (
                   <NewsCard
                     articles={articles}
@@ -44,7 +60,7 @@ export function NewsCardList({ isLoggedIn }) {
             </ul>
           ))}
 
-        <ShowMoreButton />
+        <ShowMoreButton handleAddThreeMoreCards={handleAddThreeMoreCards} />
       </div>
     </section>
   );

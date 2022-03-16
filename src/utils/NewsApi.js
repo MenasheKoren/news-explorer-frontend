@@ -11,12 +11,16 @@ export class NewsApi {
   }
 
   getArticleData = (query) => {
-    fetch(
-      `${this.apiKey}q=${query}&language=en&from=${this.date.from}&to=${this.date.to}&pageSize=100&apiKey=${this.apiKey}`
+    return fetch(
+      `${this.baseUrl}q=${query}&language=en&from=${this.date.from}&to=${this.date.to}&pageSize=100&apiKey=${this.apiKey}`
     )
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`error :${res.message}`)
-      )
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(`error :${res.message}`);
+        }
+      })
       .then((res) => {
         return res.articles;
       })
