@@ -25,7 +25,6 @@ export function SearchForm({ setKeyword, setShowArticles, setIsLoading }) {
               setSearchInput={setSearchInput}
               searchInput={searchInput}
             />
-
             <SearchButton />
           </div>
         </form>
