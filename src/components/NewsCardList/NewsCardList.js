@@ -36,7 +36,7 @@ export function NewsCardList({ isLoggedIn, keyword, isLoading, setIsLoading }) {
 
         {isLoading ? (
           <Preloader />
-        ) : !articlesData ? (
+        ) : totalResult === 0 ? (
           <NothingFound />
         ) : (
           <ul className="news-cards__list">
