@@ -5,7 +5,7 @@ export function ShowMoreButton({
 }) {
   return (
     <>
-      {endIndex < totalResult && (
+      {endIndex <= totalResult && (
         <button
           className="button show-more-button"
           type="button"
