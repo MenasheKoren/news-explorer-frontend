@@ -4,12 +4,13 @@ import { ShowMoreButton } from "../ShowMoreButton/ShowMoreButton";
 import { Preloader } from "../Preloader/Preloader";
 import { NothingFound } from "../NothingFound/NothingFound";
 import newsApi from "../../utils/NewsApi";
+import { v4 as uuidv4 } from "uuid";
 
 export function NewsCardList({ isLoggedIn, keyword, isLoading, setIsLoading }) {
   const [articlesData, setArticlesData] = useState([]);
-
+  const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(3);
-
+  const [totalResult, setTotalResult] = useState(0);
   function handleAddThreeMoreCards() {
     setEndIndex(endIndex + 3);
   }
@@ -19,11 +20,14 @@ export function NewsCardList({ isLoggedIn, keyword, isLoading, setIsLoading }) {
       .getArticleData(keyword)
       .then((data) => {
         setArticlesData(data);
+        setTotalResult(data.length);
       })
       .then(() => {
         setIsLoading(false);
+        setStartIndex(0);
+        setEndIndex(3);
       });
-  }, [keyword, setIsLoading]);
+  }, [keyword, setIsLoading, totalResult]);
 
   return (
     <section className="news-cards">
@@ -36,15 +40,23 @@ export function NewsCardList({ isLoggedIn, keyword, isLoading, setIsLoading }) {
           <NothingFound />
         ) : (
           <ul className="news-cards__list">
-            {articlesData.slice(0, endIndex).map((articles, i) => {
+            {articlesData.slice(startIndex, endIndex).map((articles) => {
               return (
-                <NewsCard articles={articles} key={i} isLoggedIn={isLoggedIn} />
+                <NewsCard
+                  articles={articles}
+                  key={uuidv4()}
+                  isLoggedIn={isLoggedIn}
+                />
               );
             })}
           </ul>
         )}
 
-        <ShowMoreButton handleAddThreeMoreCards={handleAddThreeMoreCards} />
+        <ShowMoreButton
+          handleAddThreeMoreCards={handleAddThreeMoreCards}
+          totalResult={totalResult}
+          endIndex={endIndex}
+        />
       </div>
     </section>
   );

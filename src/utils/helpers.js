@@ -12,9 +12,3 @@ export function todayMinusSevenDays() {
   const [newDate] = date.toISOString().split("T");
   return newDate;
 }
-
-// const date = articles.publishedAt.toLocaleString("en-US", {
-//   month: "long",
-//   day: "numeric",
-//   year: "numeric",
-// });

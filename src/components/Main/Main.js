@@ -13,7 +13,6 @@ export function Main({ isMobile, isMonitor, isTablet, isLoggedIn }) {
         setKeyword={setKeyword}
         setShowArticles={setShowArticles}
         setIsLoading={setIsLoading}
-        keyword={keyword}
       />
       {showArticles && (
         <NewsCardList

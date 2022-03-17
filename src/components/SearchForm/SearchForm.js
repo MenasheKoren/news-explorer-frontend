@@ -2,21 +2,15 @@ import React, { useState } from "react";
 import { SearchButton } from "../SearchButton/SearchButton";
 import { SearchInput } from "../SearchInput/SearchInput";
 
-export function SearchForm({
-  setKeyword,
-  setShowArticles,
-  setIsLoading,
-  keyword,
-}) {
+export function SearchForm({ setKeyword, setShowArticles, setIsLoading }) {
   const [searchInput, setSearchInput] = useState("");
-
-  function handleGetKeywordInput() {
+  function handleGetKeywordInput(e) {
+    e.preventDefault();
     setShowArticles(true);
     setIsLoading(true);
-    console.log(searchInput);
     setKeyword(searchInput);
-    console.log(keyword);
   }
+
   return (
     <section className="search">
       <div className="search__content">
