@@ -23,9 +23,10 @@ export function Register({
     e.preventDefault();
     auth
       .register({
-        name: email,
-        email: password,
-        password: userName,
+        // eslint-disable-next-line no-restricted-globals
+        userName: name,
+        email: email,
+        password: password,
       })
       .then((result) => {
         if (result && result._id) {
@@ -35,7 +36,9 @@ export function Register({
       .catch((err) => {
         console.log(`Error..... ${err}`);
       })
-      .finally(handleSubmitInfoToolTip);
+      .finally((result) => {
+        console.log(`Did it work? ${result} `);
+      });
   }
 
   useEffect(() => {
@@ -55,7 +58,7 @@ export function Register({
         <div className="form__inputs">
           <FormInput
             defaultValue={email || ""}
-            onChange={handleInputEmail}
+            handleInput={handleInputEmail}
             type="email"
             placeholder="Enter email"
             id="emailInput"
@@ -64,7 +67,7 @@ export function Register({
           />
           <FormInput
             label="Password"
-            onChange={handleInputPassword}
+            handleInput={handleInputPassword}
             type="password"
             placeholder="Enter password"
             id="passwordInput"
@@ -76,7 +79,7 @@ export function Register({
           />
           <FormInput
             label="Username"
-            onChange={handleInputUsername}
+            handleInput={handleInputUsername}
             type="username"
             placeholder="Enter username"
             id="usernameInput"

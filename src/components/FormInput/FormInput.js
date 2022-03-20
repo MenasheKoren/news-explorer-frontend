@@ -3,7 +3,6 @@ import React from "react";
 export function FormInput({
   id,
   name,
-  onChange,
   placeholder,
   type,
   label,
@@ -11,6 +10,7 @@ export function FormInput({
   minLength,
   maxLength,
   pattern,
+  handleInput,
 }) {
   return (
     <label htmlFor={id} className="form__label">
@@ -22,7 +22,7 @@ export function FormInput({
         id={id}
         name={name}
         defaultValue={defaultValue}
-        onChange={onChange}
+        onChange={handleInput}
         minLength={minLength}
         maxLength={maxLength}
         pattern={pattern}

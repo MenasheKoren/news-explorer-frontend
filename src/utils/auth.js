@@ -7,7 +7,7 @@ const BASE_URL =
 
 export const token = localStorage.getItem("token");
 
-export const register = ({ name: userName, email, password }) => {
+export const register = ({ userName: name, email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
@@ -15,7 +15,7 @@ export const register = ({ name: userName, email, password }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      userName,
+      name,
       email,
       password,
     }),
@@ -26,7 +26,7 @@ export const register = ({ name: userName, email, password }) => {
     });
 };
 
-export const authorize = ({ name: userName, email, password }) => {
+export const authorize = ({ userName: name, email, password }) => {
   return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
@@ -34,7 +34,7 @@ export const authorize = ({ name: userName, email, password }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      userName,
+      name,
       email,
       password,
     }),
