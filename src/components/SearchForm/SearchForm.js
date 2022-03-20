@@ -4,13 +4,19 @@ import { SearchInput } from "../SearchInput/SearchInput";
 
 export function SearchForm({ setKeyword, setShowArticles, setIsLoading }) {
   const [searchInput, setSearchInput] = useState("");
+  // const [form, setForm] = React.useState({});
+  // const formRef = React.useRef();
   function handleGetKeywordInput(e) {
     e.preventDefault();
     setShowArticles(true);
     setIsLoading(true);
     setKeyword(searchInput);
   }
-
+  // useEffect(() => {
+  //   const validatedForm = new FormValidator(formSettings, formRef.current);
+  //   validatedForm.enableValidation();
+  //   setForm(validatedForm);
+  // }, []);
   return (
     <section className="search">
       <div className="search__content">

@@ -1,10 +1,9 @@
-import React from "react";
-import { EmailInput } from "../EmailInput/EmailInput";
-import { PasswordInput } from "../PasswordInput/PasswordInput";
-import { UsernameInput } from "../UsernameInput/UsernameInput";
+import React, { useEffect } from "react";
+import { FormInput } from "../FormInput/FormInput";
 import { SaveFormButton } from "../SaveFormButton/SaveFormButton";
 import { FormValidator } from "../../utils/FormValidator/FormValidator";
 import { formSettings } from "../../utils/helpers";
+import * as auth from "../../utils/auth";
 
 export function Register({
   handleInputEmail,
@@ -12,7 +11,7 @@ export function Register({
   userName,
   email,
   password,
-  handleSubmitRegister,
+  handleSetRegistration,
   handleInputUsername,
   handleSwitchRegisterToLoginPopup,
   handleSubmitInfoToolTip,
@@ -20,7 +19,26 @@ export function Register({
   const [form, setForm] = React.useState({});
   const formRef = React.useRef();
 
-  React.useEffect(() => {
+  function handleSubmitRegister(e) {
+    e.preventDefault();
+    auth
+      .register({
+        name: email,
+        email: password,
+        password: userName,
+      })
+      .then((result) => {
+        if (result && result._id) {
+          handleSetRegistration();
+        }
+      })
+      .catch((err) => {
+        console.log(`Error..... ${err}`);
+      })
+      .finally(handleSubmitInfoToolTip);
+  }
+
+  useEffect(() => {
     const validatedForm = new FormValidator(formSettings, formRef.current);
     validatedForm.enableValidation();
     setForm(validatedForm);
@@ -35,9 +53,35 @@ export function Register({
         onSubmit={handleSubmitRegister}
       >
         <div className="form__inputs">
-          <EmailInput email={email} onChange={handleInputEmail} />
-          <PasswordInput password={password} onChange={handleInputPassword} />
-          <UsernameInput userName={userName} onChange={handleInputUsername} />
+          <FormInput
+            defaultValue={email || ""}
+            onChange={handleInputEmail}
+            type="email"
+            placeholder="Enter email"
+            id="emailInput"
+            name="email"
+            label="Email"
+          />
+          <FormInput
+            label="Password"
+            onChange={handleInputPassword}
+            type="password"
+            placeholder="Enter password"
+            id="passwordInput"
+            name="password"
+            defaultValue={password || ""}
+            minLength="2"
+            maxLength="40"
+            pattern=".*\S.*"
+          />
+          <FormInput
+            label="Username"
+            onChange={handleInputUsername}
+            type="username"
+            placeholder="Enter username"
+            id="usernameInput"
+            name="username"
+          />
         </div>
         <SaveFormButton
           saveFormButtonText="Sign up"

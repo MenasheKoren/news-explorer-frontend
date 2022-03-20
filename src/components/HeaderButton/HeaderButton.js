@@ -1,4 +1,6 @@
 import { useLocation } from "react-router-dom";
+import React from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export function HeaderButton({
   loggedIn,
@@ -10,6 +12,8 @@ export function HeaderButton({
   dropdownMenuOpen,
 }) {
   const location = useLocation();
+  const currentUser = React.useContext(CurrentUserContext);
+
   return (
     <>
       {loggedIn && (
