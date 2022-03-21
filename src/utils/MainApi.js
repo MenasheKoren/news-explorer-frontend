@@ -1,6 +1,6 @@
 import { token } from "./auth";
 
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "https://api.news-explorer.mk.students.nomoreparties.sbs";
 
 class MainApi {
   constructor({ baseUrl, headers }) {

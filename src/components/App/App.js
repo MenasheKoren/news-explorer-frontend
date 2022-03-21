@@ -13,8 +13,9 @@ import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import * as auth from "../../utils/auth";
 import { token } from "../../utils/auth";
-import MainApi from "../../utils/MainApi";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
+import { FormContext } from "../../contexts/FormContext";
+import { mainApi } from "../../utils/MainApi";
 
 function App() {
   const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });
@@ -27,8 +28,9 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
+
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false);
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
@@ -72,7 +74,8 @@ function App() {
   // }, []);
 
   function getUserInfoEffect() {
-    MainApi.getUserInfo()
+    mainApi
+      .getUserInfo()
       .then((userData) => {
         setCurrentUser(userData.user);
       })
@@ -85,7 +88,7 @@ function App() {
 
   function handleSubmitLogin() {
     setIsLoggedIn(true);
-    setUserName(userName);
+    setUsername(username);
   }
 
   function handleLogout() {
@@ -115,135 +118,137 @@ function App() {
     setIsLoginPopupOpen(false);
   }
 
-  function handleInputUsername(e) {
-    e.preventDefault();
-    setUserName(e.target.value);
-  }
-
-  function handleInputEmail(e) {
-    e.preventDefault();
-    setEmail(e.target.value);
-  }
-
-  function handleInputPassword(e) {
-    e.preventDefault();
-    setPassword(e.target.value);
-  }
-
-  function handleSwitchRegisterToLoginPopup() {
-    setIsRegisterPopupOpen(false);
-    setIsLoginPopupOpen(true);
-  }
-
-  function handleSwitchLoginToRegisterPopup() {
-    setIsLoginPopupOpen(false);
-    setIsRegisterPopupOpen(true);
-  }
+  // function handleInputUsername(e) {
+  //   e.preventDefault();
+  //   setUserName(e.target.value);
+  // }
+  //
+  // function handleInputEmail(e) {
+  //   e.preventDefault();
+  //   setEmail(e.target.value);
+  // }
+  //
+  // function handleInputPassword(e) {
+  //   e.preventDefault();
+  //   setPassword(e.target.value);
+  // }
+  //
+  // function handleSwitchRegisterToLoginPopup() {
+  //   setIsRegisterPopupOpen(false);
+  //   setIsLoginPopupOpen(true);
+  // }
+  //
+  // function handleSwitchLoginToRegisterPopup() {
+  //   setIsLoginPopupOpen(false);
+  //   setIsRegisterPopupOpen(true);
+  // }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Layout
-              handleLogout={handleLogout}
-              handleLogin={handleSubmitLogin}
-              // handleRegister={handleSubmitRegister}
-              isRegistered={isRegistered}
-              isLoggedIn={isLoggedIn}
-              isDropdownMenuOpen={isDropdownMenuOpen}
-              handleOpenDropdownMenu={handleOpenDropdownMenu}
-              closeAllPopups={closeAllPopups}
-              isMonitorOrTablet={isMonitorOrTablet}
-              isMobile={isMobile}
-              isRegisterPopupOpen={isRegisterPopupOpen}
-              isLoginPopupOpen={isLoginPopupOpen}
-              isInfoToolTipOpen={isInfoToolTipOpen}
-              handleLoginClick={handleLoginClick}
-              handleRegisterClick={handleRegisterClick}
-              handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-              userName={userName}
+      <FormContext.Provider>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Layout
+                handleLogout={handleLogout}
+                handleLogin={handleSubmitLogin}
+                // handleRegister={handleSubmitRegister}
+                isRegistered={isRegistered}
+                isLoggedIn={isLoggedIn}
+                isDropdownMenuOpen={isDropdownMenuOpen}
+                handleOpenDropdownMenu={handleOpenDropdownMenu}
+                closeAllPopups={closeAllPopups}
+                isMonitorOrTablet={isMonitorOrTablet}
+                isMobile={isMobile}
+                isRegisterPopupOpen={isRegisterPopupOpen}
+                isLoginPopupOpen={isLoginPopupOpen}
+                isInfoToolTipOpen={isInfoToolTipOpen}
+                handleLoginClick={handleLoginClick}
+                handleRegisterClick={handleRegisterClick}
+                handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+                username={username}
+              />
+            }
+          >
+            <Route
+              index
+              element={
+                <>
+                  <Main
+                    isMobile={isMobile}
+                    isTablet={isTablet}
+                    isMonitor={isMonitor}
+                    isLoggedIn={isLoggedIn}
+                    getUserInfoEffect={getUserInfoEffect}
+                  />
+                  <PopupWithForm
+                    // isRegisterPopupOpen={isRegisterPopupOpen}
+                    // isLoginPopupOpen={isLoginPopupOpen}
+                    isRegistered={isRegistered}
+                    isLoggedIn={isLoggedIn}
+                    isMonitorOrTablet={isMonitorOrTablet}
+                    isMobile={isMobile}
+                    closeAllPopups={closeAllPopups}
+                  >
+                    <Register
+                    /*closeAllPopups={closeAllPopups}
+                      isRegisterPopupOpen={isRegisterPopupOpen}
+                      isLoginPopupOpen={isLoginPopupOpen}
+                      handleInputUsername={handleInputUsername}
+                      handleInputEmail={handleInputEmail}
+                      handleInputPassword={handleInputPassword}
+                      handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+                      handleSetRegistration={handleSetRegistration}
+                      userName={userName}
+                      email={email}
+                      password={password}
+                      handleSwitchRegisterToLoginPopup={
+                        handleSwitchRegisterToLoginPopup
+                      }*/
+                    />
+                    <Login
+                    /*closeAllPopups={closeAllPopups}
+                      isRegisterPopupOpen={isRegisterPopupOpen}
+                      isLoginPopupOpen={isLoginPopupOpen}
+                      handleInputEmail={handleInputEmail}
+                      handleInputPassword={handleInputPassword}
+                      email={email}
+                      password={password}
+                      handleSwitchLoginToRegisterPopup={
+                        handleSwitchLoginToRegisterPopup
+                      }*/
+                    />
+                  </PopupWithForm>
+
+                  <InfoToolTip
+                    closeAllPopups={closeAllPopups}
+                    isOpen={isInfoToolTipOpen}
+                  />
+                </>
+              }
             />
-          }
-        >
-          <Route
-            index
-            element={
-              <>
-                <Main
-                  isMobile={isMobile}
-                  isTablet={isTablet}
-                  isMonitor={isMonitor}
-                  isLoggedIn={isLoggedIn}
-                  getUserInfoEffect={getUserInfoEffect}
-                />
-                <PopupWithForm
-                  isRegisterPopupOpen={isRegisterPopupOpen}
-                  isLoginPopupOpen={isLoginPopupOpen}
-                  isRegistered={isRegistered}
-                  isLoggedIn={isLoggedIn}
-                  isMonitorOrTablet={isMonitorOrTablet}
-                  isMobile={isMobile}
-                  closeAllPopups={closeAllPopups}
-                >
-                  <Register
-                    closeAllPopups={closeAllPopups}
-                    isRegisterPopupOpen={isRegisterPopupOpen}
-                    isLoginPopupOpen={isLoginPopupOpen}
-                    handleInputUsername={handleInputUsername}
-                    handleInputEmail={handleInputEmail}
-                    handleInputPassword={handleInputPassword}
-                    handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-                    handleSetRegistration={handleSetRegistration}
-                    userName={userName}
-                    email={email}
-                    password={password}
-                    handleSwitchRegisterToLoginPopup={
-                      handleSwitchRegisterToLoginPopup
-                    }
-                  />
-                  <Login
-                    closeAllPopups={closeAllPopups}
-                    isRegisterPopupOpen={isRegisterPopupOpen}
-                    isLoginPopupOpen={isLoginPopupOpen}
-                    handleInputEmail={handleInputEmail}
-                    handleInputPassword={handleInputPassword}
-                    email={email}
-                    password={password}
-                    handleSwitchLoginToRegisterPopup={
-                      handleSwitchLoginToRegisterPopup
-                    }
-                  />
-                </PopupWithForm>
 
-                <InfoToolTip
-                  closeAllPopups={closeAllPopups}
-                  isOpen={isInfoToolTipOpen}
-                />
-              </>
-            }
-          />
+            <Route
+              path="/saved-news"
+              element={
+                <ProtectedRoute isRegistered={isRegistered}>
+                  <SavedNews username={username} />
+                </ProtectedRoute>
+              }
+            />
 
-          <Route
-            path="/saved-news"
-            element={
-              <ProtectedRoute isRegistered={isRegistered}>
-                <SavedNews userName={userName} />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="*"
-            element={
-              <main style={{ padding: "1rem" }}>
-                <h1>Error 404: There's nothing here!</h1>
-              </main>
-            }
-          />
-        </Route>
-      </Routes>
+            <Route
+              path="*"
+              element={
+                <main style={{ padding: "1rem" }}>
+                  <h1>Error 404: There's nothing here!</h1>
+                </main>
+              }
+            />
+          </Route>
+        </Routes>
+      </FormContext.Provider>
     </CurrentUserContext.Provider>
   );
 }

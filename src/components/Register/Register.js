@@ -1,21 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { FormInput } from "../FormInput/FormInput";
 import { SaveFormButton } from "../SaveFormButton/SaveFormButton";
 import { FormValidator } from "../../utils/FormValidator/FormValidator";
 import { formSettings } from "../../utils/helpers";
 import * as auth from "../../utils/auth";
+import { FormContext } from "../../contexts/FormContext";
 
 export function Register({
   handleInputEmail,
   handleInputPassword,
-  userName,
-  email,
-  password,
   handleSetRegistration,
   handleInputUsername,
-  handleSwitchRegisterToLoginPopup,
   handleSubmitInfoToolTip,
+  handleSwitchPopup,
 }) {
+  const {
+    username: [username, setUsername],
+    email: [email, setEmail],
+    password: [password, setPassword],
+  } = useContext(FormContext);
+
   const [form, setForm] = React.useState({});
   const formRef = React.useRef();
 
@@ -23,10 +27,9 @@ export function Register({
     e.preventDefault();
     auth
       .register({
-        // eslint-disable-next-line no-restricted-globals
-        userName: name,
-        email: email,
-        password: password,
+        username,
+        email,
+        password,
       })
       .then((result) => {
         if (result && result._id) {
@@ -96,7 +99,7 @@ export function Register({
         <a
           href="#"
           className="link link__hover entry__redirect-link"
-          onClick={handleSwitchRegisterToLoginPopup}
+          onClick={handleSwitchPopup}
         >
           Sign in
         </a>

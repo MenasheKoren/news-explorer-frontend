@@ -1,17 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { FormInput } from "../FormInput/FormInput";
 import { SaveFormButton } from "../SaveFormButton/SaveFormButton";
 import { FormValidator } from "../../utils/FormValidator/FormValidator";
 import { formSettings } from "../../utils/helpers";
+import { FormContext } from "../../contexts/FormContext";
 
 export function Login({
   handleInputEmail,
   handleInputPassword,
-  email,
-  password,
   handleSubmitLogin,
-  handleSwitchLoginToRegisterPopup,
+  handleSwitchPopup,
 }) {
+  const {
+    email: [email, setEmail],
+    password: [password, setPassword],
+  } = useContext(FormContext);
+
   const [form, setForm] = React.useState({});
   const formRef = React.useRef();
 
@@ -53,7 +57,7 @@ export function Login({
         or{" "}
         <button
           className="link link__hover entry__redirect-link"
-          onClick={handleSwitchLoginToRegisterPopup}
+          onClick={handleSwitchPopup}
         >
           Sign up
         </button>
