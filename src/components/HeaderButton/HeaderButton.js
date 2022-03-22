@@ -1,42 +1,45 @@
 import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useLocation } from "react-router-dom";
+import { AuthStateContext } from "../../contexts/AuthStateContext";
+import { AppStateContext } from "../../contexts/AppStateContext";
 
 export function HeaderButton({
   dropdownMenuOpen,
-  loggedIn,
-  onLoginClick,
-  onLogoutClick,
-  onRegisterClick,
-  registered,
+  // loggedIn,
+  // onLoginClick,
+  // onLogoutClick,
+  // onRegisterClick,
+  // registered,
 }) {
   const location = useLocation();
   const currentUser = useContext(CurrentUserContext);
-  // const {
-  //   loggedIn: [isLoggedIn, setIsLoggedIn],
-  //   registered: [isRegistered, setIsRegistered],
-  // } = useContext(AuthStateContext);
+  const {
+    loggedIn: [isLoggedIn, setIsLoggedIn],
+    registered: [isRegistered, setIsRegistered],
+  } = useContext(AuthStateContext);
+  const {
+    registerPopup: [isRegisterPopupOpen, setIsRegisterPopupOpen],
+    loginPopup: [isLoginPopupOpen, setIsLoginPopupOpen],
+  } = useContext(AppStateContext);
 
-  // const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
-  // const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+  function handleLogout() {
+    setIsLoggedIn(false);
+  }
 
-  // function handleLogout() {
-  //   setIsLoggedIn(false);
-  // }
-  //
-  // function handleRegisterClick() {
-  //   setIsRegisterPopupOpen(true);
-  // }
-  //
-  // function handleLoginClick() {
-  //   setIsLoginPopupOpen(true);
-  // }
+  function handleRegisterClick() {
+    setIsRegisterPopupOpen(true);
+  }
+
+  function handleLoginClick() {
+    setIsLoginPopupOpen(true);
+  }
 
   return (
     <>
-      {loggedIn && (
+      {isLoggedIn && (
         <button
-          onClick={onLogoutClick}
+          onClick={handleLogout}
           className="nav__item button  nav__entry logout__button "
           style={
             location.pathname === "/saved-news" && !dropdownMenuOpen
@@ -50,9 +53,9 @@ export function HeaderButton({
           <svg className="logout__icon" />
         </button>
       )}
-      {registered && !loggedIn && (
+      {isRegistered && !isLoggedIn && (
         <button
-          onClick={onLoginClick}
+          onClick={handleLoginClick}
           className="nav__item button nav__entry"
           style={
             location.pathname === "/saved-news"
@@ -65,9 +68,9 @@ export function HeaderButton({
           Sign in
         </button>
       )}
-      {!registered && !loggedIn && (
+      {!isRegistered && !isLoggedIn && (
         <button
-          onClick={onRegisterClick}
+          onClick={handleRegisterClick}
           className="nav__item button nav__entry"
           style={
             location.pathname === "/saved-news" || dropdownMenuOpen
