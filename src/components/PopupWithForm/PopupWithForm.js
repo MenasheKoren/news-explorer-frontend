@@ -1,39 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { PopupCloseButton } from "../PopupCloseButton/PopupCloseButton";
 import { MobileCloseButton } from "../MobileCloseButton/MobileCloseButton";
 import { Register } from "../Register/Register";
 import { Login } from "../Login/Login";
 import { FormContext } from "../../contexts/FormContext";
 
-export function PopupWithForm({ closeAllPopups, isRegistered, isMobile }) {
+export function PopupWithForm({
+  closeAllPopups,
+  isMobile,
+  isRegistered,
+  isRegisterPopupOpen,
+  isLoginPopupOpen,
+  handleInputPassword,
+  handleInputUsername,
+  handleInputEmail,
+  handleSwitchPopup,
+}) {
   const {
     username: [username, setUsername],
     email: [email, setEmail],
     password: [password, setPassword],
   } = useContext(FormContext);
-
-  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
-
-  function handleSwitchPopup() {
-    setIsRegisterPopupOpen(!isRegisterPopupOpen);
-    setIsLoginPopupOpen(!isLoginPopupOpen);
-  }
-
-  function handleInputUsername(e) {
-    e.preventDefault();
-    setUsername(e.target.value);
-  }
-
-  function handleInputEmail(e) {
-    e.preventDefault();
-    setEmail(e.target.value);
-  }
-
-  function handleInputPassword(e) {
-    e.preventDefault();
-    setPassword(e.target.value);
-  }
 
   return (
     <section

@@ -14,8 +14,9 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import * as auth from "../../utils/auth";
 import { token } from "../../utils/auth";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
-import { FormContext } from "../../contexts/FormContext";
+import FormContextProvider from "../../contexts/FormContext";
 import { mainApi } from "../../utils/MainApi";
+import AuthStateContextProvider from "../../contexts/AuthStateContext";
 
 function App() {
   const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });
@@ -49,7 +50,6 @@ function App() {
         .getContent(token)
         .then(() => {
           setIsRegistered(true);
-          navigate("/", { replace: true });
         })
         .catch((err) => console.log(`Error..... ${err}`));
     }
@@ -118,137 +118,136 @@ function App() {
     setIsLoginPopupOpen(false);
   }
 
-  // function handleInputUsername(e) {
-  //   e.preventDefault();
-  //   setUserName(e.target.value);
-  // }
-  //
-  // function handleInputEmail(e) {
-  //   e.preventDefault();
-  //   setEmail(e.target.value);
-  // }
-  //
-  // function handleInputPassword(e) {
-  //   e.preventDefault();
-  //   setPassword(e.target.value);
-  // }
-  //
-  // function handleSwitchRegisterToLoginPopup() {
-  //   setIsRegisterPopupOpen(false);
-  //   setIsLoginPopupOpen(true);
-  // }
-  //
-  // function handleSwitchLoginToRegisterPopup() {
-  //   setIsLoginPopupOpen(false);
-  //   setIsRegisterPopupOpen(true);
-  // }
+  function handleInputUsername(e) {
+    e.preventDefault();
+    setUsername(e.target.value);
+  }
+
+  function handleInputEmail(e) {
+    e.preventDefault();
+    setEmail(e.target.value);
+  }
+
+  function handleInputPassword(e) {
+    e.preventDefault();
+    setPassword(e.target.value);
+  }
+
+  function handleSwitchPopup() {
+    setIsRegisterPopupOpen(!isRegisterPopupOpen);
+    setIsLoginPopupOpen(!isLoginPopupOpen);
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <FormContext.Provider>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Layout
-                handleLogout={handleLogout}
-                handleLogin={handleSubmitLogin}
-                // handleRegister={handleSubmitRegister}
-                isRegistered={isRegistered}
-                isLoggedIn={isLoggedIn}
-                isDropdownMenuOpen={isDropdownMenuOpen}
-                handleOpenDropdownMenu={handleOpenDropdownMenu}
-                closeAllPopups={closeAllPopups}
-                isMonitorOrTablet={isMonitorOrTablet}
-                isMobile={isMobile}
-                isRegisterPopupOpen={isRegisterPopupOpen}
-                isLoginPopupOpen={isLoginPopupOpen}
-                isInfoToolTipOpen={isInfoToolTipOpen}
-                handleLoginClick={handleLoginClick}
-                handleRegisterClick={handleRegisterClick}
-                handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-                username={username}
-              />
-            }
-          >
+      <FormContextProvider>
+        <AuthStateContextProvider>
+          <Routes>
             <Route
-              index
+              path="/"
               element={
-                <>
-                  <Main
-                    isMobile={isMobile}
-                    isTablet={isTablet}
-                    isMonitor={isMonitor}
-                    isLoggedIn={isLoggedIn}
-                    getUserInfoEffect={getUserInfoEffect}
-                  />
-                  <PopupWithForm
-                    // isRegisterPopupOpen={isRegisterPopupOpen}
-                    // isLoginPopupOpen={isLoginPopupOpen}
-                    isRegistered={isRegistered}
-                    isLoggedIn={isLoggedIn}
-                    isMonitorOrTablet={isMonitorOrTablet}
-                    isMobile={isMobile}
-                    closeAllPopups={closeAllPopups}
-                  >
-                    <Register
-                    /*closeAllPopups={closeAllPopups}
+                <Layout
+                  handleLogout={handleLogout}
+                  handleLogin={handleSubmitLogin}
+                  // handleRegister={handleSubmitRegister}
+                  isRegistered={isRegistered}
+                  isLoggedIn={isLoggedIn}
+                  isDropdownMenuOpen={isDropdownMenuOpen}
+                  handleOpenDropdownMenu={handleOpenDropdownMenu}
+                  closeAllPopups={closeAllPopups}
+                  isMonitorOrTablet={isMonitorOrTablet}
+                  isMobile={isMobile}
+                  isRegisterPopupOpen={isRegisterPopupOpen}
+                  isLoginPopupOpen={isLoginPopupOpen}
+                  isInfoToolTipOpen={isInfoToolTipOpen}
+                  handleLoginClick={handleLoginClick}
+                  handleRegisterClick={handleRegisterClick}
+                  handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+                  username={currentUser.username}
+                  setIsLoggedIn={setIsLoggedIn}
+                  setIsRegisteredPopupOpen={setIsRegisterPopupOpen}
+                  setIsLoginPopupOpen={setIsLoginPopupOpen}
+                />
+              }
+            >
+              <Route
+                index
+                element={
+                  <>
+                    <Main
+                      isMobile={isMobile}
+                      isTablet={isTablet}
+                      isMonitor={isMonitor}
+                      isLoggedIn={isLoggedIn}
+                      getUserInfoEffect={getUserInfoEffect}
+                    />
+                    <PopupWithForm
                       isRegisterPopupOpen={isRegisterPopupOpen}
                       isLoginPopupOpen={isLoginPopupOpen}
+                      isRegistered={isRegistered}
+                      // isLoggedIn={isLoggedIn}
+                      // isMonitorOrTablet={isMonitorOrTablet}
+                      isMobile={isMobile}
                       handleInputUsername={handleInputUsername}
                       handleInputEmail={handleInputEmail}
                       handleInputPassword={handleInputPassword}
-                      handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-                      handleSetRegistration={handleSetRegistration}
-                      userName={userName}
-                      email={email}
-                      password={password}
-                      handleSwitchRegisterToLoginPopup={
-                        handleSwitchRegisterToLoginPopup
-                      }*/
+                      handleSwitchPopup={handleSwitchPopup}
+                      closeAllPopups={closeAllPopups}
+                    >
+                      <Register
+                      // closeAllPopups={closeAllPopups}
+                      // isRegisterPopupOpen={isRegisterPopupOpen}
+                      // isLoginPopupOpen={isLoginPopupOpen}
+                      // handleInputUsername={handleInputUsername}
+                      // handleInputEmail={handleInputEmail}
+                      // handleInputPassword={handleInputPassword}
+                      // handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+                      // handleSetRegistration={handleSetRegistration}
+                      // username={username}
+                      // email={email}
+                      // password={password}
+                      // handleSwitchPopup={handleSwitchPopup}
+                      />
+                      <Login
+                      // closeAllPopups={closeAllPopups}
+                      // isRegisterPopupOpen={isRegisterPopupOpen}
+                      // isLoginPopupOpen={isLoginPopupOpen}
+                      // handleInputEmail={handleInputEmail}
+                      // handleInputPassword={handleInputPassword}
+                      // email={email}
+                      // password={password}
+                      // handleSwitchPopup={handleSwitchPopup}
+                      />
+                    </PopupWithForm>
+                    <InfoToolTip
+                      closeAllPopups={closeAllPopups}
+                      isOpen={isInfoToolTipOpen}
                     />
-                    <Login
-                    /*closeAllPopups={closeAllPopups}
-                      isRegisterPopupOpen={isRegisterPopupOpen}
-                      isLoginPopupOpen={isLoginPopupOpen}
-                      handleInputEmail={handleInputEmail}
-                      handleInputPassword={handleInputPassword}
-                      email={email}
-                      password={password}
-                      handleSwitchLoginToRegisterPopup={
-                        handleSwitchLoginToRegisterPopup
-                      }*/
-                    />
-                  </PopupWithForm>
+                  </>
+                }
+              />
 
-                  <InfoToolTip
-                    closeAllPopups={closeAllPopups}
-                    isOpen={isInfoToolTipOpen}
-                  />
-                </>
-              }
-            />
+              <Route
+                path="/saved-news"
+                element={
+                  <ProtectedRoute isRegistered={isRegistered}>
+                    <SavedNews username={currentUser.username} />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route
-              path="/saved-news"
-              element={
-                <ProtectedRoute isRegistered={isRegistered}>
-                  <SavedNews username={username} />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="*"
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <h1>Error 404: There's nothing here!</h1>
-                </main>
-              }
-            />
-          </Route>
-        </Routes>
-      </FormContext.Provider>
+              <Route
+                path="*"
+                element={
+                  <main style={{ padding: "1rem" }}>
+                    <h1>Error 404: There's nothing here!</h1>
+                  </main>
+                }
+              />
+            </Route>
+          </Routes>
+        </AuthStateContextProvider>
+      </FormContextProvider>
     </CurrentUserContext.Provider>
   );
 }

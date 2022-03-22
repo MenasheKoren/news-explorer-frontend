@@ -4,7 +4,7 @@ const BASE_URL = "https://api.news-explorer.mk.students.nomoreparties.sbs";
 
 export const token = localStorage.getItem("token");
 
-export const register = ({ userName: name, email, password }) => {
+export const register = ({ username: name, email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
@@ -23,7 +23,7 @@ export const register = ({ userName: name, email, password }) => {
     });
 };
 
-export const authorize = ({ userName: name, email, password }) => {
+export const authorize = ({ email, password }) => {
   return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
@@ -31,7 +31,6 @@ export const authorize = ({ userName: name, email, password }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name,
       email,
       password,
     }),
