@@ -8,13 +8,11 @@ import { FormContext } from "../../contexts/FormContext";
 export function PopupWithForm({
   closeAllPopups,
   isMobile,
-  isRegistered,
   isRegisterPopupOpen,
   isLoginPopupOpen,
-  handleInputPassword,
-  handleInputUsername,
-  handleInputEmail,
   handleSwitchPopup,
+  handleSubmitInfoToolTip,
+  handleSetRegistration,
 }) {
   const {
     username: [username, setUsername],
@@ -33,19 +31,17 @@ export function PopupWithForm({
         <PopupCloseButton onClick={closeAllPopups} />
         {isMobile && <MobileCloseButton onClick={closeAllPopups} />}
 
-        {!isRegistered && (
+        {isRegisterPopupOpen && (
           <Register
-            handleInputEmail={handleInputEmail}
-            handleInputPassword={handleInputPassword}
-            handleInputUsername={handleInputUsername}
             handleSwitchPopup={handleSwitchPopup}
+            handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+            handleSetRegistration={handleSetRegistration}
           />
         )}
-        {isRegistered && (
+        {isLoginPopupOpen && (
           <Login
-            handleInputEmail={handleInputEmail}
-            handleInputPassword={handleInputPassword}
             handleSwitchPopup={handleSwitchPopup}
+            handleSubmitInfoToolTip={handleSubmitInfoToolTip}
           />
         )}
       </div>

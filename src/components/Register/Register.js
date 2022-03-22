@@ -7,10 +7,7 @@ import * as auth from "../../utils/auth";
 import { FormContext } from "../../contexts/FormContext";
 
 export function Register({
-  handleInputEmail,
-  handleInputUsername,
   handleSetRegistration,
-  handleInputPassword,
   handleSubmitInfoToolTip,
   handleSwitchPopup,
 }) {
@@ -38,9 +35,6 @@ export function Register({
       })
       .catch((err) => {
         console.log(`Error..... ${err}`);
-      })
-      .finally((result) => {
-        console.log(`Did it work? ${result} `);
       });
   }
 
@@ -61,7 +55,9 @@ export function Register({
         <div className="form__inputs">
           <FormInput
             defaultValue={email || ""}
-            handleInput={handleInputEmail}
+            handleInput={(e) => {
+              setEmail(e.target.value);
+            }}
             type="email"
             placeholder="Enter email"
             id="emailInput"
@@ -70,7 +66,9 @@ export function Register({
           />
           <FormInput
             label="Password"
-            handleInput={handleInputPassword}
+            handleInput={(e) => {
+              setPassword(e.target.value);
+            }}
             type="password"
             placeholder="Enter password"
             id="passwordInput"
@@ -82,7 +80,9 @@ export function Register({
           />
           <FormInput
             label="Username"
-            handleInput={handleInputUsername}
+            handleInput={(e) => {
+              setUsername(e.target.value);
+            }}
             type="username"
             placeholder="Enter username"
             id="usernameInput"

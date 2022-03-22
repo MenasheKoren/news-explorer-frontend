@@ -5,12 +5,7 @@ import { FormValidator } from "../../utils/FormValidator/FormValidator";
 import { formSettings } from "../../utils/helpers";
 import { FormContext } from "../../contexts/FormContext";
 
-export function Login({
-  handleInputEmail,
-  handleInputPassword,
-  handleSubmitLogin,
-  handleSwitchPopup,
-}) {
+export function Login({ handleSubmitLogin, handleSwitchPopup }) {
   const {
     email: [email, setEmail],
     password: [password, setPassword],
@@ -27,11 +22,13 @@ export function Login({
   return (
     <div className="entry entry_type_login">
       <h2 className="entry__title">Log in</h2>
-      <form className="entry__form" onSubmit={handleSubmitLogin}>
+      <form className="entry__form" onSubmit={handleSubmitLogin} ref={formRef}>
         <div className="form__inputs">
           <FormInput
             defaultValue={email || ""}
-            onChange={handleInputEmail}
+            handleInput={(e) => {
+              setEmail(e.target.value);
+            }}
             type="email"
             placeholder="Enter email"
             id="emailInput"
@@ -40,7 +37,9 @@ export function Login({
           />
           <FormInput
             label="Password"
-            onChange={handleInputPassword}
+            handleInput={(e) => {
+              setPassword(e.target.value);
+            }}
             type="password"
             placeholder="Enter password"
             id="passwordInput"

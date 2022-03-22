@@ -118,20 +118,20 @@ function App() {
     setIsLoginPopupOpen(false);
   }
 
-  function handleInputUsername(e) {
-    e.preventDefault();
-    setUsername(e.target.value);
-  }
-
-  function handleInputEmail(e) {
-    e.preventDefault();
-    setEmail(e.target.value);
-  }
-
-  function handleInputPassword(e) {
-    e.preventDefault();
-    setPassword(e.target.value);
-  }
+  // function handleInputUsername(e) {
+  //   // e.preventDefault();
+  //   setUsername(e.target.value);
+  // }
+  //
+  // function handleInputEmail(e) {
+  //   // e.preventDefault();
+  //   setEmail(e.target.value);
+  // }
+  //
+  // function handleInputPassword(e) {
+  //   // e.preventDefault();
+  //   setPassword(e.target.value);
+  // }
 
   function handleSwitchPopup() {
     setIsRegisterPopupOpen(!isRegisterPopupOpen);
@@ -188,11 +188,13 @@ function App() {
                       // isLoggedIn={isLoggedIn}
                       // isMonitorOrTablet={isMonitorOrTablet}
                       isMobile={isMobile}
-                      handleInputUsername={handleInputUsername}
-                      handleInputEmail={handleInputEmail}
-                      handleInputPassword={handleInputPassword}
+                      // handleInputUsername={handleInputUsername}
+                      // handleInputEmail={handleInputEmail}
+                      // handleInputPassword={handleInputPassword}
                       handleSwitchPopup={handleSwitchPopup}
                       closeAllPopups={closeAllPopups}
+                      handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+                      handleSetRegistration={handleSetRegistration}
                     >
                       <Register
                       // closeAllPopups={closeAllPopups}
