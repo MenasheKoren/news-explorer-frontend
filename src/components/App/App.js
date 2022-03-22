@@ -16,8 +16,6 @@ import { token } from "../../utils/auth";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import FormContextProvider from "../../contexts/FormContext";
 import { mainApi } from "../../utils/MainApi";
-// import AuthStateContextProvider from "../../contexts/AuthStateContext";
-// import AppStateContextProvider from "../../contexts/AppStateContext";
 
 function App() {
   const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });
@@ -26,6 +24,7 @@ function App() {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const [currentUser, setCurrentUser] = useState({});
+  const localEmail = localStorage.getItem("localEmail");
   const localUsername = localStorage.getItem("localUsername");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
@@ -72,7 +71,7 @@ function App() {
     mainApi
       .getUserInfo()
       .then((userData) => {
-        setCurrentUser(userData.user);
+        setCurrentUser(userData.user.name);
       })
       .catch((err) => console.log(`Error..... ${err}`));
   }
@@ -81,13 +80,25 @@ function App() {
     setIsRegistered(true);
   }
 
-  function handleSubmitLogin() {
-    setIsLoggedIn(true);
-    setUsername(username);
+  function handleLogin() {
+    return new Promise((res) => {
+      setIsRegistered(true);
+
+      res();
+    }).catch((err) => console.log(`Error..... ${err}`));
   }
 
   function handleLogout() {
-    setIsLoggedIn(false);
+    return new Promise((res) => {
+      setIsRegistered(false);
+      res();
+    })
+      .then(() => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("localEmail");
+      })
+
+      .catch((err) => console.log(`Error..... ${err}`));
   }
 
   function handleOpenDropdownMenu() {
@@ -113,21 +124,6 @@ function App() {
     setIsLoginPopupOpen(false);
   }
 
-  // function handleInputUsername(e) {
-  //   // e.preventDefault();
-  //   setUsername(e.target.value);
-  // }
-  //
-  // function handleInputEmail(e) {
-  //   // e.preventDefault();
-  //   setEmail(e.target.value);
-  // }
-  //
-  // function handleInputPassword(e) {
-  //   // e.preventDefault();
-  //   setPassword(e.target.value);
-  // }
-
   function handleSwitchPopup() {
     setIsRegisterPopupOpen(!isRegisterPopupOpen);
     setIsLoginPopupOpen(!isLoginPopupOpen);
@@ -142,7 +138,7 @@ function App() {
             element={
               <Layout
                 handleLogout={handleLogout}
-                handleLogin={handleSubmitLogin}
+                handleLogin={handleLogin}
                 // handleRegister={handleSubmitRegister}
                 isRegistered={isRegistered}
                 isLoggedIn={isLoggedIn}
@@ -157,7 +153,7 @@ function App() {
                 handleLoginClick={handleLoginClick}
                 handleRegisterClick={handleRegisterClick}
                 handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-                username={localUsername}
+                username={username}
                 setIsLoggedIn={setIsLoggedIn}
                 setIsRegisteredPopupOpen={setIsRegisterPopupOpen}
                 setIsLoginPopupOpen={setIsLoginPopupOpen}
@@ -179,6 +175,7 @@ function App() {
                     isRegisterPopupOpen={isRegisterPopupOpen}
                     isLoginPopupOpen={isLoginPopupOpen}
                     isRegistered={isRegistered}
+                    handleLogin={handleLogin}
                     // isLoggedIn={isLoggedIn}
                     // isMonitorOrTablet={isMonitorOrTablet}
                     isMobile={isMobile}
@@ -227,7 +224,7 @@ function App() {
               path="/saved-news"
               element={
                 <ProtectedRoute isRegistered={isRegistered}>
-                  <SavedNews username={localUsername} />
+                  <SavedNews username={username} />
                 </ProtectedRoute>
               }
             />

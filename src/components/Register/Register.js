@@ -30,6 +30,7 @@ export function Register({
       })
       .then((result) => {
         if (result && result._id) {
+          localStorage.setItem("localUsername", username);
           handleSetRegistration();
         }
       })

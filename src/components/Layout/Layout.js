@@ -47,7 +47,7 @@ export function Layout({
           handleLoginClick={handleLoginClick}
           handleRegisterClick={handleRegisterClick}
           handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-          username={currentUser.name}
+          username={username}
         />
         <MobileMenu
           handleLogout={handleLogout}
