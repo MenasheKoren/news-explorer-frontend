@@ -15,11 +15,8 @@ export function Header({
   handleLoginClick,
   isLoggedIn,
   isRegistered,
+  username,
 }) {
-  // const {
-  //   loggedIn: [isLoggedIn, setIsLoggedIn],
-  //   registered: [isRegistered, setIsRegistered],
-  // } = useContext(AuthStateContext);
   const location = useLocation();
 
   return (
@@ -59,7 +56,7 @@ export function Header({
             <HeaderButton
               loggedIn={isLoggedIn}
               onLogoutClick={handleLogout}
-              // userName={username}
+              username={username}
               registered={isRegistered}
               onLoginClick={handleLoginClick}
               onRegisterClick={handleRegisterClick}

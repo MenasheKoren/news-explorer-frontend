@@ -9,28 +9,10 @@ export function HeaderButton({
   onLogoutClick,
   onRegisterClick,
   registered,
+  username,
 }) {
   const location = useLocation();
   const currentUser = useContext(CurrentUserContext);
-  // const {
-  //   loggedIn: [isLoggedIn, setIsLoggedIn],
-  //   registered: [isRegistered, setIsRegistered],
-  // } = useContext(AuthStateContext);
-
-  // const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
-  // const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
-
-  // function handleLogout() {
-  //   setIsLoggedIn(false);
-  // }
-  //
-  // function handleRegisterClick() {
-  //   setIsRegisterPopupOpen(true);
-  // }
-  //
-  // function handleLoginClick() {
-  //   setIsLoginPopupOpen(true);
-  // }
 
   return (
     <>
@@ -46,7 +28,7 @@ export function HeaderButton({
               : {}
           }
         >
-          {currentUser ? currentUser.name : "Gollum"}
+          {username ? username : "Gollum"}
           <svg className="logout__icon" />
         </button>
       )}
