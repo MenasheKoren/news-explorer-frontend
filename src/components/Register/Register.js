@@ -8,9 +8,9 @@ import { FormContext } from "../../contexts/FormContext";
 
 export function Register({
   handleInputEmail,
-  handleInputPassword,
-  handleSetRegistration,
   handleInputUsername,
+  handleSetRegistration,
+  handleInputPassword,
   handleSubmitInfoToolTip,
   handleSwitchPopup,
 }) {

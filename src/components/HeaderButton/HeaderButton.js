@@ -1,18 +1,36 @@
-import { useLocation } from "react-router-dom";
-import React from "react";
+import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useLocation } from "react-router-dom";
 
 export function HeaderButton({
+  dropdownMenuOpen,
   loggedIn,
-  onLogoutClick,
   onLoginClick,
+  onLogoutClick,
   onRegisterClick,
   registered,
-  userName,
-  dropdownMenuOpen,
 }) {
   const location = useLocation();
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
+  // const {
+  //   loggedIn: [isLoggedIn, setIsLoggedIn],
+  //   registered: [isRegistered, setIsRegistered],
+  // } = useContext(AuthStateContext);
+
+  // const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
+  // const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+
+  // function handleLogout() {
+  //   setIsLoggedIn(false);
+  // }
+  //
+  // function handleRegisterClick() {
+  //   setIsRegisterPopupOpen(true);
+  // }
+  //
+  // function handleLoginClick() {
+  //   setIsLoginPopupOpen(true);
+  // }
 
   return (
     <>
@@ -28,7 +46,7 @@ export function HeaderButton({
               : {}
           }
         >
-          {userName ? { userName } : "Gollum"}
+          {currentUser ? currentUser.name : "Gollum"}
           <svg className="logout__icon" />
         </button>
       )}

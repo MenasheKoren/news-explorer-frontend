@@ -8,15 +8,18 @@ import { HeaderTitle } from "../HeaderTitle/HeaderTitle";
 export function Header({
   handleOpenDropdownMenu,
   isDropdownMenuOpen,
-  isRegistered,
-  handleLogout,
-  isLoggedIn,
   isMobile,
   isMonitorOrTablet,
-  handleLoginClick,
+  handleLogout,
   handleRegisterClick,
-  userName,
+  handleLoginClick,
+  isLoggedIn,
+  isRegistered,
 }) {
+  // const {
+  //   loggedIn: [isLoggedIn, setIsLoggedIn],
+  //   registered: [isRegistered, setIsRegistered],
+  // } = useContext(AuthStateContext);
   const location = useLocation();
 
   return (
@@ -56,7 +59,7 @@ export function Header({
             <HeaderButton
               loggedIn={isLoggedIn}
               onLogoutClick={handleLogout}
-              userName={userName}
+              // userName={username}
               registered={isRegistered}
               onLoginClick={handleLoginClick}
               onRegisterClick={handleRegisterClick}
