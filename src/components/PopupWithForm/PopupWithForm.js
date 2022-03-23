@@ -14,12 +14,6 @@ export function PopupWithForm({
   handleSetRegistration,
   handleLogin,
 }) {
-  // const {
-  //   username: [username, setUsername],
-  //   email: [email, setEmail],
-  //   password: [password, setPassword],
-  // } = useContext(FormContext);
-
   return (
     <section
       className={[
