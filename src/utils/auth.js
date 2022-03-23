@@ -2,7 +2,7 @@ import checkResponse from "./checkResponse";
 
 const BASE_URL = "https://api.news-explorer.mk.students.nomoreparties.sbs";
 
-export const token = localStorage.getItem("token");
+// export const token = localStorage.getItem("token");
 
 export const register = ({ username: name, email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -44,15 +44,16 @@ export const authorize = (email, password) => {
     });
 };
 
-export const getContent = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then(checkResponse)
-    .then((data) => data);
+export const getContent = () => {
+  if (localStorage.getItem("token") !== null)
+    return fetch(`${BASE_URL}/users/me`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then(checkResponse)
+      .then((data) => data);
 };

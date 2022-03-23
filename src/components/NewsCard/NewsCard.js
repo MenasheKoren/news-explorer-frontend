@@ -19,6 +19,7 @@ export function NewsCard({
       setIsBookmarked(true);
       setSavedArticles([...savedArticles]);
     } else {
+      setIsBookmarked(false);
     }
   }
 

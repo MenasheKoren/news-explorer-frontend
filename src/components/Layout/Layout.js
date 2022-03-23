@@ -3,7 +3,6 @@ import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
 import { MobileMenu } from "../MobileMenu/MobileMenu";
 import React from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export function Layout({
   handleOpenDropdownMenu,
@@ -22,12 +21,8 @@ export function Layout({
   isInfoToolTipOpen,
   isLoginPopupOpen,
   isRegisterPopupOpen,
-  setIsRegisteredPopupOpen,
-  setIsLoginPopupOpen,
   username,
-  setIsLoggedIn,
 }) {
-  const currentUser = React.useContext(CurrentUserContext);
   return (
     <div className="page">
       <div className="content">

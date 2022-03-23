@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Main } from "../Main/Main";
 import { SavedNews } from "../SavedNews/SavedNews";
@@ -12,10 +12,8 @@ import { InfoToolTip } from "../InfoToolTip/InfoToolTip";
 import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import * as auth from "../../utils/auth";
-import { token } from "../../utils/auth";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import FormContextProvider from "../../contexts/FormContext";
-import { mainApi } from "../../utils/MainApi";
 
 function App() {
   const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });
@@ -24,11 +22,8 @@ function App() {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const [currentUser, setCurrentUser] = useState({});
-  const localEmail = localStorage.getItem("localEmail");
-  const localUsername = localStorage.getItem("localUsername");
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
 
@@ -39,20 +34,19 @@ function App() {
 
   const [savedArticles, setSavedArticles] = useState([]);
 
-  const navigate = useNavigate();
-  const location = useLocation();
-
   useEffect(() => {
-    if (token) {
-      localStorage.getItem(token);
+    if (localStorage.getItem("token") !== null) {
+      localStorage.getItem("token");
       auth
-        .getContent(token)
-        .then(() => {
+        .getContent()
+        .then((data) => {
           setIsRegistered(true);
+          setIsLoggedIn(true);
+          setUsername(data.user.name);
         })
         .catch((err) => console.log(`Error..... ${err}`));
     }
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     const closeByEscape = (e) => {
@@ -66,15 +60,6 @@ function App() {
     return () => document.removeEventListener("keydown", closeByEscape);
   }, []);
 
-  function getUserInfoEffect() {
-    mainApi
-      .getUserInfo()
-      .then((userData) => {
-        setCurrentUser(userData.user);
-      })
-      .catch((err) => console.log(`Error..... ${err}`));
-  }
-
   function handleSetRegistration() {
     setIsRegistered(true);
   }
@@ -82,7 +67,6 @@ function App() {
   function handleLogin() {
     return new Promise((res) => {
       setIsLoggedIn(true);
-      setUsername(localUsername);
       res();
     }).catch((err) => console.log(`Error..... ${err}`));
   }
@@ -95,8 +79,6 @@ function App() {
     })
       .then(() => {
         localStorage.removeItem("token");
-        localStorage.removeItem("localEmail");
-        localStorage.removeItem("localUsername");
       })
 
       .catch((err) => console.log(`Error..... ${err}`));
@@ -201,7 +183,7 @@ function App() {
               element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
                   <SavedNews
-                    username={localUsername}
+                    username={username}
                     savedArticles={savedArticles}
                     setSavedArticles={setSavedArticles}
                   />

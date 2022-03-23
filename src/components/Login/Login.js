@@ -5,14 +5,12 @@ import { FormValidator } from "../../utils/FormValidator/FormValidator";
 import { formSettings } from "../../utils/helpers";
 import { FormContext } from "../../contexts/FormContext";
 import * as auth from "../../utils/auth";
-import { useNavigate } from "react-router-dom";
 
 export function Login({ handleLogin, handleSwitchPopup, closeAllPopups }) {
   const {
     email: [email, setEmail],
     password: [password, setPassword],
   } = useContext(FormContext);
-  const navigate = useNavigate();
   const [form, setForm] = React.useState({});
   const formRef = React.useRef();
 
@@ -25,7 +23,6 @@ export function Login({ handleLogin, handleSwitchPopup, closeAllPopups }) {
       .authorize(email, password)
       .then((data) => {
         if (data.token) {
-          localStorage.setItem("localEmail", email);
           handleLogin().then(() => {
             closeAllPopups();
           });

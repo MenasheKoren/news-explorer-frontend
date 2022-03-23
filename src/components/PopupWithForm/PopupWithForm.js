@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { PopupCloseButton } from "../PopupCloseButton/PopupCloseButton";
 import { MobileCloseButton } from "../MobileCloseButton/MobileCloseButton";
 import { Register } from "../Register/Register";
 import { Login } from "../Login/Login";
-import { FormContext } from "../../contexts/FormContext";
 
 export function PopupWithForm({
   closeAllPopups,
@@ -15,11 +14,11 @@ export function PopupWithForm({
   handleSetRegistration,
   handleLogin,
 }) {
-  const {
-    username: [username, setUsername],
-    email: [email, setEmail],
-    password: [password, setPassword],
-  } = useContext(FormContext);
+  // const {
+  //   username: [username, setUsername],
+  //   email: [email, setEmail],
+  //   password: [password, setPassword],
+  // } = useContext(FormContext);
 
   return (
     <section

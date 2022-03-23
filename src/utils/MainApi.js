@@ -1,5 +1,3 @@
-import { token } from "./auth";
-
 const BASE_URL = "https://api.news-explorer.mk.students.nomoreparties.sbs";
 
 class MainApi {
@@ -43,7 +41,7 @@ const customFetch = (url, headers) =>
 export const mainApi = new MainApi({
   baseUrl: BASE_URL,
   headers: {
-    authorization: `Bearer ${token}`,
+    authorization: `Bearer ${localStorage.getItem("token")}`,
     "Content-Type": "application/json",
   },
 });

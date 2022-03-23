@@ -10,6 +10,9 @@
   border-radius: 0.625rem;
   position: relative;
   flex: max(18rem, 100%/4 + 0.1%);
+  flex-shrink: 1;
+  flex-grow: 0;
+  /*flex-basis: 25%;*/
 }
 
 .news-card__image {
@@ -20,6 +23,7 @@
   background-size: cover;
   background-position: center;
   max-width: 25rem;
+  flex-shrink: 0;
 }
 
 .news-card__text-container {

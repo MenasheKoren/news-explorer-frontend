@@ -30,7 +30,7 @@ export function Register({
       })
       .then((result) => {
         if (result && result._id) {
-          localStorage.setItem("localUsername", username);
+          setUsername(username);
           handleSetRegistration();
           handleSubmitInfoToolTip();
         }
@@ -89,6 +89,7 @@ export function Register({
             placeholder="Enter username"
             id="usernameInput"
             name="username"
+            defaultValue={username || ""}
           />
         </div>
         <SaveFormButton saveFormButtonText="Sign up" />
