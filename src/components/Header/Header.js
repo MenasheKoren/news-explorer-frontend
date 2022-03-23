@@ -4,6 +4,7 @@ import { HomeNavLink } from "../HomeNavLink/HomeNavLink";
 import { SavedArticlesNavLink } from "../SavedArticlesNavLink/SavedArticlesNavLink";
 import { HeaderButton } from "../HeaderButton/HeaderButton";
 import { HeaderTitle } from "../HeaderTitle/HeaderTitle";
+import React from "react";
 
 export function Header({
   handleOpenDropdownMenu,
@@ -18,7 +19,7 @@ export function Header({
   username,
 }) {
   const location = useLocation();
-
+  // const currentUser = React.useContext(CurrentUserContext);
   return (
     <header
       className="header"

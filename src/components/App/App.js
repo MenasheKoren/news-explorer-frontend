@@ -27,8 +27,8 @@ function App() {
   const localEmail = localStorage.getItem("localEmail");
   const localUsername = localStorage.getItem("localUsername");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
 
@@ -37,8 +37,8 @@ function App() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
 
-  const [form, setForm] = React.useState({});
-  const formRef = React.useRef();
+  // const [form, setForm] = React.useState({});
+  // const formRef = React.useRef();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -71,7 +71,7 @@ function App() {
     mainApi
       .getUserInfo()
       .then((userData) => {
-        setCurrentUser(userData.user.name);
+        setCurrentUser(userData.user);
       })
       .catch((err) => console.log(`Error..... ${err}`));
   }
@@ -82,20 +82,21 @@ function App() {
 
   function handleLogin() {
     return new Promise((res) => {
-      setIsRegistered(true);
-
+      setIsLoggedIn(true);
       res();
     }).catch((err) => console.log(`Error..... ${err}`));
   }
 
   function handleLogout() {
     return new Promise((res) => {
+      setIsLoggedIn(false);
       setIsRegistered(false);
       res();
     })
       .then(() => {
         localStorage.removeItem("token");
         localStorage.removeItem("localEmail");
+        localStorage.removeItem("localUsername");
       })
 
       .catch((err) => console.log(`Error..... ${err}`));
@@ -129,8 +130,13 @@ function App() {
     setIsLoginPopupOpen(!isLoginPopupOpen);
   }
 
+  function handleRegistrationSuccessPopup() {
+    closeAllPopups();
+    setIsLoginPopupOpen(true);
+  }
+
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={currentUser.name}>
       <FormContextProvider>
         <Routes>
           <Route
@@ -213,6 +219,9 @@ function App() {
                     />
                   </PopupWithForm>
                   <InfoToolTip
+                    handleRegistrationSuccessPopup={
+                      handleRegistrationSuccessPopup
+                    }
                     closeAllPopups={closeAllPopups}
                     isOpen={isInfoToolTipOpen}
                   />
@@ -223,7 +232,7 @@ function App() {
             <Route
               path="/saved-news"
               element={
-                <ProtectedRoute isRegistered={isRegistered}>
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
                   <SavedNews username={username} />
                 </ProtectedRoute>
               }

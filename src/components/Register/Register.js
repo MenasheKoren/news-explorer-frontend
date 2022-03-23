@@ -32,6 +32,7 @@ export function Register({
         if (result && result._id) {
           localStorage.setItem("localUsername", username);
           handleSetRegistration();
+          handleSubmitInfoToolTip();
         }
       })
       .catch((err) => {
@@ -90,10 +91,7 @@ export function Register({
             name="username"
           />
         </div>
-        <SaveFormButton
-          saveFormButtonText="Sign up"
-          handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-        />
+        <SaveFormButton saveFormButtonText="Sign up" />
       </form>
       <p className="entry__redirect-text">
         or{" "}

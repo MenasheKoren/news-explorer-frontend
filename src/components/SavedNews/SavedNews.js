@@ -1,20 +1,34 @@
 import * as React from "react";
-import articlesArray from "../NewsCard/articles";
-import { NewsCard } from "../NewsCard/NewsCard";
-import { ShowMoreButton } from "../ShowMoreButton/ShowMoreButton";
 import { SavedNewsSubheader } from "../SavedNewsSubheader/SavedNewsSubheader";
 
-export function SavedNews({ userName }) {
+export function SavedNews() {
   return (
     <section className="saved-news">
-      <SavedNewsSubheader userName={userName} />
+      <SavedNewsSubheader />
       <div className="news-cards__content">
-        <ul className="news-cards__list">
-          {articlesArray.map((articleCard) => {
-            return <NewsCard articleCard={articleCard} key={articleCard._id} />;
-          })}
-        </ul>
-        <ShowMoreButton />
+        {/* {isLoading ? (
+          <Preloader />
+        ) : totalResult === 0 ? (
+          <NothingFound />
+        ) : (
+          <ul className="news-cards__list">
+            {articlesData.slice(startIndex, endIndex).map((articles) => {
+              return (
+                <NewsCard
+                  articles={articles}
+                  key={uuidv4()}
+                  isLoggedIn={isLoggedIn}
+                />
+              );
+            })}
+          </ul>
+        )}
+
+        <ShowMoreButton
+          handleAddThreeMoreCards={handleAddThreeMoreCards}
+          totalResult={totalResult}
+          endIndex={endIndex}
+        />*/}
       </div>
     </section>
   );

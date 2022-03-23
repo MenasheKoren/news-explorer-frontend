@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 
-export function SavedNewsHeader(props) {
+export function SavedNewsHeader() {
   const location = useLocation();
   return (
     <>
