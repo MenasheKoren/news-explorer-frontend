@@ -1,11 +1,13 @@
 import React from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-export function SavedNewsSubheader({ userName }) {
+export function SavedNewsSubheader({ username }) {
+  const currentUser = React.useContext(CurrentUserContext);
   return (
     <section className="saved-news__subheader">
       <h2 className="subheader__title">Saved articles</h2>
       <p className="subheader__article-count">
-        {userName ? { userName } : "Gollum"}, you have 5 saved articles
+        {username ? username : "Gollum"}, you have 5 saved articles
       </p>
       <p className="subheader__keywords-list">
         By keywords:{" "}

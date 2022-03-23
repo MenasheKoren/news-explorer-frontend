@@ -4,15 +4,37 @@ import { SaveFormButton } from "../SaveFormButton/SaveFormButton";
 import { FormValidator } from "../../utils/FormValidator/FormValidator";
 import { formSettings } from "../../utils/helpers";
 import { FormContext } from "../../contexts/FormContext";
+import * as auth from "../../utils/auth";
+import { useNavigate } from "react-router-dom";
 
-export function Login({ handleSubmitLogin, handleSwitchPopup }) {
+export function Login({ handleLogin, handleSwitchPopup, closeAllPopups }) {
   const {
     email: [email, setEmail],
     password: [password, setPassword],
   } = useContext(FormContext);
-
+  const navigate = useNavigate();
   const [form, setForm] = React.useState({});
   const formRef = React.useRef();
+
+  function handleSubmitLogin(e) {
+    e.preventDefault();
+    if (!email || !password) {
+      return;
+    }
+    auth
+      .authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem("localEmail", email);
+          handleLogin().then(() => {
+            closeAllPopups();
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(`Error..... ${err}`);
+      });
+  }
 
   useEffect(() => {
     const validatedForm = new FormValidator(formSettings, formRef.current);

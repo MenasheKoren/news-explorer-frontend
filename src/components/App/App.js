@@ -16,8 +16,6 @@ import { token } from "../../utils/auth";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import FormContextProvider from "../../contexts/FormContext";
 import { mainApi } from "../../utils/MainApi";
-// import AuthStateContextProvider from "../../contexts/AuthStateContext";
-// import AppStateContextProvider from "../../contexts/AppStateContext";
 
 function App() {
   const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });
@@ -26,6 +24,7 @@ function App() {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const [currentUser, setCurrentUser] = useState({});
+  const localEmail = localStorage.getItem("localEmail");
   const localUsername = localStorage.getItem("localUsername");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
@@ -38,8 +37,7 @@ function App() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
 
-  const [form, setForm] = React.useState({});
-  const formRef = React.useRef();
+  const [savedArticles, setSavedArticles] = useState([]);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -81,13 +79,27 @@ function App() {
     setIsRegistered(true);
   }
 
-  function handleSubmitLogin() {
-    setIsLoggedIn(true);
-    setUsername(username);
+  function handleLogin() {
+    return new Promise((res) => {
+      setIsLoggedIn(true);
+      setUsername(localUsername);
+      res();
+    }).catch((err) => console.log(`Error..... ${err}`));
   }
 
   function handleLogout() {
-    setIsLoggedIn(false);
+    return new Promise((res) => {
+      setIsLoggedIn(false);
+      setIsRegistered(false);
+      res();
+    })
+      .then(() => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("localEmail");
+        localStorage.removeItem("localUsername");
+      })
+
+      .catch((err) => console.log(`Error..... ${err}`));
   }
 
   function handleOpenDropdownMenu() {
@@ -113,24 +125,14 @@ function App() {
     setIsLoginPopupOpen(false);
   }
 
-  // function handleInputUsername(e) {
-  //   // e.preventDefault();
-  //   setUsername(e.target.value);
-  // }
-  //
-  // function handleInputEmail(e) {
-  //   // e.preventDefault();
-  //   setEmail(e.target.value);
-  // }
-  //
-  // function handleInputPassword(e) {
-  //   // e.preventDefault();
-  //   setPassword(e.target.value);
-  // }
-
   function handleSwitchPopup() {
     setIsRegisterPopupOpen(!isRegisterPopupOpen);
     setIsLoginPopupOpen(!isLoginPopupOpen);
+  }
+
+  function handleRegistrationSuccessPopup() {
+    closeAllPopups();
+    setIsLoginPopupOpen(true);
   }
 
   return (
@@ -142,8 +144,7 @@ function App() {
             element={
               <Layout
                 handleLogout={handleLogout}
-                handleLogin={handleSubmitLogin}
-                // handleRegister={handleSubmitRegister}
+                handleLogin={handleLogin}
                 isRegistered={isRegistered}
                 isLoggedIn={isLoggedIn}
                 isDropdownMenuOpen={isDropdownMenuOpen}
@@ -157,7 +158,7 @@ function App() {
                 handleLoginClick={handleLoginClick}
                 handleRegisterClick={handleRegisterClick}
                 handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-                username={localUsername}
+                username={username}
                 setIsLoggedIn={setIsLoggedIn}
                 setIsRegisteredPopupOpen={setIsRegisterPopupOpen}
                 setIsLoginPopupOpen={setIsLoginPopupOpen}
@@ -174,48 +175,27 @@ function App() {
                     isMonitor={isMonitor}
                     isLoggedIn={isLoggedIn}
                     getUserInfoEffect={getUserInfoEffect}
+                    savedArticles={savedArticles}
+                    setSavedArticles={setSavedArticles}
                   />
                   <PopupWithForm
                     isRegisterPopupOpen={isRegisterPopupOpen}
                     isLoginPopupOpen={isLoginPopupOpen}
                     isRegistered={isRegistered}
-                    // isLoggedIn={isLoggedIn}
-                    // isMonitorOrTablet={isMonitorOrTablet}
+                    handleLogin={handleLogin}
                     isMobile={isMobile}
-                    // handleInputUsername={handleInputUsername}
-                    // handleInputEmail={handleInputEmail}
-                    // handleInputPassword={handleInputPassword}
                     handleSwitchPopup={handleSwitchPopup}
                     closeAllPopups={closeAllPopups}
                     handleSubmitInfoToolTip={handleSubmitInfoToolTip}
                     handleSetRegistration={handleSetRegistration}
                   >
-                    <Register
-                    // closeAllPopups={closeAllPopups}
-                    // isRegisterPopupOpen={isRegisterPopupOpen}
-                    // isLoginPopupOpen={isLoginPopupOpen}
-                    // handleInputUsername={handleInputUsername}
-                    // handleInputEmail={handleInputEmail}
-                    // handleInputPassword={handleInputPassword}
-                    // handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-                    // handleSetRegistration={handleSetRegistration}
-                    // username={username}
-                    // email={email}
-                    // password={password}
-                    // handleSwitchPopup={handleSwitchPopup}
-                    />
-                    <Login
-                    // closeAllPopups={closeAllPopups}
-                    // isRegisterPopupOpen={isRegisterPopupOpen}
-                    // isLoginPopupOpen={isLoginPopupOpen}
-                    // handleInputEmail={handleInputEmail}
-                    // handleInputPassword={handleInputPassword}
-                    // email={email}
-                    // password={password}
-                    // handleSwitchPopup={handleSwitchPopup}
-                    />
+                    <Register />
+                    <Login />
                   </PopupWithForm>
                   <InfoToolTip
+                    handleRegistrationSuccessPopup={
+                      handleRegistrationSuccessPopup
+                    }
                     closeAllPopups={closeAllPopups}
                     isOpen={isInfoToolTipOpen}
                   />
@@ -226,8 +206,12 @@ function App() {
             <Route
               path="/saved-news"
               element={
-                <ProtectedRoute isRegistered={isRegistered}>
-                  <SavedNews username={localUsername} />
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <SavedNews
+                    username={localUsername}
+                    savedArticles={savedArticles}
+                    setSavedArticles={setSavedArticles}
+                  />
                 </ProtectedRoute>
               }
             />

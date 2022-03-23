@@ -13,6 +13,26 @@ class MainApi {
       headers: this._headers,
     });
   }
+
+  getSavedArticles() {
+    return customFetch(`${this._baseUrl}/articles/`, {
+      headers: this._headers,
+    });
+  }
+
+  addArticle() {
+    return customFetch(`${this._baseUrl}/articles`, {
+      headers: this._headers,
+      method: "POST",
+    });
+  }
+
+  deleteArticle(articleId) {
+    return customFetch(`${this._baseUrl}/articles/${articleId}`, {
+      headers: this._headers,
+      method: "DELETE",
+    });
+  }
 }
 
 const customFetch = (url, headers) =>

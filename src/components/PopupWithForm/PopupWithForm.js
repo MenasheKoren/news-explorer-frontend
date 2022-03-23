@@ -13,6 +13,7 @@ export function PopupWithForm({
   handleSwitchPopup,
   handleSubmitInfoToolTip,
   handleSetRegistration,
+  handleLogin,
 }) {
   const {
     username: [username, setUsername],
@@ -42,6 +43,8 @@ export function PopupWithForm({
           <Login
             handleSwitchPopup={handleSwitchPopup}
             handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+            handleLogin={handleLogin}
+            closeAllPopups={closeAllPopups}
           />
         )}
       </div>

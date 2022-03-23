@@ -1,20 +1,44 @@
 import * as React from "react";
-import articlesArray from "../NewsCard/articles";
-import { NewsCard } from "../NewsCard/NewsCard";
-import { ShowMoreButton } from "../ShowMoreButton/ShowMoreButton";
+import { useEffect } from "react";
 import { SavedNewsSubheader } from "../SavedNewsSubheader/SavedNewsSubheader";
+import { mainApi } from "../../utils/MainApi";
 
-export function SavedNews({ userName }) {
+export function SavedNews({ username, savedArticles, setSavedArticles }) {
+  useEffect(() => {
+    mainApi
+      .getSavedArticles()
+      .then((articlesData) => {
+        setSavedArticles([...articlesData]);
+      })
+      .catch((err) => console.log(`Error..... ${err}`));
+  }, [setSavedArticles]);
   return (
     <section className="saved-news">
-      <SavedNewsSubheader userName={userName} />
+      <SavedNewsSubheader username={username} />
       <div className="news-cards__content">
+        {/* {isLoading ? (
+          <Preloader />
+        ) : totalResult === 0 ? (
+          <NothingFound />
+        ) : (
         <ul className="news-cards__list">
-          {articlesArray.map((articleCard) => {
-            return <NewsCard articleCard={articleCard} key={articleCard._id} />;
+            {articlesData.slice(startIndex, endIndex).map((articles) => {
+              return (
+                <NewsCard
+                  articles={articles}
+                  key={uuidv4()}
+                  isLoggedIn={isLoggedIn}
+                />
+              );
           })}
         </ul>
-        <ShowMoreButton />
+        )}
+
+        <ShowMoreButton
+          handleAddThreeMoreCards={handleAddThreeMoreCards}
+          totalResult={totalResult}
+          endIndex={endIndex}
+        />*/}
       </div>
     </section>
   );
