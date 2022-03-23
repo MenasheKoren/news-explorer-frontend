@@ -1,24 +1,53 @@
 import React, { useState } from "react";
 import { Bookmark } from "../Bookmark/Bookmark";
+import { mainApi } from "../../utils/MainApi";
 
 export function NewsCard({
-  articles: { description, publishedAt, source, title, urlToImage },
+  articles: { description, publishedAt, source, title, urlToImage, url },
   isLoggedIn,
   savedArticles,
   setSavedArticles,
+  keyword,
 }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const [saveArticle, setSaveArticle] = useState({});
+  // const [saveArticle, setSaveArticle] = useState({});
+  //
+  // function handleToggleBookmarkIcon() {
+  //   setIsBookmarked(!isBookmarked);
+  // }
 
-  function handleToggleBookmarkIcon() {
-    setIsBookmarked(!isBookmarked);
-  }
-
-  function saveBookmarkedArticles() {
+  function handleSaveBookmarkedArticles() {
+    console.log(keyword);
     if (!isBookmarked) {
-      setIsBookmarked(true);
-      setSavedArticles([...savedArticles]);
+      mainApi
+        .addArticle({
+          keyword: keyword,
+          title: title,
+          text: description,
+          date: `${new Date(publishedAt).toLocaleString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })}`,
+          source: source.name,
+          link: url,
+          image: urlToImage,
+        })
+        .then(() => {
+          setIsBookmarked(true);
+        })
+        .catch((err) => console.log(`Error..... ${err}`));
     } else {
+      /* todo Fix delete card function */
+      mainApi
+        .deleteArticle()
+        .then(() => {
+          const deletedArticleId = NewsCard.key;
+          setSavedArticles(
+            savedArticles.filter((article) => article._id !== deletedArticleId)
+          );
+        })
+        .catch((err) => console.log(`Error..... ${err}`));
       setIsBookmarked(false);
     }
   }
@@ -32,7 +61,7 @@ export function NewsCard({
         }}
       >
         <Bookmark
-          handleToggleBookmarkIcon={handleToggleBookmarkIcon}
+          handleSaveBookmarkedArticles={handleSaveBookmarkedArticles}
           isBookmarked={isBookmarked}
           isLoggedIn={isLoggedIn}
         />

@@ -55,6 +55,7 @@ export function NewsCardList({
                   isLoggedIn={isLoggedIn}
                   savedArticles={savedArticles}
                   setSavedArticles={setSavedArticles}
+                  keyword={keyword}
                 />
               );
             })}

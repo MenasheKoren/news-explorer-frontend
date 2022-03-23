@@ -10,9 +10,6 @@
   border-radius: 0.625rem;
   position: relative;
   flex: max(18rem, 100%/4 + 0.1%);
-  flex-shrink: 1;
-  flex-grow: 0;
-  /*flex-basis: 25%;*/
 }
 
 .news-card__image {
@@ -42,6 +39,11 @@
   margin: 0 0 1rem 0;
   font-size: 1.625rem;
   line-height: 1.875rem;
+  overflow: hidden;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .news-card__text {
