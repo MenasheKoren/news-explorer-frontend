@@ -3,7 +3,14 @@ import { About } from "../About/About";
 import { SearchForm } from "../SearchForm/SearchForm";
 import { NewsCardList } from "../NewsCardList/NewsCardList";
 
-export function Main({ isMobile, isMonitor, isTablet, isLoggedIn }) {
+export function Main({
+  isMobile,
+  isMonitor,
+  isTablet,
+  isLoggedIn,
+  savedArticles,
+  setSavedArticles,
+}) {
   const [keyword, setKeyword] = useState("");
   const [showArticles, setShowArticles] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -23,9 +30,10 @@ export function Main({ isMobile, isMonitor, isTablet, isLoggedIn }) {
           isMonitor={isMonitor}
           isLoggedIn={isLoggedIn}
           keyword={keyword}
-          showArticles={showArticles}
           isLoading={isLoading}
           setIsLoading={setIsLoading}
+          savedArticles={savedArticles}
+          setSavedArticles={setSavedArticles}
         />
       )}
       <About />

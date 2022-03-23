@@ -130,11 +130,6 @@ function App() {
     setIsLoginPopupOpen(!isLoginPopupOpen);
   }
 
-  function handleRegistrationSuccessPopup() {
-    closeAllPopups();
-    setIsLoginPopupOpen(true);
-  }
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <FormContextProvider>
@@ -174,7 +169,7 @@ function App() {
                     isTablet={isTablet}
                     isMonitor={isMonitor}
                     isLoggedIn={isLoggedIn}
-                    getUserInfoEffect={getUserInfoEffect}
+                    // getUserInfoEffect={getUserInfoEffect}
                     savedArticles={savedArticles}
                     setSavedArticles={setSavedArticles}
                   />
@@ -193,9 +188,7 @@ function App() {
                     <Login />
                   </PopupWithForm>
                   <InfoToolTip
-                    handleRegistrationSuccessPopup={
-                      handleRegistrationSuccessPopup
-                    }
+                    setIsLoginPopupOpen={setIsLoginPopupOpen}
                     closeAllPopups={closeAllPopups}
                     isOpen={isInfoToolTipOpen}
                   />

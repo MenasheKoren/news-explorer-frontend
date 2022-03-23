@@ -6,7 +6,14 @@ import { NothingFound } from "../NothingFound/NothingFound";
 import newsApi from "../../utils/NewsApi";
 import { v4 as uuidv4 } from "uuid";
 
-export function NewsCardList({ isLoggedIn, keyword, isLoading, setIsLoading }) {
+export function NewsCardList({
+  isLoggedIn,
+  keyword,
+  isLoading,
+  setIsLoading,
+  savedArticles,
+  setSavedArticles,
+}) {
   const [articlesData, setArticlesData] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(3);
@@ -46,6 +53,8 @@ export function NewsCardList({ isLoggedIn, keyword, isLoading, setIsLoading }) {
                   articles={articles}
                   key={uuidv4()}
                   isLoggedIn={isLoggedIn}
+                  savedArticles={savedArticles}
+                  setSavedArticles={setSavedArticles}
                 />
               );
             })}

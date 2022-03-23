@@ -1,13 +1,15 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import { PopupCloseButton } from "../PopupCloseButton/PopupCloseButton";
 
 export const InfoToolTip = ({
   closeAllPopups,
-  handleRegistrationSuccessPopup,
+  setIsLoginPopupOpen,
   isOpen,
 }) => {
-  const location = useLocation();
+  function handleRegistrationSuccessPopup() {
+    closeAllPopups();
+    setIsLoginPopupOpen(true);
+  }
 
   return (
     <section

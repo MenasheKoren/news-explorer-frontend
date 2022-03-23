@@ -4,12 +4,24 @@ import { Bookmark } from "../Bookmark/Bookmark";
 export function NewsCard({
   articles: { description, publishedAt, source, title, urlToImage },
   isLoggedIn,
+  savedArticles,
+  setSavedArticles,
 }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [saveArticle, setSaveArticle] = useState({});
 
   function handleToggleBookmarkIcon() {
     setIsBookmarked(!isBookmarked);
   }
+
+  function saveBookmarkedArticles() {
+    if (!isBookmarked) {
+      setIsBookmarked(true);
+      setSavedArticles([...savedArticles]);
+    } else {
+    }
+  }
+
   return (
     <li className="news-card">
       <div
