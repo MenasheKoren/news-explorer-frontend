@@ -83,6 +83,7 @@ function App() {
   function handleLogin() {
     return new Promise((res) => {
       setIsLoggedIn(true);
+      setUsername(localUsername);
       res();
     }).catch((err) => console.log(`Error..... ${err}`));
   }
@@ -136,7 +137,7 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser.name}>
+    <CurrentUserContext.Provider value={currentUser}>
       <FormContextProvider>
         <Routes>
           <Route

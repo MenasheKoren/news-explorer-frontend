@@ -1,10 +1,10 @@
 import * as React from "react";
 import { SavedNewsSubheader } from "../SavedNewsSubheader/SavedNewsSubheader";
 
-export function SavedNews() {
+export function SavedNews({ username }) {
   return (
     <section className="saved-news">
-      <SavedNewsSubheader />
+      <SavedNewsSubheader username={username} />
       <div className="news-cards__content">
         {/* {isLoading ? (
           <Preloader />

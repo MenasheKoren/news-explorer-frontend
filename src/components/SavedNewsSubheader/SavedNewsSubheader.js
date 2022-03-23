@@ -7,7 +7,7 @@ export function SavedNewsSubheader({ username }) {
     <section className="saved-news__subheader">
       <h2 className="subheader__title">Saved articles</h2>
       <p className="subheader__article-count">
-        {username ? { username } : "Gollum"}, you have 5 saved articles
+        {username ? username : "Gollum"}, you have 5 saved articles
       </p>
       <p className="subheader__keywords-list">
         By keywords:{" "}
