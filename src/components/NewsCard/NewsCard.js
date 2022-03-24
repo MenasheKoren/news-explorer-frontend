@@ -6,6 +6,8 @@ export function NewsCard({
   articles: { description, publishedAt, source, title, urlToImage, url },
   isLoggedIn,
   keyword,
+  savedArticles,
+  setSavedArticles,
 }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -27,15 +29,15 @@ export function NewsCard({
         .catch((err) => console.log(`Error..... ${err}`));
     } else {
       /* todo Fix delete card function */
-      // mainApi
-      //   .deleteArticle()
-      //   .then(() => {
-      //     const deletedArticleId = NewsCard.key;
-      //     setSavedArticles(
-      //       savedArticles.filter((article) => article._id !== deletedArticleId)
-      //     );
-      //   })
-      //   .catch((err) => console.log(`Error..... ${err}`));
+      mainApi
+        .deleteArticle()
+        .then(() => {
+          const deletedArticleId = NewsCard.key;
+          setSavedArticles(
+            savedArticles.filter((article) => article._id !== deletedArticleId)
+          );
+        })
+        .catch((err) => console.log(`Error..... ${err}`));
       setIsBookmarked(false);
     }
   }
@@ -62,7 +64,15 @@ export function NewsCard({
             year: "numeric",
           })}
         </p>
-        <h3 className="news-card__title">{title}</h3>
+        <h3
+          className="news-card__title"
+          onClick={() => {
+            window.open(url, "_blank");
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          {title}
+        </h3>
         <p className="news-card__text">{description}</p>
         <h4 className="news-card__source">{source.name}</h4>
       </div>

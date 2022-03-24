@@ -16,7 +16,6 @@ export function Register({
     email: [email, setEmail],
     password: [password, setPassword],
   } = useContext(FormContext);
-
   const [form, setForm] = React.useState({});
   const formRef = React.useRef();
 

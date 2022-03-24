@@ -47,7 +47,7 @@ function App() {
         .then(({ user }) => {
           setIsRegistered(true);
           setIsLoggedIn(true);
-          setCurrentUser(`${user}`);
+          setCurrentUser(user);
         })
         .catch((err) => console.log(`Error..... ${err}`));
     }
@@ -69,35 +69,22 @@ function App() {
     setIsRegistered(true);
   }
 
-  // function getUserInfoEffect() {
-  //   mainApi
-  //     .getUserInfo()
-  //     .then((userData) => {
-  //       setCurrentUser(userData.user);
-  //     })
-  //     .catch((err) => console.log(`Error..... ${err}`));
-  // }
-
   function handleLogin(email, password) {
     if (!email || !password) {
       return;
     }
     auth
       .authorize(email, password)
-      .then((data) => {
-        if (data.token) {
-          return new Promise((res) => {
-            setCurrentUser(`${data.user}`);
+      .then(() => {
+        auth
+          .getContent()
+          .then(({ user }) => {
+            setCurrentUser(user);
             setIsLoggedIn(true);
-            res();
           })
-            .then(() => {
-              closeAllPopups();
-            })
-            .catch((err) => {
-              console.log(`Error..... ${err}`);
-            });
-        }
+          .then(() => {
+            closeAllPopups();
+          });
       })
       .catch((err) => {
         console.log(`Error..... ${err}`);
