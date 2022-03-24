@@ -11,7 +11,7 @@ export function SavedNews({
   getUserInfoEffect,
 }) {
   const currentUser = useContext(CurrentUserContext);
-  // useEffect(getUserInfoEffect, []);
+  useEffect(getUserInfoEffect, []);
 
   useEffect(() => {
     mainApi

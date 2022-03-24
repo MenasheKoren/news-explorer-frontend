@@ -13,6 +13,7 @@ export function PopupWithForm({
   handleSubmitInfoToolTip,
   handleSetRegistration,
   handleLogin,
+  handleFormValidationEffect,
 }) {
   return (
     <section
@@ -30,6 +31,7 @@ export function PopupWithForm({
             handleSwitchPopup={handleSwitchPopup}
             handleSubmitInfoToolTip={handleSubmitInfoToolTip}
             handleSetRegistration={handleSetRegistration}
+            handleFormValidationEffect={handleFormValidationEffect}
           />
         )}
         {isLoginPopupOpen && (
@@ -38,6 +40,7 @@ export function PopupWithForm({
             handleSubmitInfoToolTip={handleSubmitInfoToolTip}
             handleLogin={handleLogin}
             closeAllPopups={closeAllPopups}
+            handleFormValidationEffect={handleFormValidationEffect}
           />
         )}
       </div>

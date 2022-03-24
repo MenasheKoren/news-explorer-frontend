@@ -30,7 +30,6 @@ export function Register({
       })
       .then((result) => {
         if (result && result._id) {
-          setUsername(username);
           handleSetRegistration();
           handleSubmitInfoToolTip();
         }

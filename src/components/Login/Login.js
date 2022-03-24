@@ -1,37 +1,40 @@
 import React, { useContext, useEffect } from "react";
 import { FormInput } from "../FormInput/FormInput";
 import { SaveFormButton } from "../SaveFormButton/SaveFormButton";
+import { FormContext } from "../../contexts/FormContext";
 import { FormValidator } from "../../utils/FormValidator/FormValidator";
 import { formSettings } from "../../utils/helpers";
-import { FormContext } from "../../contexts/FormContext";
-import * as auth from "../../utils/auth";
 
-export function Login({ handleLogin, handleSwitchPopup, closeAllPopups }) {
+export function Login({
+  handleLogin,
+  handleSwitchPopup,
+  handleFormValidationEffect,
+}) {
   const {
     email: [email, setEmail],
     password: [password, setPassword],
   } = useContext(FormContext);
   const [form, setForm] = React.useState({});
   const formRef = React.useRef();
-
-  function handleSubmitLogin(e) {
-    e.preventDefault();
-    if (!email || !password) {
-      return;
-    }
-    auth
-      .authorize(email, password)
-      .then((data) => {
-        if (data.token) {
-          handleLogin().then(() => {
-            closeAllPopups();
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(`Error..... ${err}`);
-      });
-  }
+  // useEffect(handleFormValidationEffect, []);
+  // function handleSubmitLogin(e) {
+  //   e.preventDefault();
+  //   if (!email || !password) {
+  //     return;
+  //   }
+  //   auth
+  //     .authorize(email, password)
+  //     .then((data) => {
+  //       if (data.token) {
+  //         handleLogin(data).then(() => {
+  //           closeAllPopups();
+  //         });
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(`Error..... ${err}`);
+  //     });
+  // }
 
   useEffect(() => {
     const validatedForm = new FormValidator(formSettings, formRef.current);
@@ -41,7 +44,7 @@ export function Login({ handleLogin, handleSwitchPopup, closeAllPopups }) {
   return (
     <div className="entry entry_type_login">
       <h2 className="entry__title">Log in</h2>
-      <form className="entry__form" onSubmit={handleSubmitLogin} ref={formRef}>
+      <form className="entry__form" onSubmit={handleLogin} ref={formRef}>
         <div className="form__inputs">
           <FormInput
             defaultValue={email || ""}

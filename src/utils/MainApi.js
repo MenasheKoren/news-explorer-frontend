@@ -22,7 +22,7 @@ class MainApi {
     return customFetch(`${this._baseUrl}/articles`, {
       headers: this._headers,
       method: "POST",
-      body: JSON.stringify([articlesData]),
+      body: JSON.stringify(articlesData),
     });
   }
 

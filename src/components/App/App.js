@@ -1,13 +1,12 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Main } from "../Main/Main";
 import { SavedNews } from "../SavedNews/SavedNews";
 import { Layout } from "../Layout/Layout";
 import { useMediaQuery } from "react-responsive";
 import { Register } from "../Register/Register";
-import { Login } from "../Login/Login";
 import { InfoToolTip } from "../InfoToolTip/InfoToolTip";
 import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
@@ -15,6 +14,7 @@ import * as auth from "../../utils/auth";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import FormContextProvider from "../../contexts/FormContext";
 import { mainApi } from "../../utils/MainApi";
+import { Login } from "../Login/Login";
 
 function App() {
   const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });
@@ -26,6 +26,8 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
 
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false);
@@ -34,8 +36,13 @@ function App() {
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
 
   const [savedArticles, setSavedArticles] = useState([]);
+  // const {
+  //   email: [email, setEmail],
+  //   password: [password, setPassword],
+  // } = useContext(FormContext);
 
-  const navigate = useNavigate();
+  const [form, setForm] = React.useState({});
+  const formRef = React.useRef();
 
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
@@ -75,23 +82,55 @@ function App() {
       .catch((err) => console.log(`Error..... ${err}`));
   }
 
-  function handleLogin() {
-    return new Promise((res) => {
-      setIsLoggedIn(true);
-      res();
-    }).catch((err) => console.log(`Error..... ${err}`));
+  function handleLogin(e) {
+    e.preventDefault();
+    if (!email || !password) {
+      return;
+    }
+    auth
+      .authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          return new Promise((res) => {
+            setIsLoggedIn(true);
+            setCurrentUser(data.user);
+            res();
+          })
+            .then(() => {
+              closeAllPopups();
+            })
+            .catch((err) => {
+              console.log(`Error..... ${err}`);
+            });
+        }
+      })
+      .catch((err) => {
+        console.log(`Error..... ${err}`);
+      });
   }
+
+  // function handleFormValidationEffect() {
+  //   const validatedForm = new FormValidator(formSettings, formRef.current);
+  //   validatedForm.enableValidation();
+  //   setForm(validatedForm);
+  // }
+  // function handleLogin() {
+  //   return new Promise((res) => {
+  //     setIsLoggedIn(true);
+  //     setCurrentUser();
+  //     res();
+  //   }).catch((err) => console.log(`Error..... ${err}`));
+  // }
 
   function handleLogout() {
     return new Promise((res) => {
       setIsLoggedIn(false);
       setIsRegistered(false);
-      setCurrentUser("");
-      console.log(currentUser.name);
+      setCurrentUser({});
       res();
     })
       .then(() => {
-        localStorage.removeItem("token");
+        localStorage.clear();
       })
       .catch((err) => console.log(`Error..... ${err}`));
   }
@@ -177,6 +216,7 @@ function App() {
                     closeAllPopups={closeAllPopups}
                     handleSubmitInfoToolTip={handleSubmitInfoToolTip}
                     handleSetRegistration={handleSetRegistration}
+                    // handleFormValidationEffect={handleFormValidationEffect}
                   >
                     <Register />
                     <Login />
