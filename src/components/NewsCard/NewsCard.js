@@ -5,31 +5,18 @@ import { mainApi } from "../../utils/MainApi";
 export function NewsCard({
   articles: { description, publishedAt, source, title, urlToImage, url },
   isLoggedIn,
-  savedArticles,
-  setSavedArticles,
   keyword,
 }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
-  // const [saveArticle, setSaveArticle] = useState({});
-  //
-  // function handleToggleBookmarkIcon() {
-  //   setIsBookmarked(!isBookmarked);
-  // }
 
-  function handleSaveBookmarkedArticles(req) {
-    const { keyword, title, text, date, source, link, image } = req.body;
-    console.log(keyword);
+  function handleSaveBookmarkedArticles() {
     if (!isBookmarked) {
       mainApi
         .addArticle({
-          keyword: keyword,
-          title: title,
+          keyword,
+          title,
           text: description,
-          date: `${new Date(publishedAt).toLocaleString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-          })}`,
+          date: `${new Date(publishedAt).toISOString()}`,
           source: source.name,
           link: url,
           image: urlToImage,
@@ -40,15 +27,15 @@ export function NewsCard({
         .catch((err) => console.log(`Error..... ${err}`));
     } else {
       /* todo Fix delete card function */
-      mainApi
-        .deleteArticle()
-        .then(() => {
-          const deletedArticleId = NewsCard.key;
-          setSavedArticles(
-            savedArticles.filter((article) => article._id !== deletedArticleId)
-          );
-        })
-        .catch((err) => console.log(`Error..... ${err}`));
+      // mainApi
+      //   .deleteArticle()
+      //   .then(() => {
+      //     const deletedArticleId = NewsCard.key;
+      //     setSavedArticles(
+      //       savedArticles.filter((article) => article._id !== deletedArticleId)
+      //     );
+      //   })
+      //   .catch((err) => console.log(`Error..... ${err}`));
       setIsBookmarked(false);
     }
   }
