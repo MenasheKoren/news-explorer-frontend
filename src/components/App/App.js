@@ -22,7 +22,7 @@ function App() {
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState("");
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const [username, setUsername] = useState("");
@@ -42,9 +42,10 @@ function App() {
       localStorage.getItem("token");
       auth
         .getContent()
-        .then(() => {
+        .then((data) => {
           setIsRegistered(true);
           setIsLoggedIn(true);
+          setCurrentUser(`${data.user}`);
         })
         .catch((err) => console.log(`Error..... ${err}`));
     }
@@ -82,11 +83,11 @@ function App() {
     auth
       .authorize(email, password)
       .then((data) => {
+        console.log(data);
         if (data.token) {
           return new Promise((res) => {
-            setCurrentUser(data.user);
+            setCurrentUser(`${data.user}`);
             setIsLoggedIn(true);
-            console.log(data.user);
             res();
           })
             .then(() => {
@@ -106,7 +107,7 @@ function App() {
     return new Promise((res) => {
       setIsLoggedIn(false);
       setIsRegistered(false);
-      setCurrentUser({});
+      setCurrentUser("");
       res();
     })
       .then(() => {
