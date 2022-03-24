@@ -15,7 +15,6 @@ export function Header({
   handleLoginClick,
   isLoggedIn,
   isRegistered,
-  username,
 }) {
   const location = useLocation();
 
@@ -56,7 +55,7 @@ export function Header({
             <HeaderButton
               loggedIn={isLoggedIn}
               onLogoutClick={handleLogout}
-              username={username}
+              // username={username}
               registered={isRegistered}
               onLoginClick={handleLoginClick}
               onRegisterClick={handleRegisterClick}

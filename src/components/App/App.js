@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import { Main } from "../Main/Main";
 import { SavedNews } from "../SavedNews/SavedNews";
@@ -14,6 +14,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import * as auth from "../../utils/auth";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import FormContextProvider from "../../contexts/FormContext";
+import { mainApi } from "../../utils/MainApi";
 
 function App() {
   const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });
@@ -34,15 +35,16 @@ function App() {
 
   const [savedArticles, setSavedArticles] = useState([]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
       localStorage.getItem("token");
       auth
         .getContent()
-        .then((data) => {
+        .then(() => {
           setIsRegistered(true);
           setIsLoggedIn(true);
-          setUsername(data.user.name);
         })
         .catch((err) => console.log(`Error..... ${err}`));
     }
@@ -64,6 +66,15 @@ function App() {
     setIsRegistered(true);
   }
 
+  function getUserInfoEffect() {
+    mainApi
+      .getUserInfo()
+      .then((userData) => {
+        setCurrentUser(userData.user);
+      })
+      .catch((err) => console.log(`Error..... ${err}`));
+  }
+
   function handleLogin() {
     return new Promise((res) => {
       setIsLoggedIn(true);
@@ -75,12 +86,13 @@ function App() {
     return new Promise((res) => {
       setIsLoggedIn(false);
       setIsRegistered(false);
+      setCurrentUser("");
+      console.log(currentUser.name);
       res();
     })
       .then(() => {
         localStorage.removeItem("token");
       })
-
       .catch((err) => console.log(`Error..... ${err}`));
   }
 
@@ -135,7 +147,7 @@ function App() {
                 handleLoginClick={handleLoginClick}
                 handleRegisterClick={handleRegisterClick}
                 handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-                username={username}
+                // username={username}
                 setIsLoggedIn={setIsLoggedIn}
                 setIsRegisteredPopupOpen={setIsRegisterPopupOpen}
                 setIsLoginPopupOpen={setIsLoginPopupOpen}
@@ -151,7 +163,7 @@ function App() {
                     isTablet={isTablet}
                     isMonitor={isMonitor}
                     isLoggedIn={isLoggedIn}
-                    // getUserInfoEffect={getUserInfoEffect}
+                    getUserInfoEffect={getUserInfoEffect}
                     savedArticles={savedArticles}
                     setSavedArticles={setSavedArticles}
                   />
@@ -183,9 +195,10 @@ function App() {
               element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
                   <SavedNews
-                    username={username}
+                    // username={username}
                     savedArticles={savedArticles}
                     setSavedArticles={setSavedArticles}
+                    getUserInfoEffect={getUserInfoEffect}
                   />
                 </ProtectedRoute>
               }

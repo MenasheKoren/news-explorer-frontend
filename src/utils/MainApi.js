@@ -18,10 +18,11 @@ class MainApi {
     });
   }
 
-  addArticle() {
+  addArticle(articlesData) {
     return customFetch(`${this._baseUrl}/articles`, {
       headers: this._headers,
       method: "POST",
+      body: JSON.stringify([articlesData]),
     });
   }
 

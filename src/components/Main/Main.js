@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { About } from "../About/About";
 import { SearchForm } from "../SearchForm/SearchForm";
 import { NewsCardList } from "../NewsCardList/NewsCardList";
@@ -10,11 +10,13 @@ export function Main({
   isLoggedIn,
   savedArticles,
   setSavedArticles,
+  getUserInfoEffect,
 }) {
   const [keyword, setKeyword] = useState("");
   const [showArticles, setShowArticles] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  // const currentUser = React.useContext(CurrentUserContext);
+  useEffect(getUserInfoEffect, []);
   return (
     <main className="main">
       <SearchForm

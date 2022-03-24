@@ -1,9 +1,18 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { SavedNewsSubheader } from "../SavedNewsSubheader/SavedNewsSubheader";
 import { mainApi } from "../../utils/MainApi";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-export function SavedNews({ username, savedArticles, setSavedArticles }) {
+export function SavedNews({
+  username,
+  savedArticles,
+  setSavedArticles,
+  getUserInfoEffect,
+}) {
+  const currentUser = useContext(CurrentUserContext);
+  // useEffect(getUserInfoEffect, []);
+
   useEffect(() => {
     mainApi
       .getSavedArticles()
@@ -14,7 +23,7 @@ export function SavedNews({ username, savedArticles, setSavedArticles }) {
   }, [setSavedArticles]);
   return (
     <section className="saved-news">
-      <SavedNewsSubheader username={username} />
+      <SavedNewsSubheader username={currentUser.name} />
       <div className="news-cards__content">
         {/* {isLoading ? (
           <Preloader />

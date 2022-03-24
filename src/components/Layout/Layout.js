@@ -21,7 +21,6 @@ export function Layout({
   isInfoToolTipOpen,
   isLoginPopupOpen,
   isRegisterPopupOpen,
-  username,
 }) {
   return (
     <div className="page">
@@ -42,7 +41,7 @@ export function Layout({
           handleLoginClick={handleLoginClick}
           handleRegisterClick={handleRegisterClick}
           handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-          username={username}
+          // username={username}
         />
         <MobileMenu
           handleLogout={handleLogout}

@@ -9,7 +9,6 @@ export function HeaderButton({
   onLogoutClick,
   onRegisterClick,
   registered,
-  username,
 }) {
   const location = useLocation();
   const currentUser = useContext(CurrentUserContext);
@@ -28,7 +27,7 @@ export function HeaderButton({
               : {}
           }
         >
-          {username ? username : "Gollum"}
+          {currentUser.name}
           <svg className="logout__icon" />
         </button>
       )}
