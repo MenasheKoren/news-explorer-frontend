@@ -13,7 +13,6 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import * as auth from "../../utils/auth";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import FormContextProvider from "../../contexts/FormContext";
-import { mainApi } from "../../utils/MainApi";
 import { Login } from "../Login/Login";
 
 function App() {
@@ -23,18 +22,21 @@ function App() {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const [currentUser, setCurrentUser] = useState({});
-
+  const [keyword, setKeyword] = useState("");
+  const [showArticles, setShowArticles] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const [username, setUsername] = useState("");
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
-
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false);
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
-
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(3);
+  const [totalResult, setTotalResult] = useState(0);
   const [savedArticles, setSavedArticles] = useState([]);
 
   useEffect(() => {
@@ -67,14 +69,14 @@ function App() {
     setIsRegistered(true);
   }
 
-  function getUserInfoEffect() {
-    mainApi
-      .getUserInfo()
-      .then((userData) => {
-        setCurrentUser(userData.user);
-      })
-      .catch((err) => console.log(`Error..... ${err}`));
-  }
+  // function getUserInfoEffect() {
+  //   mainApi
+  //     .getUserInfo()
+  //     .then((userData) => {
+  //       setCurrentUser(userData.user);
+  //     })
+  //     .catch((err) => console.log(`Error..... ${err}`));
+  // }
 
   function handleLogin(email, password) {
     if (!email || !password) {
@@ -143,6 +145,10 @@ function App() {
     setIsLoginPopupOpen(!isLoginPopupOpen);
   }
 
+  function handleAddThreeMoreCards() {
+    setEndIndex(endIndex + 3);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <FormContextProvider>
@@ -182,9 +188,21 @@ function App() {
                     isTablet={isTablet}
                     isMonitor={isMonitor}
                     isLoggedIn={isLoggedIn}
-                    getUserInfoEffect={getUserInfoEffect}
                     savedArticles={savedArticles}
                     setSavedArticles={setSavedArticles}
+                    keyword={keyword}
+                    setKeyword={setKeyword}
+                    isLoading={isLoading}
+                    setIsLoading={setIsLoading}
+                    showArticles={showArticles}
+                    setShowArticles={setShowArticles}
+                    handleAddThreeMoreCards={handleAddThreeMoreCards}
+                    startIndex={startIndex}
+                    setStartIndex={setStartIndex}
+                    endIndex={endIndex}
+                    setEndIndex={setEndIndex}
+                    totalResult={totalResult}
+                    setTotalResult={setTotalResult}
                   />
                   <PopupWithForm
                     isRegisterPopupOpen={isRegisterPopupOpen}
@@ -196,7 +214,6 @@ function App() {
                     closeAllPopups={closeAllPopups}
                     handleSubmitInfoToolTip={handleSubmitInfoToolTip}
                     handleSetRegistration={handleSetRegistration}
-                    // handleFormValidationEffect={handleFormValidationEffect}
                   >
                     <Register />
                     <Login />
@@ -215,10 +232,21 @@ function App() {
               element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
                   <SavedNews
-                    // username={username}
                     savedArticles={savedArticles}
                     setSavedArticles={setSavedArticles}
-                    getUserInfoEffect={getUserInfoEffect}
+                    keyword={keyword}
+                    setKeyword={setKeyword}
+                    isLoading={isLoading}
+                    setIsLoading={setIsLoading}
+                    showArticles={showArticles}
+                    setShowArticles={setShowArticles}
+                    handleAddThreeMoreCards={handleAddThreeMoreCards}
+                    startIndex={startIndex}
+                    setStartIndex={setStartIndex}
+                    endIndex={endIndex}
+                    setEndIndex={setEndIndex}
+                    totalResult={totalResult}
+                    setTotalResult={setTotalResult}
                   />
                 </ProtectedRoute>
               }

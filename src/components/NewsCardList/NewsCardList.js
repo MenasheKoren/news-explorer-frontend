@@ -13,14 +13,15 @@ export function NewsCardList({
   setIsLoading,
   savedArticles,
   setSavedArticles,
+  handleAddThreeMoreCards,
+  setStartIndex,
+  startIndex,
+  endIndex,
+  setEndIndex,
+  totalResult,
+  setTotalResult,
 }) {
   const [articlesData, setArticlesData] = useState([]);
-  const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(3);
-  const [totalResult, setTotalResult] = useState(0);
-  function handleAddThreeMoreCards() {
-    setEndIndex(endIndex + 3);
-  }
 
   useEffect(() => {
     newsApi
