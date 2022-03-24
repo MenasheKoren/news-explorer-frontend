@@ -25,9 +25,9 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [username, setUsername] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
 
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false);
@@ -36,13 +36,6 @@ function App() {
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
 
   const [savedArticles, setSavedArticles] = useState([]);
-  // const {
-  //   email: [email, setEmail],
-  //   password: [password, setPassword],
-  // } = useContext(FormContext);
-
-  const [form, setForm] = React.useState({});
-  const formRef = React.useRef();
 
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
@@ -82,8 +75,7 @@ function App() {
       .catch((err) => console.log(`Error..... ${err}`));
   }
 
-  function handleLogin(e) {
-    e.preventDefault();
+  function handleLogin(email, password) {
     if (!email || !password) {
       return;
     }
@@ -92,8 +84,9 @@ function App() {
       .then((data) => {
         if (data.token) {
           return new Promise((res) => {
-            setIsLoggedIn(true);
             setCurrentUser(data.user);
+            setIsLoggedIn(true);
+            console.log(data.user);
             res();
           })
             .then(() => {
@@ -108,19 +101,6 @@ function App() {
         console.log(`Error..... ${err}`);
       });
   }
-
-  // function handleFormValidationEffect() {
-  //   const validatedForm = new FormValidator(formSettings, formRef.current);
-  //   validatedForm.enableValidation();
-  //   setForm(validatedForm);
-  // }
-  // function handleLogin() {
-  //   return new Promise((res) => {
-  //     setIsLoggedIn(true);
-  //     setCurrentUser();
-  //     res();
-  //   }).catch((err) => console.log(`Error..... ${err}`));
-  // }
 
   function handleLogout() {
     return new Promise((res) => {

@@ -10,13 +10,11 @@ export function Main({
   isLoggedIn,
   savedArticles,
   setSavedArticles,
-  getUserInfoEffect,
 }) {
   const [keyword, setKeyword] = useState("");
   const [showArticles, setShowArticles] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // const currentUser = React.useContext(CurrentUserContext);
-  // useEffect(getUserInfoEffect, [getUserInfoEffect]);
+
   return (
     <main className="main">
       <SearchForm

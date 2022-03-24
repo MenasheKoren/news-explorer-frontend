@@ -17,8 +17,7 @@ export function NewsCard({
   // }
 
   function handleSaveBookmarkedArticles(req) {
-    let keyword, title, text, date, source, link, image;
-    ({ keyword, title, text, date, source, link, image } = req.body);
+    const { keyword, title, text, date, source, link, image } = req.body;
     console.log(keyword);
     if (!isBookmarked) {
       mainApi

@@ -11,13 +11,12 @@ export function SavedNews({
   getUserInfoEffect,
 }) {
   const currentUser = useContext(CurrentUserContext);
-  useEffect(getUserInfoEffect, []);
 
   useEffect(() => {
     mainApi
       .getSavedArticles()
       .then((articlesData) => {
-        setSavedArticles([...articlesData]);
+        setSavedArticles(articlesData);
       })
       .catch((err) => console.log(`Error..... ${err}`));
   }, [setSavedArticles]);

@@ -5,11 +5,7 @@ import { FormContext } from "../../contexts/FormContext";
 import { FormValidator } from "../../utils/FormValidator/FormValidator";
 import { formSettings } from "../../utils/helpers";
 
-export function Login({
-  handleLogin,
-  handleSwitchPopup,
-  handleFormValidationEffect,
-}) {
+export function Login({ handleLogin, handleSwitchPopup }) {
   const {
     email: [email, setEmail],
     password: [password, setPassword],
@@ -44,7 +40,14 @@ export function Login({
   return (
     <div className="entry entry_type_login">
       <h2 className="entry__title">Log in</h2>
-      <form className="entry__form" onSubmit={handleLogin} ref={formRef}>
+      <form
+        className="entry__form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleLogin(email, password);
+        }}
+        ref={formRef}
+      >
         <div className="form__inputs">
           <FormInput
             defaultValue={email || ""}
