@@ -31,22 +31,22 @@ export function SavedNews({
   const currentUser = useContext(CurrentUserContext);
   const [keywordList, setKeywordList] = useState([]);
   const [savedArticlesData, setSavedArticlesData] = useState([]);
+  const [totalSavedArticles, setTotalSavedArticles] = useState(0);
+  // function checkUserId(data) {
+  //   return data.owner === currentUser._id;
+  // }
 
-  function checkUserId(data) {
-    return data.owner === currentUser._id;
-  }
-
-  function handleKeywordList(keyword) {
-    setKeywordList((keywordList) => [...keywordList, keyword]);
-    console.log(keywordList);
-  }
+  // function handleKeywordList(keyword) {
+  //   setKeywordList((keywordList) => [...keywordList, keyword]);
+  //   console.log(keywordList);
+  // }
 
   useEffect(() => {
     mainApi
       .getSavedArticles()
       .then((data) => {
         setSavedArticlesData(data);
-        setTotalResult(data.length);
+        setTotalSavedArticles(data.length);
         // I tried it here ----- handleKeywordList(keyword) ------- infinite loop;
       })
       .then(() => {
@@ -55,12 +55,12 @@ export function SavedNews({
         setEndIndex(3);
       })
       .catch((err) => console.log(`Error..... ${err}`));
-  }, [setSavedArticlesData, setIsLoading, totalResult]);
+  }, [setSavedArticlesData, setIsLoading]);
   return (
     <section className="saved-news">
       <SavedNewsSubheader
         username={currentUser.name}
-        totalResult={totalResult}
+        totalSavedArticles={totalSavedArticles}
         keywordList={keywordList}
       />
       <div className="news-cards__content">
@@ -71,7 +71,7 @@ export function SavedNews({
         ) : (
           <ul className="news-cards__list">
             {savedArticlesData.slice(startIndex, endIndex).map((articles) => {
-              // I tried it here ----- handleKeywordList(articles.keyword) ------- infinite loop;
+              // handleKeywordList(articles.keyword);
               return (
                 <NewsCard
                   savedArticle={articles}
