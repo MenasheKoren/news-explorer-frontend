@@ -2,8 +2,6 @@ import checkResponse from "./checkResponse";
 
 const BASE_URL = "https://api.news-explorer.mk.students.nomoreparties.sbs";
 
-// export const token = localStorage.getItem("token");
-
 export const register = ({ username: name, email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",

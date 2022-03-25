@@ -3,11 +3,21 @@ import { Bookmark } from "../Bookmark/Bookmark";
 import { mainApi } from "../../utils/MainApi";
 
 export function NewsCard({
-  articles: { description, publishedAt, source, title, urlToImage, url },
+  articles: { description, publishedAt, source, title, urlToImage, url, owner },
   isLoggedIn,
   keyword,
   savedArticles,
   setSavedArticles,
+  savedOwner,
+  savedUrlToImage,
+  savedDescription,
+  savedKeyword,
+  savedUrl,
+  savedPublishedAt,
+  savedSource,
+  savedTitle,
+  savedArticle,
+  handleKeywordList,
 }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -22,9 +32,11 @@ export function NewsCard({
           source: source.name,
           link: url,
           image: urlToImage,
+          owner,
         })
         .then(() => {
           setIsBookmarked(true);
+          // I tried it here ----- handleKeywordList(keyword) ------- infinite loop;
         })
         .catch((err) => console.log(`Error..... ${err}`));
     } else {
@@ -47,18 +59,19 @@ export function NewsCard({
       <div
         className="news-card__image"
         style={{
-          backgroundImage: `url(${urlToImage})`,
+          backgroundImage: `url(${urlToImage || savedUrlToImage})`,
         }}
       >
         <Bookmark
           handleSaveBookmarkedArticles={handleSaveBookmarkedArticles}
           isBookmarked={isBookmarked}
           isLoggedIn={isLoggedIn}
+          savedKeyword={savedKeyword}
         />
       </div>
       <div className="news-card__text-container">
         <p className="news-card__date">
-          {new Date(publishedAt).toLocaleString("en-US", {
+          {new Date(publishedAt || savedPublishedAt).toLocaleString("en-US", {
             month: "long",
             day: "numeric",
             year: "numeric",
@@ -67,14 +80,14 @@ export function NewsCard({
         <h3
           className="news-card__title"
           onClick={() => {
-            window.open(url, "_blank");
+            window.open(url || savedUrl, "_blank");
           }}
           style={{ cursor: "pointer" }}
         >
-          {title}
+          {title || savedTitle}
         </h3>
-        <p className="news-card__text">{description}</p>
-        <h4 className="news-card__source">{source.name}</h4>
+        <p className="news-card__text">{description || savedDescription}</p>
+        <h4 className="news-card__source">{source.name || savedSource}</h4>
       </div>
     </li>
   );

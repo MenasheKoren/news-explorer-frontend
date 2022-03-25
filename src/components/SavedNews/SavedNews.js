@@ -8,7 +8,6 @@ import { NothingFound } from "../NothingFound/NothingFound";
 import { NewsCard } from "../NewsCard/NewsCard";
 import { v4 as uuidv4 } from "uuid";
 import { ShowMoreButton } from "../ShowMoreButton/ShowMoreButton";
-import { data } from "autoprefixer";
 
 export function SavedNews({
   username,
@@ -30,17 +29,25 @@ export function SavedNews({
   setTotalResult,
 }) {
   const currentUser = useContext(CurrentUserContext);
-  const [keywordCount, setKeywordCount] = useState([]);
+  const [keywordList, setKeywordList] = useState([]);
+  const [savedArticlesData, setSavedArticlesData] = useState([]);
 
-  function handleKeywordCount() {
-    setKeywordCount();
+  function checkUserId(data) {
+    return data.owner === currentUser._id;
   }
+
+  function handleKeywordList(keyword) {
+    setKeywordList((keywordList) => [...keywordList, keyword]);
+    console.log(keywordList);
+  }
+
   useEffect(() => {
     mainApi
-      .getSavedArticles(data)
+      .getSavedArticles()
       .then((data) => {
-        setSavedArticles(data);
+        setSavedArticlesData(data);
         setTotalResult(data.length);
+        // I tried it here ----- handleKeywordList(keyword) ------- infinite loop;
       })
       .then(() => {
         setIsLoading(false);
@@ -48,12 +55,13 @@ export function SavedNews({
         setEndIndex(3);
       })
       .catch((err) => console.log(`Error..... ${err}`));
-  }, [setSavedArticles, setIsLoading, totalResult]);
+  }, [setSavedArticlesData, setIsLoading, totalResult]);
   return (
     <section className="saved-news">
       <SavedNewsSubheader
         username={currentUser.name}
         totalResult={totalResult}
+        keywordList={keywordList}
       />
       <div className="news-cards__content">
         {isLoading ? (
@@ -62,11 +70,20 @@ export function SavedNews({
           <NothingFound />
         ) : (
           <ul className="news-cards__list">
-            {savedArticles.slice(startIndex, endIndex).map((articles) => {
+            {savedArticlesData.slice(startIndex, endIndex).map((articles) => {
+              // I tried it here ----- handleKeywordList(articles.keyword) ------- infinite loop;
               return (
                 <NewsCard
-                  keyword={keyword}
+                  savedArticle={articles}
                   articles={articles}
+                  savedKeyword={articles.keyword}
+                  savedTitle={articles.title}
+                  savedDescription={articles.text}
+                  savedPublishedAt={articles.date}
+                  savedSource={articles.source.name}
+                  savedUrl={articles.link}
+                  savedUrlToImage={articles.image}
+                  savedOwner={articles.owner}
                   key={uuidv4()}
                 />
               );

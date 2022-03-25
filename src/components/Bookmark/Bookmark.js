@@ -5,6 +5,7 @@ export function Bookmark({
   isBookmarked,
   handleSaveBookmarkedArticles,
   isLoggedIn,
+  savedKeyword,
 }) {
   const location = useLocation();
   return (
@@ -15,7 +16,7 @@ export function Bookmark({
             className="button bookmarks__bookmark bookmarks__unselected"
             type="button"
             onClick={handleSaveBookmarkedArticles}
-            disabled={isLoggedIn ? false : true}
+            disabled={!isLoggedIn}
           />
           {!isLoggedIn && (
             <div className="bookmarks__tool-tip">Sign in to save articles</div>
@@ -39,7 +40,7 @@ export function Bookmark({
           />
           <span className="bookmarks__tool-tip">Remove from saved</span>
           <button className="button bookmarks__keyword" type="button">
-            Paint
+            {savedKeyword}
           </button>
         </div>
       )}
