@@ -1,44 +1,31 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Bookmark } from "../Bookmark/Bookmark";
 import { mainApi } from "../../utils/MainApi";
-import { CardsContext } from "../../contexts/SavedCardsContext";
 
 export function NewsCard({ articleData, removeFromSaved, isLoggedIn }) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [savedCards, setSavedCards] = useContext(CardsContext);
+  const [isBookmarked, setIsBookmarked] = useState(
+    articleData.isSaved || false
+  );
   const { date, link, title, text, source, image, keyword } = articleData;
 
   function handleSaveBookmarkedArticles() {
-    console.log(isBookmarked);
-    if (articleData._id)
-      return mainApi.deleteArticle(articleData._id).then(() => {
-        removeFromSaved(articleData);
-      });
-    if (!isBookmarked) {
+    if (removeFromSaved) {
+      return mainApi
+        .deleteArticle(articleData._id)
+        .then(() => removeFromSaved(articleData));
+    }
+    if (isBookmarked) {
+      mainApi.deleteArticle(articleData._id).then(() => setIsBookmarked(false));
+    } else {
       mainApi
-        .addArticle(articleData)
-        .then(() => {
+        .addArticle({ date, link, title, source, text, image, keyword })
+        .then((res) => {
+          Object.assign(articleData, res.article);
           setIsBookmarked(true);
         })
-        .then(mainApi.getSavedArticles().then((res) => setSavedCards(res)))
         .catch((err) => console.log(`Error..... ${err}`));
-    } else {
-      savedCards.forEach((item) => {
-        if (item.link === articleData.link) {
-          mainApi
-            .deleteArticle(item._id)
-            .then(() => setIsBookmarked(false))
-            .then(mainApi.getSavedArticles().then((res) => setSavedCards(res)));
-        }
-      });
     }
   }
-
-  useEffect(() => {
-    savedCards.some((item) => articleData.link === item.link)
-      ? setIsBookmarked(true)
-      : setIsBookmarked(false);
-  }, [savedCards, articleData]);
 
   return (
     <li className="news-card">

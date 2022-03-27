@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ShowMoreButton } from "../ShowMoreButton/ShowMoreButton";
 import { Preloader } from "../Preloader/Preloader";
 import { NothingFound } from "../NothingFound/NothingFound";
 import newsApi from "../../utils/NewsApi";
 import { v4 as uuidv4 } from "uuid";
+import { CardsContext } from "../../contexts/SavedCardsContext";
 import { NewsCard } from "../NewsCard/NewsCard";
 
 export function NewsCardList({ isLoggedIn, keyword, isLoading, setIsLoading }) {
   const [articlesData, setArticlesData] = useState([]);
   const [endIndex, setEndIndex] = useState(3);
+  const [savedCards, setSavedCards] = useContext(CardsContext);
 
   useEffect(() => {
     newsApi
@@ -38,6 +40,12 @@ export function NewsCardList({ isLoggedIn, keyword, isLoading, setIsLoading }) {
           <ul className="news-cards__list">
             {articlesData.slice(0, endIndex).map((article) => {
               article.keyword = keyword;
+              savedCards.forEach((item) => {
+                if (item.link === article.link) {
+                  Object.assign(article, item);
+                  article.isSaved = true;
+                }
+              });
               return (
                 <NewsCard
                   articleData={article}
