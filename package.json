@@ -27,7 +27,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint .",
-    "lint:fix": "npx eslint . --fix"
+    "lint:fix": "npx eslint . --fix",
+    "deploy": "npm run build && scp -r ./build/* menashekoren@news-explorer.mk.students.nomoreparties.sbs:/home/menashekoren/news-explorer/frontend"
   },
   "devDependencies": {
     "eslint": "^8.9.0",

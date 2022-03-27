@@ -5,85 +5,61 @@ import { mainApi } from "../../utils/MainApi";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { Preloader } from "../Preloader/Preloader";
 import { NothingFound } from "../NothingFound/NothingFound";
-import { NewsCard } from "../NewsCard/NewsCard";
 import { v4 as uuidv4 } from "uuid";
 import { ShowMoreButton } from "../ShowMoreButton/ShowMoreButton";
+import { CardsContext } from "../../contexts/SavedCardsContext";
+import { NewsCard } from "../NewsCard/NewsCard";
 
-export function SavedNews({
-  username,
-  savedArticles,
-  setSavedArticles,
-  getUserInfoEffect,
-  isLoading,
-  keyword,
-  setIsLoading,
-  setKeyword,
-  setShowArticles,
-  showArticles,
-  handleAddThreeMoreCards,
-  setEndIndex,
-  setStartIndex,
-  startIndex,
-  endIndex,
-  totalResult,
-  setTotalResult,
-}) {
+export function SavedNews({ isLoading, setIsLoading }) {
   const currentUser = useContext(CurrentUserContext);
-  const [keywordList, setKeywordList] = useState([]);
-  const [savedArticlesData, setSavedArticlesData] = useState([]);
-  const [totalSavedArticles, setTotalSavedArticles] = useState(0);
-  // function checkUserId(data) {
-  //   return data.owner === currentUser._id;
-  // }
+  const [endIndex, setEndIndex] = useState(3);
+  const [savedCards, setSavedCards] = useContext(CardsContext);
 
-  // function handleKeywordList(keyword) {
-  //   setKeywordList((keywordList) => [...keywordList, keyword]);
-  //   console.log(keywordList);
-  // }
+  const removeArticle = (article) => {
+    setSavedCards(savedCards.filter((item) => item !== article));
+  };
+
+  const handleAddThreeMoreCards = () => {
+    setEndIndex(endIndex + 3);
+  };
 
   useEffect(() => {
     mainApi
       .getSavedArticles()
       .then((data) => {
-        setSavedArticlesData(data);
-        setTotalSavedArticles(data.length);
-        // I tried it here ----- handleKeywordList(keyword) ------- infinite loop;
+        setSavedCards(data);
       })
       .then(() => {
         setIsLoading(false);
-        setStartIndex(0);
-        setEndIndex(3);
       })
       .catch((err) => console.log(`Error..... ${err}`));
-  }, [setSavedArticlesData, setIsLoading]);
+  }, []);
+
   return (
     <section className="saved-news">
       <SavedNewsSubheader
         username={currentUser.name}
-        totalSavedArticles={totalSavedArticles}
-        keywordList={keywordList}
+        totalSavedArticles={savedCards.length}
+        keywordList={Array.from(
+          new Set(
+            savedCards.map((item) => {
+              return item.keyword;
+            })
+          )
+        )}
       />
       <div className="news-cards__content">
-        {isLoading ? (
+        {isLoading && !savedCards.length ? (
           <Preloader />
-        ) : totalResult === 0 ? (
+        ) : !savedCards.length ? (
           <NothingFound />
         ) : (
           <ul className="news-cards__list">
-            {savedArticlesData.slice(startIndex, endIndex).map((articles) => {
-              // handleKeywordList(articles.keyword);
+            {savedCards.slice(0, endIndex).map((article) => {
               return (
                 <NewsCard
-                  savedArticle={articles}
-                  articles={articles}
-                  savedKeyword={articles.keyword}
-                  savedTitle={articles.title}
-                  savedDescription={articles.text}
-                  savedPublishedAt={articles.date}
-                  savedSource={articles.source.name}
-                  savedUrl={articles.link}
-                  savedUrlToImage={articles.image}
-                  savedOwner={articles.owner}
+                  articleData={article}
+                  removeFromSaved={removeArticle}
                   key={uuidv4()}
                 />
               );
@@ -93,7 +69,7 @@ export function SavedNews({
 
         <ShowMoreButton
           handleAddThreeMoreCards={handleAddThreeMoreCards}
-          totalResult={totalResult}
+          totalResult={savedCards.length}
           endIndex={endIndex}
         />
       </div>

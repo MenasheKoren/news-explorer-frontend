@@ -1,76 +1,63 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Bookmark } from "../Bookmark/Bookmark";
 import { mainApi } from "../../utils/MainApi";
+import { CardsContext } from "../../contexts/SavedCardsContext";
 
-export function NewsCard({
-  articles: { description, publishedAt, source, title, urlToImage, url, owner },
-  isLoggedIn,
-  keyword,
-  savedArticles,
-  setSavedArticles,
-  savedOwner,
-  savedUrlToImage,
-  savedDescription,
-  savedKeyword,
-  savedUrl,
-  savedPublishedAt,
-  savedSource,
-  savedTitle,
-  savedArticle,
-  handleKeywordList,
-}) {
+export function NewsCard({ articleData, removeFromSaved, isLoggedIn }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [savedCards, setSavedCards] = useContext(CardsContext);
+  const { date, link, title, text, source, image, keyword } = articleData;
 
   function handleSaveBookmarkedArticles() {
+    console.log(isBookmarked);
+    if (articleData._id)
+      return mainApi.deleteArticle(articleData._id).then(() => {
+        removeFromSaved(articleData);
+      });
     if (!isBookmarked) {
       mainApi
-        .addArticle({
-          keyword,
-          title,
-          text: description,
-          date: `${new Date(publishedAt).toISOString()}`,
-          source: source.name,
-          link: url,
-          image: urlToImage,
-          owner,
-        })
+        .addArticle(articleData)
         .then(() => {
           setIsBookmarked(true);
         })
+        .then(mainApi.getSavedArticles().then((res) => setSavedCards(res)))
         .catch((err) => console.log(`Error..... ${err}`));
     } else {
-      /* todo Fix delete card function */
-      mainApi
-        .deleteArticle()
-        .then(() => {
-          const deletedArticleId = NewsCard.key;
-          setSavedArticles(
-            savedArticles.filter((article) => article._id !== deletedArticleId)
-          );
-        })
-        .catch((err) => console.log(`Error..... ${err}`));
-      setIsBookmarked(false);
+      savedCards.forEach((item) => {
+        if (item.link === articleData.link) {
+          mainApi
+            .deleteArticle(item._id)
+            .then(() => setIsBookmarked(false))
+            .then(mainApi.getSavedArticles().then((res) => setSavedCards(res)));
+        }
+      });
     }
   }
+
+  useEffect(() => {
+    savedCards.some((item) => articleData.link === item.link)
+      ? setIsBookmarked(true)
+      : setIsBookmarked(false);
+  }, [savedCards, articleData]);
 
   return (
     <li className="news-card">
       <div
         className="news-card__image"
         style={{
-          backgroundImage: `url(${urlToImage || savedUrlToImage})`,
+          backgroundImage: `url(${image})`,
         }}
       >
         <Bookmark
           handleSaveBookmarkedArticles={handleSaveBookmarkedArticles}
           isBookmarked={isBookmarked}
           isLoggedIn={isLoggedIn}
-          savedKeyword={savedKeyword}
+          savedKeyword={keyword}
         />
       </div>
       <div className="news-card__text-container">
         <p className="news-card__date">
-          {new Date(publishedAt || savedPublishedAt).toLocaleString("en-US", {
+          {new Date(date).toLocaleString("en-US", {
             month: "long",
             day: "numeric",
             year: "numeric",
@@ -79,14 +66,14 @@ export function NewsCard({
         <h3
           className="news-card__title"
           onClick={() => {
-            window.open(url || savedUrl, "_blank");
+            window.open(link, "_blank");
           }}
           style={{ cursor: "pointer" }}
         >
-          {title || savedTitle}
+          {title}
         </h3>
-        <p className="news-card__text">{description || savedDescription}</p>
-        <h4 className="news-card__source">{source.name || savedSource}</h4>
+        <p className="news-card__text">{text}</p>
+        <h4 className="news-card__source">{source}</h4>
       </div>
     </li>
   );

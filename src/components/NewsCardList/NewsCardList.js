@@ -1,41 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { NewsCard } from "../NewsCard/NewsCard";
 import { ShowMoreButton } from "../ShowMoreButton/ShowMoreButton";
 import { Preloader } from "../Preloader/Preloader";
 import { NothingFound } from "../NothingFound/NothingFound";
 import newsApi from "../../utils/NewsApi";
 import { v4 as uuidv4 } from "uuid";
+import { NewsCard } from "../NewsCard/NewsCard";
 
-export function NewsCardList({
-  isLoggedIn,
-  keyword,
-  isLoading,
-  setIsLoading,
-  savedArticles,
-  setSavedArticles,
-  handleAddThreeMoreCards,
-  setStartIndex,
-  startIndex,
-  endIndex,
-  setEndIndex,
-  totalResult,
-  setTotalResult,
-}) {
+export function NewsCardList({ isLoggedIn, keyword, isLoading, setIsLoading }) {
   const [articlesData, setArticlesData] = useState([]);
+  const [endIndex, setEndIndex] = useState(3);
 
   useEffect(() => {
     newsApi
       .getArticleData(keyword)
       .then((data) => {
         setArticlesData(data);
-        setTotalResult(data.length);
       })
       .then(() => {
         setIsLoading(false);
-        setStartIndex(0);
-        setEndIndex(3);
       });
-  }, [keyword, setIsLoading, totalResult]);
+  }, [isLoading, endIndex]);
+
+  const handleAddThreeMoreCards = () => {
+    setEndIndex(endIndex + 3);
+  };
 
   return (
     <section className="news-cards">
@@ -44,19 +32,17 @@ export function NewsCardList({
 
         {isLoading ? (
           <Preloader />
-        ) : totalResult === 0 ? (
+        ) : articlesData.length === 0 ? (
           <NothingFound />
         ) : (
           <ul className="news-cards__list">
-            {articlesData.slice(startIndex, endIndex).map((articles) => {
-              articles.key = keyword;
+            {articlesData.slice(0, endIndex).map((article) => {
+              article.keyword = keyword;
               return (
                 <NewsCard
-                  articles={articles}
+                  articleData={article}
                   key={uuidv4()}
                   isLoggedIn={isLoggedIn}
-                  savedArticles={savedArticles}
-                  setSavedArticles={setSavedArticles}
                 />
               );
             })}
@@ -65,7 +51,7 @@ export function NewsCardList({
 
         <ShowMoreButton
           handleAddThreeMoreCards={handleAddThreeMoreCards}
-          totalResult={totalResult}
+          totalResult={articlesData.length}
           endIndex={endIndex}
         />
       </div>

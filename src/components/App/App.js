@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Main } from "../Main/Main";
-import { SavedNews } from "../SavedNews/SavedNewsRefactor";
 import { Layout } from "../Layout/Layout";
 import { useMediaQuery } from "react-responsive";
 import { Register } from "../Register/Register";
@@ -16,6 +15,7 @@ import FormContextProvider from "../../contexts/FormContext";
 import { Login } from "../Login/Login";
 import { mainApi } from "../../utils/MainApi";
 import { CardsContext } from "../../contexts/SavedCardsContext";
+import { SavedNews } from "../SavedNews/SavedNews";
 
 function App() {
   const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });

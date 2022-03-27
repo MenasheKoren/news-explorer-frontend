@@ -30,17 +30,17 @@
   0% {
     transform: rotate(0deg);
     stroke-dashoffset: 79.2;
-    stroke: rgb(138, 43, 226);
+    stroke: #8a2be2;
   }
   50% {
     transform: rotate(720deg);
     stroke-dashoffset: 376.8;
-    stroke: rgb(227, 15, 39);
+    stroke: #e30f27;
   }
   100% {
     transform: rotate(1080deg);
     stroke-dashoffset: 79.2;
-    stroke: rgb(30, 234, 241);
+    stroke: #1eeaf1;
   }
 }
 

@@ -94,13 +94,12 @@ export function Register({
       </form>
       <p className="entry__redirect-text">
         or{" "}
-        <a
-          href="#"
+        <button
           className="link link__hover entry__redirect-link"
           onClick={handleSwitchPopup}
         >
           Sign in
-        </a>
+        </button>
       </p>
     </div>
   );
