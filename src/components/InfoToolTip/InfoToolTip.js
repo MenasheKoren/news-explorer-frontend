@@ -1,9 +1,15 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import { PopupCloseButton } from "../PopupCloseButton/PopupCloseButton";
 
-export const InfoToolTip = ({ closeAllPopups, isOpen }) => {
-  const location = useLocation();
+export const InfoToolTip = ({
+  closeAllPopups,
+  setIsLoginPopupOpen,
+  isOpen,
+}) => {
+  function handleRegistrationSuccessPopup() {
+    closeAllPopups();
+    setIsLoginPopupOpen(true);
+  }
 
   return (
     <section
@@ -20,7 +26,7 @@ export const InfoToolTip = ({ closeAllPopups, isOpen }) => {
         <a
           href="#"
           className="link link__hover info-tool-tip__redirect-link"
-          onClick={closeAllPopups}
+          onClick={handleRegistrationSuccessPopup}
         >
           Sign in
         </a>

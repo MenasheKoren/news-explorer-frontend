@@ -6,10 +6,14 @@ import { Login } from "../Login/Login";
 
 export function PopupWithForm({
   closeAllPopups,
-  isLoginPopupOpen,
-  isRegisterPopupOpen,
-  isRegistered,
   isMobile,
+  isRegisterPopupOpen,
+  isLoginPopupOpen,
+  handleSwitchPopup,
+  handleSubmitInfoToolTip,
+  handleSetRegistration,
+  handleLogin,
+  handleFormValidationEffect,
 }) {
   return (
     <section
@@ -22,8 +26,23 @@ export function PopupWithForm({
         <PopupCloseButton onClick={closeAllPopups} />
         {isMobile && <MobileCloseButton onClick={closeAllPopups} />}
 
-        {!isRegistered && <Register />}
-        {isRegistered && <Login />}
+        {isRegisterPopupOpen && (
+          <Register
+            handleSwitchPopup={handleSwitchPopup}
+            handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+            handleSetRegistration={handleSetRegistration}
+            handleFormValidationEffect={handleFormValidationEffect}
+          />
+        )}
+        {isLoginPopupOpen && (
+          <Login
+            handleSwitchPopup={handleSwitchPopup}
+            handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+            handleLogin={handleLogin}
+            closeAllPopups={closeAllPopups}
+            handleFormValidationEffect={handleFormValidationEffect}
+          />
+        )}
       </div>
     </section>
   );

@@ -1,15 +1,18 @@
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useLocation } from "react-router-dom";
 
 export function HeaderButton({
+  dropdownMenuOpen,
   loggedIn,
-  onLogoutClick,
   onLoginClick,
+  onLogoutClick,
   onRegisterClick,
   registered,
-  userName,
-  dropdownMenuOpen,
 }) {
   const location = useLocation();
+  const currentUser = useContext(CurrentUserContext);
+
   return (
     <>
       {loggedIn && (
@@ -24,7 +27,7 @@ export function HeaderButton({
               : {}
           }
         >
-          {userName ? { userName } : "Gollum"}
+          {currentUser.name}
           <svg className="logout__icon" />
         </button>
       )}

@@ -8,14 +8,13 @@ import { HeaderTitle } from "../HeaderTitle/HeaderTitle";
 export function Header({
   handleOpenDropdownMenu,
   isDropdownMenuOpen,
-  isRegistered,
-  handleLogout,
-  isLoggedIn,
   isMobile,
   isMonitorOrTablet,
-  handleLoginClick,
+  handleLogout,
   handleRegisterClick,
-  userName,
+  handleLoginClick,
+  isLoggedIn,
+  isRegistered,
 }) {
   const location = useLocation();
 
@@ -56,7 +55,6 @@ export function Header({
             <HeaderButton
               loggedIn={isLoggedIn}
               onLogoutClick={handleLogout}
-              userName={userName}
               registered={isRegistered}
               onLoginClick={handleLoginClick}
               onRegisterClick={handleRegisterClick}

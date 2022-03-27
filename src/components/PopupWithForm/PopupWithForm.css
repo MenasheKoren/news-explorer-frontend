@@ -61,38 +61,6 @@
   width: 100%;
 }
 
-.form__label {
-  font-family: Inter, Arial, Helvetica, sans-serif;
-  font-size: 0.75rem;
-  line-height: 0.9375rem;
-  color: #2f71e5;
-  font-weight: 400;
-}
-
-.field-input {
-  border-style: none;
-  padding: 0.5rem 0 0.75rem;
-  width: 100%;
-  font-size: 0.875em;
-  line-height: 1.2;
-  transition: all 0.2s;
-  border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.2);
-  background: transparent;
-  color: #000;
-}
-
-.error-message {
-  color: #f00;
-  font-size: 0.75rem;
-  line-height: 0.9375rem;
-  border-top: 0.0625rem solid #f00;
-  display: flex;
-}
-
-.error-message:empty {
-  border-top-color: rgba(0, 0, 0, 0.2);
-}
-
 .entry__save {
   font-size: 1.125rem;
   line-height: 1.5rem;
@@ -126,6 +94,10 @@
 .entry__redirect-link {
   color: #2f71e5;
   font-weight: 500;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
 }
 
 @media screen and (max-width: 767px) {
