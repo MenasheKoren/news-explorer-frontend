@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Main } from "../Main/Main";
-import { SavedNews } from "../SavedNews/SavedNews";
+import { SavedNews } from "../SavedNews/SavedNewsRefactor";
 import { Layout } from "../Layout/Layout";
 import { useMediaQuery } from "react-responsive";
 import { Register } from "../Register/Register";
@@ -14,6 +14,8 @@ import * as auth from "../../utils/auth";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import FormContextProvider from "../../contexts/FormContext";
 import { Login } from "../Login/Login";
+import { mainApi } from "../../utils/MainApi";
+import { CardsContext } from "../../contexts/SavedCardsContext";
 
 function App() {
   const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });
@@ -26,9 +28,6 @@ function App() {
   const [showArticles, setShowArticles] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [username, setUsername] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false);
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
@@ -37,7 +36,9 @@ function App() {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(3);
   const [totalResult, setTotalResult] = useState(0);
-  const [savedArticles, setSavedArticles] = useState([]);
+
+  const [savedCards, setSavedCards] = useState([]);
+  const cardsData = [savedCards, setSavedCards];
 
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
@@ -49,6 +50,11 @@ function App() {
           setIsLoggedIn(true);
           setCurrentUser(user);
         })
+        .then(
+          mainApi.getSavedArticles().then((data) => {
+            setSavedCards(data);
+          })
+        )
         .catch((err) => console.log(`Error..... ${err}`));
     }
   }, []);
@@ -139,116 +145,113 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <FormContextProvider>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Layout
-                handleLogout={handleLogout}
-                handleLogin={handleLogin}
-                isRegistered={isRegistered}
-                isLoggedIn={isLoggedIn}
-                isDropdownMenuOpen={isDropdownMenuOpen}
-                handleOpenDropdownMenu={handleOpenDropdownMenu}
-                closeAllPopups={closeAllPopups}
-                isMonitorOrTablet={isMonitorOrTablet}
-                isMobile={isMobile}
-                isRegisterPopupOpen={isRegisterPopupOpen}
-                isLoginPopupOpen={isLoginPopupOpen}
-                isInfoToolTipOpen={isInfoToolTipOpen}
-                handleLoginClick={handleLoginClick}
-                handleRegisterClick={handleRegisterClick}
-                handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-                // username={username}
-                setIsLoggedIn={setIsLoggedIn}
-                setIsRegisteredPopupOpen={setIsRegisterPopupOpen}
-                setIsLoginPopupOpen={setIsLoginPopupOpen}
+        <CardsContext.Provider value={cardsData}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Layout
+                  handleLogout={handleLogout}
+                  handleLogin={handleLogin}
+                  isRegistered={isRegistered}
+                  isLoggedIn={isLoggedIn}
+                  isDropdownMenuOpen={isDropdownMenuOpen}
+                  handleOpenDropdownMenu={handleOpenDropdownMenu}
+                  closeAllPopups={closeAllPopups}
+                  isMonitorOrTablet={isMonitorOrTablet}
+                  isMobile={isMobile}
+                  isRegisterPopupOpen={isRegisterPopupOpen}
+                  isLoginPopupOpen={isLoginPopupOpen}
+                  isInfoToolTipOpen={isInfoToolTipOpen}
+                  handleLoginClick={handleLoginClick}
+                  handleRegisterClick={handleRegisterClick}
+                  handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+                  setIsLoggedIn={setIsLoggedIn}
+                  setIsRegisteredPopupOpen={setIsRegisterPopupOpen}
+                  setIsLoginPopupOpen={setIsLoginPopupOpen}
+                />
+              }
+            >
+              <Route
+                index
+                element={
+                  <>
+                    <Main
+                      isMobile={isMobile}
+                      isTablet={isTablet}
+                      isMonitor={isMonitor}
+                      isLoggedIn={isLoggedIn}
+                      keyword={keyword}
+                      setKeyword={setKeyword}
+                      isLoading={isLoading}
+                      setIsLoading={setIsLoading}
+                      showArticles={showArticles}
+                      setShowArticles={setShowArticles}
+                      handleAddThreeMoreCards={handleAddThreeMoreCards}
+                      startIndex={startIndex}
+                      setStartIndex={setStartIndex}
+                      endIndex={endIndex}
+                      setEndIndex={setEndIndex}
+                      totalResult={totalResult}
+                      setTotalResult={setTotalResult}
+                    />
+                    <PopupWithForm
+                      isRegisterPopupOpen={isRegisterPopupOpen}
+                      isLoginPopupOpen={isLoginPopupOpen}
+                      isRegistered={isRegistered}
+                      handleLogin={handleLogin}
+                      isMobile={isMobile}
+                      handleSwitchPopup={handleSwitchPopup}
+                      closeAllPopups={closeAllPopups}
+                      handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+                      handleSetRegistration={handleSetRegistration}
+                    >
+                      <Register />
+                      <Login />
+                    </PopupWithForm>
+                    <InfoToolTip
+                      setIsLoginPopupOpen={setIsLoginPopupOpen}
+                      closeAllPopups={closeAllPopups}
+                      isOpen={isInfoToolTipOpen}
+                    />
+                  </>
+                }
               />
-            }
-          >
-            <Route
-              index
-              element={
-                <>
-                  <Main
-                    isMobile={isMobile}
-                    isTablet={isTablet}
-                    isMonitor={isMonitor}
-                    isLoggedIn={isLoggedIn}
-                    savedArticles={savedArticles}
-                    setSavedArticles={setSavedArticles}
-                    keyword={keyword}
-                    setKeyword={setKeyword}
-                    isLoading={isLoading}
-                    setIsLoading={setIsLoading}
-                    showArticles={showArticles}
-                    setShowArticles={setShowArticles}
-                    handleAddThreeMoreCards={handleAddThreeMoreCards}
-                    startIndex={startIndex}
-                    setStartIndex={setStartIndex}
-                    endIndex={endIndex}
-                    setEndIndex={setEndIndex}
-                    totalResult={totalResult}
-                    setTotalResult={setTotalResult}
-                  />
-                  <PopupWithForm
-                    isRegisterPopupOpen={isRegisterPopupOpen}
-                    isLoginPopupOpen={isLoginPopupOpen}
-                    isRegistered={isRegistered}
-                    handleLogin={handleLogin}
-                    isMobile={isMobile}
-                    handleSwitchPopup={handleSwitchPopup}
-                    closeAllPopups={closeAllPopups}
-                    handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-                    handleSetRegistration={handleSetRegistration}
-                  >
-                    <Register />
-                    <Login />
-                  </PopupWithForm>
-                  <InfoToolTip
-                    setIsLoginPopupOpen={setIsLoginPopupOpen}
-                    closeAllPopups={closeAllPopups}
-                    isOpen={isInfoToolTipOpen}
-                  />
-                </>
-              }
-            />
 
-            <Route
-              path="/saved-news"
-              element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <SavedNews
-                    savedArticles={savedArticles}
-                    setSavedArticles={setSavedArticles}
-                    keyword={keyword}
-                    setKeyword={setKeyword}
-                    isLoading={isLoading}
-                    setIsLoading={setIsLoading}
-                    showArticles={showArticles}
-                    setShowArticles={setShowArticles}
-                    handleAddThreeMoreCards={handleAddThreeMoreCards}
-                    startIndex={startIndex}
-                    setStartIndex={setStartIndex}
-                    endIndex={endIndex}
-                    setEndIndex={setEndIndex}
-                    totalResult={totalResult}
-                    setTotalResult={setTotalResult}
-                  />
-                </ProtectedRoute>
-              }
-            />
+              <Route
+                path="/saved-news"
+                element={
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <SavedNews
+                      keyword={keyword}
+                      setKeyword={setKeyword}
+                      isLoading={isLoading}
+                      setIsLoading={setIsLoading}
+                      showArticles={showArticles}
+                      setShowArticles={setShowArticles}
+                      handleAddThreeMoreCards={handleAddThreeMoreCards}
+                      startIndex={startIndex}
+                      setStartIndex={setStartIndex}
+                      endIndex={endIndex}
+                      setEndIndex={setEndIndex}
+                      totalResult={totalResult}
+                      setTotalResult={setTotalResult}
+                    />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route
-              path="*"
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <h1>Error 404: There's nothing here!</h1>
-                </main>
-              }
-            />
-          </Route>
-        </Routes>
+              <Route
+                path="*"
+                element={
+                  <main style={{ padding: "1rem" }}>
+                    <h1>Error 404: There's nothing here!</h1>
+                  </main>
+                }
+              />
+            </Route>
+          </Routes>
+        </CardsContext.Provider>
       </FormContextProvider>
     </CurrentUserContext.Provider>
   );

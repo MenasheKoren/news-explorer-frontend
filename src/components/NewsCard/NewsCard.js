@@ -36,7 +36,6 @@ export function NewsCard({
         })
         .then(() => {
           setIsBookmarked(true);
-          // I tried it here ----- handleKeywordList(keyword) ------- infinite loop;
         })
         .catch((err) => console.log(`Error..... ${err}`));
     } else {

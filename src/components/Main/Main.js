@@ -1,7 +1,7 @@
 import React from "react";
 import { About } from "../About/About";
 import { SearchForm } from "../SearchForm/SearchForm";
-import { NewsCardList } from "../NewsCardList/NewsCardList";
+import { NewsCardList } from "../NewsCardList/NewsCardListRefactor";
 
 export function Main({
   isMobile,
@@ -23,11 +23,8 @@ export function Main({
   startIndex,
   totalResult,
   setTotalResult,
+  savedUserCards,
 }) {
-  // const [keyword, setKeyword] = useState("");
-  // const [showArticles, setShowArticles] = useState(false);
-  // const [isLoading, setIsLoading] = useState(false);
-
   return (
     <main className="main">
       <SearchForm
@@ -54,6 +51,7 @@ export function Main({
           setEndIndex={setEndIndex}
           totalResult={totalResult}
           setTotalResult={setTotalResult}
+          savedUserCards={savedUserCards}
         />
       )}
       <About />

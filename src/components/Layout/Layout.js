@@ -41,7 +41,6 @@ export function Layout({
           handleLoginClick={handleLoginClick}
           handleRegisterClick={handleRegisterClick}
           handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-          // username={username}
         />
         <MobileMenu
           handleLogout={handleLogout}
@@ -51,6 +50,8 @@ export function Layout({
           isLoggedIn={isLoggedIn}
           isDropdownMenuOpen={isDropdownMenuOpen}
           closeAllPopups={closeAllPopups}
+          handleLoginClick={handleLoginClick}
+          handleRegisterClick={handleRegisterClick}
         />
         <Outlet />
         <Footer />

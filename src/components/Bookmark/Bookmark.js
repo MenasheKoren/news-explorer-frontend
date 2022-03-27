@@ -37,6 +37,7 @@ export function Bookmark({
           <button
             className="button bookmarks__bookmark bookmarks__delete"
             type="button"
+            onClick={handleSaveBookmarkedArticles}
           />
           <span className="bookmarks__tool-tip">Remove from saved</span>
           <button className="button bookmarks__keyword" type="button">

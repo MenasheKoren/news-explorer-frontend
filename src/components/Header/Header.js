@@ -55,7 +55,6 @@ export function Header({
             <HeaderButton
               loggedIn={isLoggedIn}
               onLogoutClick={handleLogout}
-              // username={username}
               registered={isRegistered}
               onLoginClick={handleLoginClick}
               onRegisterClick={handleRegisterClick}

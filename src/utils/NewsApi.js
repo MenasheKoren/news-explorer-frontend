@@ -22,7 +22,18 @@ export class NewsApi {
         }
       })
       .then((res) => {
-        return res.articles;
+        ///added a modification to the items, I reconstruct em so they have the same format as the mainApi articles.
+        return res.articles.map((item) => {
+          const {
+            source: { name: source },
+            title,
+            publishedAt: date,
+            description: text,
+            url: link,
+            urlToImage: image,
+          } = item;
+          return { title, source, date, text, link, image };
+        });
       })
       .catch((err) => {
         console.log(err);

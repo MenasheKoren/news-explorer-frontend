@@ -12,25 +12,6 @@ export function Login({ handleLogin, handleSwitchPopup }) {
   } = useContext(FormContext);
   const [form, setForm] = React.useState({});
   const formRef = React.useRef();
-  // useEffect(handleFormValidationEffect, []);
-  // function handleSubmitLogin(e) {
-  //   e.preventDefault();
-  //   if (!email || !password) {
-  //     return;
-  //   }
-  //   auth
-  //     .authorize(email, password)
-  //     .then((data) => {
-  //       if (data.token) {
-  //         handleLogin(data).then(() => {
-  //           closeAllPopups();
-  //         });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(`Error..... ${err}`);
-  //     });
-  // }
 
   useEffect(() => {
     const validatedForm = new FormValidator(formSettings, formRef.current);
