@@ -33,9 +33,6 @@ export class NewsApi {
           } = item;
           return { title, source, date, text, link, image };
         });
-      })
-      .catch((err) => {
-        console.log(err);
       });
   };
 }
