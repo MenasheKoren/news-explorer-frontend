@@ -1,11 +1,14 @@
-import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export const ProtectedRoute = ({ children, isLoggedIn }) => {
-  const location = useLocation();
-  return isLoggedIn ? (
-    children
-  ) : (
-    <Navigate to="/" replace state={{ from: location.pathname }} />
-  );
+export const ProtectedRoute = ({
+  children,
+  isLoggedIn,
+  setIsRegisterPopupOpen,
+}) => {
+  const navigate = useNavigate();
+  function handleProtectedRouteOpenRegister() {
+    navigate("/", { replace: true });
+    setIsRegisterPopupOpen(true);
+  }
+  return isLoggedIn ? children : handleProtectedRouteOpenRegister();
 };

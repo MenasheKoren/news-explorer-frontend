@@ -1,8 +1,8 @@
 import React from "react";
 import { PopupCloseButton } from "../PopupCloseButton/PopupCloseButton";
 import { MobileCloseButton } from "../MobileCloseButton/MobileCloseButton";
-import { Register } from "../Register/Register";
-import { Login } from "../Login/Login";
+import { FormRedirect } from "../FormRedirect/FormRedirect";
+import { SaveFormButton } from "../SaveFormButton/SaveFormButton";
 
 export function PopupWithForm({
   closeAllPopups,
@@ -10,39 +10,36 @@ export function PopupWithForm({
   isRegisterPopupOpen,
   isLoginPopupOpen,
   handleSwitchPopup,
-  handleSubmitInfoToolTip,
   handleSetRegistration,
   handleLogin,
-  handleFormValidationEffect,
+  children,
+  isOpen,
 }) {
   return (
-    <section
-      className={[
-        `popup `,
-        isRegisterPopupOpen || isLoginPopupOpen ? "popup_opened" : "",
-      ].join(" ")}
-    >
+    <section className={[`popup `, isOpen ? "popup_opened" : ""].join(" ")}>
       <div className="popup__container">
         <PopupCloseButton onClick={closeAllPopups} />
         {isMobile && <MobileCloseButton onClick={closeAllPopups} />}
 
-        {isRegisterPopupOpen && (
-          <Register
+        <div className="entry">
+          <h2 className="entry__title">
+            {isRegisterPopupOpen ? "Sign up" : "Sign in"}
+          </h2>
+          <form
+            className="entry__form"
+            onSubmit={isRegisterPopupOpen ? handleSetRegistration : handleLogin}
+          >
+            {children}
+            <SaveFormButton
+              saveFormButtonText={isRegisterPopupOpen ? "Sign up" : "Sign in"}
+            />
+          </form>
+          <FormRedirect
             handleSwitchPopup={handleSwitchPopup}
-            handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-            handleSetRegistration={handleSetRegistration}
-            handleFormValidationEffect={handleFormValidationEffect}
+            isRegisterPopupOpen={isRegisterPopupOpen}
+            isLoginPopupOpen={isLoginPopupOpen}
           />
-        )}
-        {isLoginPopupOpen && (
-          <Login
-            handleSwitchPopup={handleSwitchPopup}
-            handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-            handleLogin={handleLogin}
-            closeAllPopups={closeAllPopups}
-            handleFormValidationEffect={handleFormValidationEffect}
-          />
-        )}
+        </div>
       </div>
     </section>
   );

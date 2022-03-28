@@ -10,6 +10,7 @@ import { InfoToolTip } from "../InfoToolTip/InfoToolTip";
 import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import * as auth from "../../utils/auth";
+import { token } from "../../utils/auth";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import FormContextProvider from "../../contexts/FormContext";
 import { Login } from "../Login/Login";
@@ -41,20 +42,23 @@ function App() {
   const cardsData = [savedCards, setSavedCards];
 
   useEffect(() => {
-    if (localStorage.getItem("token") !== null) {
-      localStorage.getItem("token");
+    if (token) {
       auth
-        .checkToken()
+        .checkToken(token)
         .then(({ user }) => {
           setIsRegistered(true);
           setIsLoggedIn(true);
           setCurrentUser(user);
         })
-        .then(
-          mainApi.getSavedArticles().then((data) => {
-            setSavedCards(data);
-          })
-        )
+        .then(() => {
+          mainApi
+            .getSavedArticles()
+            .then((data) => {
+              setSavedCards(data);
+            })
+
+            .catch((err) => console.log(`Error..... ${err}`));
+        })
         .catch((err) => console.log(`Error..... ${err}`));
     }
   }, []);
@@ -205,9 +209,21 @@ function App() {
                       closeAllPopups={closeAllPopups}
                       handleSubmitInfoToolTip={handleSubmitInfoToolTip}
                       handleSetRegistration={handleSetRegistration}
+                      isOpen={isRegisterPopupOpen || isLoginPopupOpen}
                     >
-                      <Register />
-                      <Login />
+                      <Register
+                        handleSwitchPopup={handleSwitchPopup}
+                        handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+                        handleSetRegistration={handleSetRegistration}
+                        isOpen={isRegisterPopupOpen}
+                      />
+                      <Login
+                        handleSwitchPopup={handleSwitchPopup}
+                        handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+                        handleLogin={handleLogin}
+                        closeAllPopups={closeAllPopups}
+                        isOpen={isLoginPopupOpen}
+                      />
                     </PopupWithForm>
                     <InfoToolTip
                       setIsLoginPopupOpen={setIsLoginPopupOpen}
@@ -221,7 +237,10 @@ function App() {
               <Route
                 path="/saved-news"
                 element={
-                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <ProtectedRoute
+                    isLoggedIn={isLoggedIn}
+                    setIsRegisterPopupOpen={setIsRegisterPopupOpen}
+                  >
                     <SavedNews
                       keyword={keyword}
                       setKeyword={setKeyword}

@@ -1,4 +1,5 @@
 import { fromDate, toDate } from "./helpers";
+import checkResponse from "./checkResponse";
 
 const BASE_URL = "https://nomoreparties.co/news/v2/everything?";
 const API_KEY = "397db29f2b7d47238daa4bdcefcbdfd2";
@@ -14,13 +15,7 @@ export class NewsApi {
     return fetch(
       `${this.baseUrl}q=${query}&language=en&from=${this.date.from}&to=${this.date.to}&pageSize=100&apiKey=${this.apiKey}`
     )
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`error :${res.message}`);
-        }
-      })
+      .then(checkResponse)
       .then((res) => {
         return res.articles.map((item) => {
           const {

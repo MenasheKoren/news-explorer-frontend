@@ -1,15 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { FormInput } from "../FormInput/FormInput";
-import { SaveFormButton } from "../SaveFormButton/SaveFormButton";
-import { FormValidator } from "../../utils/FormValidator/FormValidator";
-import { formSettings } from "../../utils/helpers";
 import * as auth from "../../utils/auth";
 import { FormContext } from "../../contexts/FormContext";
+import { useFormAndValidation } from "../../utils/FormValidator/useFormAndValidation";
 
 export function Register({
   handleSetRegistration,
   handleSubmitInfoToolTip,
   handleSwitchPopup,
+  isOpen,
 }) {
   const {
     username: [username, setUsername],
@@ -18,6 +17,8 @@ export function Register({
   } = useContext(FormContext);
   const [form, setForm] = React.useState({});
   const formRef = React.useRef();
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
 
   function handleSubmitRegister(e) {
     e.preventDefault();
@@ -38,26 +39,19 @@ export function Register({
       });
   }
 
-  useEffect(() => {
-    const validatedForm = new FormValidator(formSettings, formRef.current);
-    validatedForm.enableValidation();
-    setForm(validatedForm);
-  }, []);
-
   return (
-    <div className="entry entry_type_register">
-      <h2 className="entry__title">Sign up</h2>
-      <form
-        className="entry__form"
-        ref={formRef}
-        onSubmit={handleSubmitRegister}
-      >
+    // <div className="entry entry_type_register">
+    //   /*<h2 className="entry__title">Sign up</h2>*/}
+    // <form
+    //   className="entry__form"
+    //   ref={formRef}
+    //   onSubmit={handleSubmitRegister}
+    // >
+    <>
+      {isOpen && (
         <div className="form__inputs">
           <FormInput
             value={email || ""}
-            handleInput={(e) => {
-              setEmail(e.target.value);
-            }}
             type="email"
             placeholder="Enter email"
             id="emailInput"
@@ -66,9 +60,6 @@ export function Register({
           />
           <FormInput
             label="Password"
-            handleInput={(e) => {
-              setPassword(e.target.value);
-            }}
             type="password"
             placeholder="Enter password"
             id="passwordInput"
@@ -80,9 +71,6 @@ export function Register({
           />
           <FormInput
             label="Username"
-            handleInput={(e) => {
-              setUsername(e.target.value);
-            }}
             type="username"
             placeholder="Enter username"
             id="usernameInput"
@@ -90,17 +78,12 @@ export function Register({
             value={username || ""}
           />
         </div>
-        <SaveFormButton saveFormButtonText="Sign up" />
-      </form>
-      <p className="entry__redirect-text">
-        or{" "}
-        <button
-          className="link link__hover entry__redirect-link"
-          onClick={handleSwitchPopup}
-        >
-          Sign in
-        </button>
-      </p>
-    </div>
+      )}
+    </>
+
+    //   <SaveFormButton saveFormButtonText="Sign up" />
+    // </form>
+    //<FormRedirect onClick={handleSwitchPopup} />
+    // </div>
   );
 }

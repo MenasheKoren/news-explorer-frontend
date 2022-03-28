@@ -1,3 +1,5 @@
+import checkResponse from "./checkResponse";
+
 const BASE_URL = "https://api.news-explorer.mk.students.nomoreparties.sbs";
 
 class MainApi {
@@ -34,10 +36,7 @@ class MainApi {
   }
 }
 
-const customFetch = (url, headers) =>
-  fetch(url, headers).then((res) =>
-    res.ok ? res.json() : Promise.reject(res.statusText)
-  );
+const customFetch = (url, headers) => fetch(url, headers).then(checkResponse);
 
 export const mainApi = new MainApi({
   baseUrl: BASE_URL,

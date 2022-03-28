@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { SearchButton } from "../SearchButton/SearchButton";
 import { SearchInput } from "../SearchInput/SearchInput";
+import { useFormAndValidation } from "../../utils/FormValidator/useFormAndValidation";
 
 export function SearchForm({ setKeyword, setShowArticles, setIsLoading }) {
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
   const [searchInput, setSearchInput] = useState("");
-  function handleGetKeywordInput(e) {
+  function handleGetKeyword(e) {
     e.preventDefault();
     setShowArticles(true);
     setIsLoading(true);
@@ -18,7 +21,7 @@ export function SearchForm({ setKeyword, setShowArticles, setIsLoading }) {
           Find the latest news on any topic and save them in your personal
           account.
         </p>
-        <form className="search__form" onSubmit={handleGetKeywordInput}>
+        <form className="search__form" onSubmit={handleGetKeyword}>
           <div className="search__bar">
             <SearchInput
               setSearchInput={setSearchInput}
