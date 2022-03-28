@@ -6,7 +6,7 @@ export function FormInput({
   placeholder,
   type,
   label,
-  defaultValue,
+  value,
   minLength,
   maxLength,
   pattern,
@@ -21,7 +21,7 @@ export function FormInput({
         placeholder={placeholder}
         id={id}
         name={name}
-        defaultValue={defaultValue}
+        value={value}
         onChange={handleInput}
         minLength={minLength}
         maxLength={maxLength}

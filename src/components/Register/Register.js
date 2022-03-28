@@ -54,7 +54,7 @@ export function Register({
       >
         <div className="form__inputs">
           <FormInput
-            defaultValue={email || ""}
+            value={email || ""}
             handleInput={(e) => {
               setEmail(e.target.value);
             }}
@@ -73,7 +73,7 @@ export function Register({
             placeholder="Enter password"
             id="passwordInput"
             name="password"
-            defaultValue={password || ""}
+            value={password || ""}
             minLength="2"
             maxLength="40"
             pattern=".*\S.*"
@@ -87,7 +87,7 @@ export function Register({
             placeholder="Enter username"
             id="usernameInput"
             name="username"
-            defaultValue={username || ""}
+            value={username || ""}
           />
         </div>
         <SaveFormButton saveFormButtonText="Sign up" />

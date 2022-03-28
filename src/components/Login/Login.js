@@ -31,7 +31,7 @@ export function Login({ handleLogin, handleSwitchPopup }) {
       >
         <div className="form__inputs">
           <FormInput
-            defaultValue={email || ""}
+            value={email || ""}
             handleInput={(e) => {
               setEmail(e.target.value);
             }}
@@ -50,7 +50,7 @@ export function Login({ handleLogin, handleSwitchPopup }) {
             placeholder="Enter password"
             id="passwordInput"
             name="password"
-            defaultValue={password || ""}
+            value={password || ""}
             minLength="2"
             maxLength="40"
             pattern=".*\S.*"
