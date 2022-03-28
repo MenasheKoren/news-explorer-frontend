@@ -44,7 +44,7 @@ function App() {
     if (localStorage.getItem("token") !== null) {
       localStorage.getItem("token");
       auth
-        .getContent()
+        .checkToken()
         .then(({ user }) => {
           setIsRegistered(true);
           setIsLoggedIn(true);
@@ -83,7 +83,7 @@ function App() {
       .authorize(email, password)
       .then(() => {
         auth
-          .getContent()
+          .checkToken()
           .then(({ user }) => {
             setCurrentUser(user);
             setIsLoggedIn(true);
