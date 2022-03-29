@@ -1,5 +1,4 @@
 import React from "react";
-import { useFormAndValidation } from "../../utils/FormValidator/useFormAndValidation";
 
 export function FormInput({
   id,
@@ -7,13 +6,12 @@ export function FormInput({
   placeholder,
   type,
   label,
-  // value,
+  value,
   minLength,
   maxLength,
   pattern,
+  handleInput,
 }) {
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
-    useFormAndValidation();
   return (
     <label htmlFor={id} className="form__label">
       {label}
@@ -23,9 +21,8 @@ export function FormInput({
         placeholder={placeholder}
         id={id}
         name={name}
-        // value={values}
-        // value={values.value || ""}
-        onChange={handleChange}
+        value={value}
+        onChange={handleInput}
         minLength={minLength}
         maxLength={maxLength}
         pattern={pattern}

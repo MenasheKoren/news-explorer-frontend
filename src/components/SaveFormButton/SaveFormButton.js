@@ -1,8 +1,6 @@
-export function SaveFormButton({ saveFormButtonText, isValid }) {
-  // const { values, handleChange, errors, isValid, setValues, resetForm } =
-  //   useFormAndValidation();
+export function SaveFormButton({ saveFormButtonText }) {
   return (
-    <button className="entry__save button" disabled={!isValid} type="submit">
+    <button className="entry__save button" disabled={true} type="submit">
       {saveFormButtonText}
     </button>
   );

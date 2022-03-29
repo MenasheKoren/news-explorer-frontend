@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { PopupCloseButton } from "../PopupCloseButton/PopupCloseButton";
 import { MobileCloseButton } from "../MobileCloseButton/MobileCloseButton";
 import { FormRedirect } from "../FormRedirect/FormRedirect";
 import { SaveFormButton } from "../SaveFormButton/SaveFormButton";
-import { useFormAndValidation } from "../../utils/FormValidator/useFormAndValidation";
+import { FormContext } from "../../contexts/FormContext";
+import { FormValidator } from "../../utils/FormValidator/FormValidator";
+import { formSettings } from "../../utils/helpers";
 
 export function PopupWithForm({
   closeAllPopups,
@@ -11,14 +13,24 @@ export function PopupWithForm({
   isRegisterPopupOpen,
   isLoginPopupOpen,
   handleSwitchPopup,
-  handleSetRegistration,
   handleSubmitRegister,
   handleLogin,
   children,
   isOpen,
 }) {
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
-    useFormAndValidation();
+  const {
+    username: [username, setUsername],
+    email: [email, setEmail],
+    password: [password, setPassword],
+  } = useContext(FormContext);
+  const [form, setForm] = React.useState({});
+  const formRef = React.useRef();
+
+  useEffect(() => {
+    const validatedForm = new FormValidator(formSettings, formRef.current);
+    validatedForm.enableValidation();
+    setForm(validatedForm);
+  }, []);
   return (
     <section className={[`popup `, isOpen ? "popup_opened" : ""].join(" ")}>
       <div className="popup__container">
@@ -31,12 +43,17 @@ export function PopupWithForm({
           </h2>
           <form
             className="entry__form"
-            onSubmit={isRegisterPopupOpen ? handleSubmitRegister : handleLogin}
+            onSubmit={(e) => {
+              e.preventDefault();
+              isRegisterPopupOpen
+                ? handleSubmitRegister(username, email, password)
+                : handleLogin(email, password);
+            }}
+            ref={formRef}
           >
             {children}
             <SaveFormButton
               saveFormButtonText={isRegisterPopupOpen ? "Sign up" : "Sign in"}
-              isValid={isValid}
             />
           </form>
           <FormRedirect

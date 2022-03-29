@@ -1,19 +1,18 @@
 import React from "react";
-import { useFormAndValidation } from "../../utils/FormValidator/useFormAndValidation";
 
 export function SearchInput({ searchInput, setSearchInput }) {
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
-    useFormAndValidation();
   return (
     <>
       <input
         type="text"
         className="search__input"
         placeholder="Enter topic"
-        name="searchInput"
+        name="search"
         required
-        // value={searchInput || ""}
-        onChange={handleChange}
+        value={searchInput || ""}
+        onChange={(e) => {
+          setSearchInput(e.target.value);
+        }}
       />
       <span className="error-message" id="search-input-error" />
     </>
