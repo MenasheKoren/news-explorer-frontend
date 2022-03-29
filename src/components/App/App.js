@@ -17,7 +17,6 @@ import { Login } from "../Login/Login";
 import { mainApi } from "../../utils/MainApi";
 import { CardsContext } from "../../contexts/SavedCardsContext";
 import { SavedNews } from "../SavedNews/SavedNews";
-import { useFormAndValidation } from "../../utils/FormValidator/useFormAndValidation";
 
 function App() {
   const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });
@@ -43,8 +42,8 @@ function App() {
   const [password, setPassword] = useState("");
   const [savedCards, setSavedCards] = useState([]);
   const cardsData = [savedCards, setSavedCards];
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
-    useFormAndValidation();
+  // const { values, handleChange, errors, isValid, setValues, resetForm } =
+  //   useFormAndValidation();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -88,7 +87,7 @@ function App() {
   }
 
   function handleSubmitRegister(e) {
-    e.preventDefault();
+    // e.preventDefault();
     auth
       .register({
         username,
