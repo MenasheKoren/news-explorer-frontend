@@ -6,6 +6,7 @@ export function Bookmark({
   handleSaveBookmarkedArticles,
   isLoggedIn,
   savedKeyword,
+  handleRegisterClick,
 }) {
   const location = useLocation();
   return (
@@ -15,8 +16,10 @@ export function Bookmark({
           <button
             className="button bookmarks__bookmark bookmarks__unselected"
             type="button"
-            onClick={handleSaveBookmarkedArticles}
-            disabled={!isLoggedIn}
+            onClick={
+              isLoggedIn ? handleSaveBookmarkedArticles : handleRegisterClick
+            }
+            // disabled={!isLoggedIn}
           />
           {!isLoggedIn && (
             <div className="bookmarks__tool-tip">Sign in to save articles</div>

@@ -1,62 +1,34 @@
-import React, { useContext } from "react";
+import React from "react";
 import { FormInput } from "../FormInput/FormInput";
-import * as auth from "../../utils/auth";
-import { FormContext } from "../../contexts/FormContext";
-import { useFormAndValidation } from "../../utils/FormValidator/useFormAndValidation";
 
 export function Register({
   handleSetRegistration,
   handleSubmitInfoToolTip,
-  handleSwitchPopup,
   isOpen,
 }) {
-  const {
-    username: [username, setUsername],
-    email: [email, setEmail],
-    password: [password, setPassword],
-  } = useContext(FormContext);
-  const [form, setForm] = React.useState({});
-  const formRef = React.useRef();
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
-    useFormAndValidation();
-
-  function handleSubmitRegister(e) {
-    e.preventDefault();
-    auth
-      .register({
-        username,
-        email,
-        password,
-      })
-      .then((result) => {
-        if (result && result._id) {
-          handleSetRegistration();
-          handleSubmitInfoToolTip();
-        }
-      })
-      .catch((err) => {
-        console.log(`Error..... ${err}`);
-      });
-  }
+  // const {
+  //   username: [username, setUsername],
+  //   email: [email, setEmail],
+  //   password: [password, setPassword],
+  // } = useContext(FormContext);
+  // const [form, setForm] = React.useState({});
+  // const formRef = React.useRef();
+  // const { values, handleChange, errors, isValid, setValues, resetForm } =
+  //   useFormAndValidation();
 
   return (
-    // <div className="entry entry_type_register">
-    //   /*<h2 className="entry__title">Sign up</h2>*/}
-    // <form
-    //   className="entry__form"
-    //   ref={formRef}
-    //   onSubmit={handleSubmitRegister}
-    // >
     <>
       {isOpen && (
         <div className="form__inputs">
           <FormInput
-            value={email || ""}
+            // value={email || ""}
             type="email"
             placeholder="Enter email"
             id="emailInput"
             name="email"
             label="Email"
+            // onChange={handleChange}
+            // values
           />
           <FormInput
             label="Password"
@@ -64,7 +36,9 @@ export function Register({
             placeholder="Enter password"
             id="passwordInput"
             name="password"
-            value={password || ""}
+            // value={password || ""}
+            // values
+            // onChange={handleChange}
             minLength="2"
             maxLength="40"
             pattern=".*\S.*"
@@ -75,15 +49,12 @@ export function Register({
             placeholder="Enter username"
             id="usernameInput"
             name="username"
-            value={username || ""}
+            // value={username || ""}
+            // values
+            // onChange={handleChange}
           />
         </div>
       )}
     </>
-
-    //   <SaveFormButton saveFormButtonText="Sign up" />
-    // </form>
-    //<FormRedirect onClick={handleSwitchPopup} />
-    // </div>
   );
 }

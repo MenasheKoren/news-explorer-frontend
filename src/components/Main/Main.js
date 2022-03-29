@@ -24,6 +24,7 @@ export function Main({
   totalResult,
   setTotalResult,
   savedUserCards,
+  handleRegisterClick,
 }) {
   return (
     <main className="main">
@@ -52,6 +53,7 @@ export function Main({
           totalResult={totalResult}
           setTotalResult={setTotalResult}
           savedUserCards={savedUserCards}
+          handleRegisterClick={handleRegisterClick}
         />
       )}
       <About />

@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { Bookmark } from "../Bookmark/Bookmark";
 import { mainApi } from "../../utils/MainApi";
 
-export function NewsCard({ articleData, removeFromSaved, isLoggedIn }) {
+export function NewsCard({
+  articleData,
+  removeFromSaved,
+  isLoggedIn,
+  handleRegisterClick,
+}) {
   const [isBookmarked, setIsBookmarked] = useState(
     articleData.isSaved || false
   );
@@ -40,6 +45,7 @@ export function NewsCard({ articleData, removeFromSaved, isLoggedIn }) {
           isBookmarked={isBookmarked}
           isLoggedIn={isLoggedIn}
           savedKeyword={keyword}
+          handleRegisterClick={handleRegisterClick}
         />
       </div>
       <div className="news-card__text-container">

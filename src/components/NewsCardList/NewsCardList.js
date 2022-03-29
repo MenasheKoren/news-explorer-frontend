@@ -7,7 +7,13 @@ import { v4 as uuidv4 } from "uuid";
 import { CardsContext } from "../../contexts/SavedCardsContext";
 import { NewsCard } from "../NewsCard/NewsCard";
 
-export function NewsCardList({ isLoggedIn, keyword, isLoading, setIsLoading }) {
+export function NewsCardList({
+  isLoggedIn,
+  keyword,
+  isLoading,
+  setIsLoading,
+  handleRegisterClick,
+}) {
   const [articlesData, setArticlesData] = useState([]);
   const [endIndex, setEndIndex] = useState(3);
   const [savedCards, setSavedCards] = useContext(CardsContext);
@@ -51,6 +57,7 @@ export function NewsCardList({ isLoggedIn, keyword, isLoading, setIsLoading }) {
                   articleData={article}
                   key={uuidv4()}
                   isLoggedIn={isLoggedIn}
+                  handleRegisterClick={handleRegisterClick}
                 />
               );
             })}

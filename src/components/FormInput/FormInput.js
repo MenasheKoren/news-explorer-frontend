@@ -7,11 +7,10 @@ export function FormInput({
   placeholder,
   type,
   label,
-  value,
+  // value,
   minLength,
   maxLength,
   pattern,
-  handleInput,
 }) {
   const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation();
@@ -24,7 +23,8 @@ export function FormInput({
         placeholder={placeholder}
         id={id}
         name={name}
-        value={value}
+        // value={values}
+        // value={values.value || ""}
         onChange={handleChange}
         minLength={minLength}
         maxLength={maxLength}

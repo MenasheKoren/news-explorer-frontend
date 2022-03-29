@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { SearchButton } from "../SearchButton/SearchButton";
 import { SearchInput } from "../SearchInput/SearchInput";
 import { useFormAndValidation } from "../../utils/FormValidator/useFormAndValidation";
@@ -6,12 +6,12 @@ import { useFormAndValidation } from "../../utils/FormValidator/useFormAndValida
 export function SearchForm({ setKeyword, setShowArticles, setIsLoading }) {
   const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation();
-  const [searchInput, setSearchInput] = useState("");
+  // const [searchInput, setSearchInput] = useState("");
   function handleGetKeyword(e) {
     e.preventDefault();
     setShowArticles(true);
     setIsLoading(true);
-    setKeyword(searchInput);
+    setKeyword(values.value);
   }
   return (
     <section className="search">
@@ -24,10 +24,10 @@ export function SearchForm({ setKeyword, setShowArticles, setIsLoading }) {
         <form className="search__form" onSubmit={handleGetKeyword}>
           <div className="search__bar">
             <SearchInput
-              setSearchInput={setSearchInput}
-              searchInput={searchInput}
+            // setSearchInput={setSearchInput}
+            // searchInput={searchInput}
             />
-            <SearchButton />
+            <SearchButton isValid={isValid} />
           </div>
         </form>
       </div>

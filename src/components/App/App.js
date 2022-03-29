@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import { Main } from "../Main/Main";
 import { Layout } from "../Layout/Layout";
@@ -17,6 +17,7 @@ import { Login } from "../Login/Login";
 import { mainApi } from "../../utils/MainApi";
 import { CardsContext } from "../../contexts/SavedCardsContext";
 import { SavedNews } from "../SavedNews/SavedNews";
+import { useFormAndValidation } from "../../utils/FormValidator/useFormAndValidation";
 
 function App() {
   const isMonitorOrTablet = useMediaQuery({ minWidth: 768 });
@@ -37,9 +38,16 @@ function App() {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(3);
   const [totalResult, setTotalResult] = useState(0);
-
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [savedCards, setSavedCards] = useState([]);
   const cardsData = [savedCards, setSavedCards];
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
@@ -77,6 +85,25 @@ function App() {
 
   function handleSetRegistration() {
     setIsRegistered(true);
+  }
+
+  function handleSubmitRegister(e) {
+    e.preventDefault();
+    auth
+      .register({
+        username,
+        email,
+        password,
+      })
+      .then((result) => {
+        if (result && result._id) {
+          setIsRegistered(true);
+          setIsInfoToolTipOpen(true);
+        }
+      })
+      .catch((err) => {
+        console.log(`Error..... ${err}`);
+      });
   }
 
   function handleLogin(email, password) {
@@ -198,6 +225,7 @@ function App() {
                       setEndIndex={setEndIndex}
                       totalResult={totalResult}
                       setTotalResult={setTotalResult}
+                      handleRegisterClick={handleRegisterClick}
                     />
                     <PopupWithForm
                       isRegisterPopupOpen={isRegisterPopupOpen}
@@ -210,6 +238,7 @@ function App() {
                       handleSubmitInfoToolTip={handleSubmitInfoToolTip}
                       handleSetRegistration={handleSetRegistration}
                       isOpen={isRegisterPopupOpen || isLoginPopupOpen}
+                      handleSubmitRegister={handleSubmitRegister}
                     >
                       <Register
                         handleSwitchPopup={handleSwitchPopup}
