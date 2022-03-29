@@ -4,7 +4,7 @@ import { PopupCloseButton } from "../PopupCloseButton/PopupCloseButton";
 export const InfoToolTip = ({
   closeAllPopups,
   setIsLoginPopupOpen,
-  isOpen,
+  isInfoToolTipOpen,
 }) => {
   function handleRegistrationSuccessPopup() {
     closeAllPopups();
@@ -15,7 +15,7 @@ export const InfoToolTip = ({
     <section
       className={[
         "popup popup__info-tool-tip",
-        isOpen ? "popup_opened" : "",
+        isInfoToolTipOpen ? "popup_opened" : "",
       ].join(" ")}
     >
       <div className="popup__container popup__container_type_info-tool-tip">
@@ -23,13 +23,12 @@ export const InfoToolTip = ({
         <h2 className="popup__title info-tool-tip__title">
           Registration successfully completed!
         </h2>
-        <a
-          href="#"
+        <button
           className="link link__hover info-tool-tip__redirect-link"
           onClick={handleRegistrationSuccessPopup}
         >
           Sign in
-        </a>
+        </button>
       </div>
     </section>
   );

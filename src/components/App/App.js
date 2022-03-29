@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Main } from "../Main/Main";
 import { Layout } from "../Layout/Layout";
@@ -37,20 +37,9 @@ function App() {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(3);
   const [totalResult, setTotalResult] = useState(0);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
   const [savedCards, setSavedCards] = useState([]);
   const cardsData = [savedCards, setSavedCards];
-  // const { values, handleChange, errors, isValid, setValues, resetForm } =
-  //   useFormAndValidation();
-  // const {
-  //   username: [username, setUsername],
-  //   email: [email, setEmail],
-  //   password: [password, setPassword],
-  // } = useContext(FormContext);
-  const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
@@ -90,8 +79,7 @@ function App() {
     setIsRegistered(true);
   }
 
-  function handleSubmitRegister() {
-    // e.preventDefault();
+  function handleSubmitRegister({ username, email, password }) {
     auth
       .register({
         username,
@@ -109,7 +97,7 @@ function App() {
       });
   }
 
-  function handleLogin(email, password) {
+  function handleLogin({ email, password }) {
     if (!email || !password) {
       return;
     }
@@ -161,9 +149,9 @@ function App() {
   }
 
   function closeAllPopups() {
+    setIsInfoToolTipOpen(false);
     setIsDropdownMenuOpen(false);
     setIsRegisterPopupOpen(false);
-    setIsInfoToolTipOpen(false);
     setIsLoginPopupOpen(false);
   }
 
@@ -260,7 +248,7 @@ function App() {
                     <InfoToolTip
                       setIsLoginPopupOpen={setIsLoginPopupOpen}
                       closeAllPopups={closeAllPopups}
-                      isOpen={isInfoToolTipOpen}
+                      isInfoToolTipOpen={isInfoToolTipOpen}
                     />
                   </>
                 }
