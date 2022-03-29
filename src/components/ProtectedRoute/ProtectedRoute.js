@@ -2,10 +2,14 @@ import { Navigate, useLocation } from "react-router-dom";
 
 export const ProtectedRoute = ({
   children,
-  setIsRegisterPopupOpen,
+  handleRegisterClick,
   isLoggedIn,
 }) => {
   const location = useLocation();
+
+  if (!isLoggedIn) {
+    handleRegisterClick();
+  }
   return isLoggedIn ? (
     children
   ) : (

@@ -268,7 +268,7 @@ function App() {
                 element={
                   <ProtectedRoute
                     isLoggedIn={isLoggedIn}
-                    setIsRegisterPopupOpen={setIsRegisterPopupOpen}
+                    handleRegisterClick={handleRegisterClick}
                   >
                     <SavedNews
                       keyword={keyword}
