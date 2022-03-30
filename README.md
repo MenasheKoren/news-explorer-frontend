@@ -1,6 +1,26 @@
-# Getting Started with Create React App
+# news-explorer-frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- https://news-explorer.mk.students.nomoreparties.sbs
+
+### Overview
+
+- Intro
+
+- Technologies
+
+- Instructions
+
+**Intro**
+
+This repository is a front-end project with full authorization and registration features.
+
+**Technologies**
+
+This project was done using React.
+
+**Instructions**
+
+Search for any topic that you want to see the latest news about. If you have logged in, you can save the articles you like by clicking on the bookmarks, and remove any articles by clicking the bookmark again or deleting them from the saved-news page.
 
 ## Available Scripts
 
