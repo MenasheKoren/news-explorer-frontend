@@ -35,7 +35,6 @@ function App() {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(3);
   const [totalResult, setTotalResult] = useState(0);
-
   const [savedCards, setSavedCards] = useState([]);
   const cardsData = [savedCards, setSavedCards];
   const navigate = useNavigate();
@@ -43,7 +42,7 @@ function App() {
     const token = localStorage.getItem("token");
     if (token) {
       auth
-        .checkToken(token)
+        .checkToken()
         .then(({ user }) => {
           setIsRegistered(true);
           setIsLoggedIn(true);
@@ -58,10 +57,7 @@ function App() {
 
             .catch((err) => console.log(`Error..... ${err}`));
         })
-        .catch((err) => console.log(`Error..... ${err}`))
-        .finally(() => {
-          console.log(isLoggedIn, localStorage);
-        });
+        .catch((err) => console.log(`Error..... ${err}`));
     }
   }, [isLoggedIn]);
 
@@ -76,10 +72,6 @@ function App() {
 
     return () => document.removeEventListener("keydown", closeByEscape);
   }, []);
-
-  // function handleSetRegistration() {
-  //   setIsRegistered(true);
-  // }
 
   function handleRegister({ username, email, password }) {
     auth
@@ -100,7 +92,6 @@ function App() {
   }
 
   function handleLogin({ email, password }) {
-    const token = localStorage.getItem("token");
     if (!email || !password) {
       return;
     }
@@ -108,46 +99,29 @@ function App() {
       .authorize(email, password)
       .then(() => {
         auth
-          .checkToken(token)
+          .checkToken()
           .then(({ user }) => {
             setCurrentUser(user);
             setIsLoggedIn(true);
+            mainApi.updateToken();
           })
           .then(() => {
-            // navigate("/", { replace: true });
+            navigate("/", { replace: true });
             closeAllPopups();
           });
       })
       .catch((err) => {
         console.log(`Error..... ${err}`);
-      })
-      .finally(() => {
-        console.log(isLoggedIn, currentUser, localStorage);
       });
   }
 
   function handleLogout() {
-    return new Promise((res) => {
-      setIsRegistered(false);
-      setIsLoggedIn(false);
-      setShowArticles(false);
-      setCurrentUser({});
-      res();
-    })
-      .then(() => {
-        localStorage.clear();
-        navigate("/", { replace: true });
-      })
-      .catch((err) => console.log(`Error..... ${err}`))
-      .finally(() => {
-        console.log(
-          isLoggedIn,
-          isRegistered,
-          showArticles,
-          currentUser.email,
-          localStorage
-        );
-      });
+    setIsRegistered(false);
+    setIsLoggedIn(false);
+    setShowArticles(false);
+    setCurrentUser({});
+    localStorage.clear();
+    navigate("/", { replace: true });
   }
 
   function handleOpenDropdownMenu() {
@@ -236,19 +210,7 @@ function App() {
                       setTotalResult={setTotalResult}
                       handleRegisterClick={handleRegisterClick}
                     />
-                    {/*<PopupWithForm*/}
-                    {/*  isRegisterPopupOpen={isRegisterPopupOpen}*/}
-                    {/*  isLoginPopupOpen={isLoginPopupOpen}*/}
-                    {/*  isRegistered={isRegistered}*/}
-                    {/*  handleLogin={handleLogin}*/}
-                    {/*  isMobile={isMobile}*/}
-                    {/*  handleSwitchPopup={handleSwitchPopup}*/}
-                    {/*  closeAllPopups={closeAllPopups}*/}
-                    {/*  handleSubmitInfoToolTip={handleSubmitInfoToolTip}*/}
-                    {/*  handleSetRegistration={handleSetRegistration}*/}
-                    {/*  isOpen={isRegisterPopupOpen || isLoginPopupOpen}*/}
-                    {/*  handleSubmitRegister={handleRegister}*/}
-                    {/*/>*/}
+
                     <Register
                       handleSwitchPopup={handleSwitchPopup}
                       handleSubmitInfoToolTip={handleSubmitInfoToolTip}
@@ -279,6 +241,8 @@ function App() {
                     isLoggedIn={isLoggedIn}
                     handleRegisterClick={handleRegisterClick}
                     closeAllPopups={closeAllPopups}
+                    setIsRegisterPopupOpen={setIsRegisterPopupOpen}
+                    children
                   >
                     <SavedNews
                       keyword={keyword}

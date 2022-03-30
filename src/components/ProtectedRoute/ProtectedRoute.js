@@ -1,19 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { checkToken } from "../../utils/auth";
 import { useEffect } from "react";
 
-export const ProtectedRoute = ({
-  children,
-  handleRegisterClick,
-  isLoggedIn,
-}) => {
-  const navigate = useNavigate();
+export const ProtectedRoute = ({ setIsRegisterPopupOpen, children }) => {
+  let isAuthed = checkToken();
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/", { replace: true });
-      handleRegisterClick();
-    }
+    return () => {
+      !isAuthed && setIsRegisterPopupOpen(true);
+    };
   }, []);
 
-  return isLoggedIn && children;
+  return isAuthed ? children : <Navigate to={"/"} replace />;
 };

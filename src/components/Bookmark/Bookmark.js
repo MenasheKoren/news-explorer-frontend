@@ -19,7 +19,6 @@ export function Bookmark({
             onClick={
               isLoggedIn ? handleSaveBookmarkedArticles : handleRegisterClick
             }
-            // disabled={!isLoggedIn}
           />
           {!isLoggedIn && (
             <div className="bookmarks__tool-tip">Sign in to save articles</div>

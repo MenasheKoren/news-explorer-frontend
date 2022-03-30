@@ -21,14 +21,7 @@ export function Login({
       password,
     });
   }
-  // const [form, setForm] = React.useState({});
-  // const formRef = React.useRef();
-  //
-  // useEffect(() => {
-  //   const validatedForm = new FormValidator(formSettings, formRef.current);
-  //   validatedForm.enableValidation();
-  //   setForm(validatedForm);
-  // }, []);
+
   return (
     <>
       <PopupWithForm
@@ -48,7 +41,7 @@ export function Login({
             }}
             type="email"
             placeholder="Enter email"
-            id="emailInput"
+            id="emailInputLogin"
             name="email"
             label="Email"
           />
@@ -59,7 +52,7 @@ export function Login({
             }}
             type="password"
             placeholder="Enter password"
-            id="passwordInput"
+            id="passwordInputLogin"
             name="password"
             value={password || ""}
             minLength="2"

@@ -34,6 +34,10 @@ class MainApi {
       method: "DELETE",
     });
   }
+
+  updateToken() {
+    this._headers.authorization = `Bearer ${localStorage.getItem("token")}`;
+  }
 }
 
 const customFetch = (url, headers) => fetch(url, headers).then(checkResponse);

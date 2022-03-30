@@ -43,7 +43,7 @@ export function Register({
             }}
             type="email"
             placeholder="Enter email"
-            id="emailInput"
+            id="emailInputRegister"
             name="email"
             label="Email"
           />
@@ -54,7 +54,7 @@ export function Register({
             }}
             type="password"
             placeholder="Enter password"
-            id="passwordInput"
+            id="passwordInputRegister"
             name="password"
             value={password || ""}
             minLength="2"
@@ -68,7 +68,7 @@ export function Register({
             }}
             type="username"
             placeholder="Enter username"
-            id="usernameInput"
+            id="usernameInputRegister"
             name="username"
             value={username || ""}
           />
