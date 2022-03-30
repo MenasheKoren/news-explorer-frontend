@@ -120,6 +120,7 @@ function App() {
     setIsLoggedIn(false);
     setShowArticles(false);
     setCurrentUser({});
+    setSavedCards([]);
     localStorage.clear();
     navigate("/", { replace: true });
   }
