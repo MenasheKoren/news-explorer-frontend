@@ -1,16 +1,14 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import { Main } from "../Main/Main";
 import { Layout } from "../Layout/Layout";
 import { useMediaQuery } from "react-responsive";
 import { Register } from "../Register/Register";
 import { InfoToolTip } from "../InfoToolTip/InfoToolTip";
-import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import * as auth from "../../utils/auth";
-import { token } from "../../utils/auth";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import FormContextProvider from "../../contexts/FormContext";
 import { Login } from "../Login/Login";
@@ -40,8 +38,9 @@ function App() {
 
   const [savedCards, setSavedCards] = useState([]);
   const cardsData = [savedCards, setSavedCards];
-
+  const navigate = useNavigate();
   useEffect(() => {
+    const token = localStorage.getItem("token");
     if (token) {
       auth
         .checkToken(token)
@@ -59,9 +58,12 @@ function App() {
 
             .catch((err) => console.log(`Error..... ${err}`));
         })
-        .catch((err) => console.log(`Error..... ${err}`));
+        .catch((err) => console.log(`Error..... ${err}`))
+        .finally(() => {
+          console.log(isLoggedIn, localStorage);
+        });
     }
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const closeByEscape = (e) => {
@@ -75,11 +77,11 @@ function App() {
     return () => document.removeEventListener("keydown", closeByEscape);
   }, []);
 
-  function handleSetRegistration() {
-    setIsRegistered(true);
-  }
+  // function handleSetRegistration() {
+  //   setIsRegistered(true);
+  // }
 
-  function handleSubmitRegister({ username, email, password }) {
+  function handleRegister({ username, email, password }) {
     auth
       .register({
         username,
@@ -98,6 +100,7 @@ function App() {
   }
 
   function handleLogin({ email, password }) {
+    const token = localStorage.getItem("token");
     if (!email || !password) {
       return;
     }
@@ -105,31 +108,46 @@ function App() {
       .authorize(email, password)
       .then(() => {
         auth
-          .checkToken()
+          .checkToken(token)
           .then(({ user }) => {
             setCurrentUser(user);
             setIsLoggedIn(true);
           })
           .then(() => {
+            // navigate("/", { replace: true });
             closeAllPopups();
           });
       })
       .catch((err) => {
         console.log(`Error..... ${err}`);
+      })
+      .finally(() => {
+        console.log(isLoggedIn, currentUser, localStorage);
       });
   }
 
   function handleLogout() {
     return new Promise((res) => {
-      setIsLoggedIn(false);
       setIsRegistered(false);
-      setCurrentUser("");
+      setIsLoggedIn(false);
+      setShowArticles(false);
+      setCurrentUser({});
       res();
     })
       .then(() => {
         localStorage.clear();
+        navigate("/", { replace: true });
       })
-      .catch((err) => console.log(`Error..... ${err}`));
+      .catch((err) => console.log(`Error..... ${err}`))
+      .finally(() => {
+        console.log(
+          isLoggedIn,
+          isRegistered,
+          showArticles,
+          currentUser.email,
+          localStorage
+        );
+      });
   }
 
   function handleOpenDropdownMenu() {
@@ -218,33 +236,33 @@ function App() {
                       setTotalResult={setTotalResult}
                       handleRegisterClick={handleRegisterClick}
                     />
-                    <PopupWithForm
-                      isRegisterPopupOpen={isRegisterPopupOpen}
-                      isLoginPopupOpen={isLoginPopupOpen}
-                      isRegistered={isRegistered}
-                      handleLogin={handleLogin}
-                      isMobile={isMobile}
+                    {/*<PopupWithForm*/}
+                    {/*  isRegisterPopupOpen={isRegisterPopupOpen}*/}
+                    {/*  isLoginPopupOpen={isLoginPopupOpen}*/}
+                    {/*  isRegistered={isRegistered}*/}
+                    {/*  handleLogin={handleLogin}*/}
+                    {/*  isMobile={isMobile}*/}
+                    {/*  handleSwitchPopup={handleSwitchPopup}*/}
+                    {/*  closeAllPopups={closeAllPopups}*/}
+                    {/*  handleSubmitInfoToolTip={handleSubmitInfoToolTip}*/}
+                    {/*  handleSetRegistration={handleSetRegistration}*/}
+                    {/*  isOpen={isRegisterPopupOpen || isLoginPopupOpen}*/}
+                    {/*  handleSubmitRegister={handleRegister}*/}
+                    {/*/>*/}
+                    <Register
                       handleSwitchPopup={handleSwitchPopup}
-                      closeAllPopups={closeAllPopups}
                       handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-                      handleSetRegistration={handleSetRegistration}
-                      isOpen={isRegisterPopupOpen || isLoginPopupOpen}
-                      handleSubmitRegister={handleSubmitRegister}
-                    >
-                      <Register
-                        handleSwitchPopup={handleSwitchPopup}
-                        handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-                        handleSetRegistration={handleSetRegistration}
-                        isOpen={isRegisterPopupOpen}
-                      />
-                      <Login
-                        handleSwitchPopup={handleSwitchPopup}
-                        handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-                        handleLogin={handleLogin}
-                        closeAllPopups={closeAllPopups}
-                        isOpen={isLoginPopupOpen}
-                      />
-                    </PopupWithForm>
+                      handleRegister={handleRegister}
+                      isOpen={isRegisterPopupOpen}
+                      closeAllPopups={closeAllPopups}
+                    />
+                    <Login
+                      handleSwitchPopup={handleSwitchPopup}
+                      handleSubmitInfoToolTip={handleSubmitInfoToolTip}
+                      handleLogin={handleLogin}
+                      closeAllPopups={closeAllPopups}
+                      isOpen={isLoginPopupOpen}
+                    />
                     <InfoToolTip
                       setIsLoginPopupOpen={setIsLoginPopupOpen}
                       closeAllPopups={closeAllPopups}
@@ -260,9 +278,11 @@ function App() {
                   <ProtectedRoute
                     isLoggedIn={isLoggedIn}
                     handleRegisterClick={handleRegisterClick}
+                    closeAllPopups={closeAllPopups}
                   >
                     <SavedNews
                       keyword={keyword}
+                      isLogged={isLoggedIn}
                       setKeyword={setKeyword}
                       isLoading={isLoading}
                       setIsLoading={setIsLoading}

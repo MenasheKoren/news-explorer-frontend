@@ -1,29 +1,40 @@
 import React, { useContext } from "react";
 import { FormInput } from "../FormInput/FormInput";
 import { FormContext } from "../../contexts/FormContext";
+import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
 
 export function Register({
-  handleSetRegistration,
-  handleSubmitInfoToolTip,
+  handleRegister,
   isOpen,
+  handleSwitchPopup,
+  closeAllPopups,
 }) {
   const {
     username: [username, setUsername],
     email: [email, setEmail],
     password: [password, setPassword],
   } = useContext(FormContext);
-  // const [form, setForm] = React.useState({});
-  // const formRef = React.useRef();
-  //
-  // useEffect(() => {
-  //   const validatedForm = new FormValidator(formSettings, formRef.current);
-  //   validatedForm.enableValidation();
-  //   setForm(validatedForm);
-  // }, []);
+
+  function handleRegisterSubmit(e) {
+    e.preventDefault();
+    handleRegister({
+      username,
+      email,
+      password,
+    });
+  }
 
   return (
     <>
-      {isOpen && (
+      <PopupWithForm
+        type={"register"}
+        handleSubmit={handleRegisterSubmit}
+        isOpen={isOpen}
+        title={"Sign up"}
+        buttonText={"Sign up"}
+        handleSwitchPopup={handleSwitchPopup}
+        closeAllPopups={closeAllPopups}
+      >
         <div className="form__inputs">
           <FormInput
             value={email || ""}
@@ -62,7 +73,7 @@ export function Register({
             value={username || ""}
           />
         </div>
-      )}
+      </PopupWithForm>
     </>
   );
 }

@@ -1,28 +1,21 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { PopupCloseButton } from "../PopupCloseButton/PopupCloseButton";
 import { MobileCloseButton } from "../MobileCloseButton/MobileCloseButton";
-import { FormRedirect } from "../FormRedirect/FormRedirect";
 import { SaveFormButton } from "../SaveFormButton/SaveFormButton";
-import { FormContext } from "../../contexts/FormContext";
 import { FormValidator } from "../../utils/FormValidator/FormValidator";
 import { formSettings } from "../../utils/helpers";
 
 export function PopupWithForm({
   closeAllPopups,
   isMobile,
-  isRegisterPopupOpen,
-  isLoginPopupOpen,
   handleSwitchPopup,
-  handleSubmitRegister,
-  handleLogin,
-  children,
   isOpen,
+  type,
+  handleSubmit,
+  title,
+  buttonText,
+  children,
 }) {
-  const {
-    username: [username, setUsername],
-    email: [email, setEmail],
-    password: [password, setPassword],
-  } = useContext(FormContext);
   const [form, setForm] = React.useState({});
   const formRef = React.useRef();
 
@@ -30,37 +23,34 @@ export function PopupWithForm({
     const validatedForm = new FormValidator(formSettings, formRef.current);
     validatedForm.enableValidation();
     setForm(validatedForm);
-  }, []);
+  }, [isOpen]);
   return (
-    <section className={[`popup `, isOpen ? "popup_opened" : ""].join(" ")}>
+    <section
+      className={[
+        `popup popup_type_${type}`,
+        isOpen ? "popup_opened" : "",
+      ].join(" ")}
+    >
       <div className="popup__container">
         <PopupCloseButton onClick={closeAllPopups} />
         {isMobile && <MobileCloseButton onClick={closeAllPopups} />}
 
-        <div className="entry">
-          <h2 className="entry__title">
-            {isRegisterPopupOpen ? "Sign up" : "Sign in"}
-          </h2>
-          <form
-            className="entry__form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              isRegisterPopupOpen
-                ? handleSubmitRegister(username, email, password)
-                : handleLogin(email, password);
-            }}
-            ref={formRef}
-          >
+        <div className={`entry entry_type_${type}`}>
+          <h2 className="entry__title">{title}</h2>
+
+          <form className="entry__form" onSubmit={handleSubmit} ref={formRef}>
             {children}
-            <SaveFormButton
-              saveFormButtonText={isRegisterPopupOpen ? "Sign up" : "Sign in"}
-            />
+            <SaveFormButton saveFormButtonText={buttonText} />
           </form>
-          <FormRedirect
-            handleSwitchPopup={handleSwitchPopup}
-            isRegisterPopupOpen={isRegisterPopupOpen}
-            isLoginPopupOpen={isLoginPopupOpen}
-          />
+          <p className="entry__redirect-text">
+            or{" "}
+            <button
+              className="link link__hover entry__redirect-link"
+              onClick={handleSwitchPopup}
+            >
+              {type === "register" ? "Sign in" : "Sign up"}
+            </button>
+          </p>
         </div>
       </div>
     </section>

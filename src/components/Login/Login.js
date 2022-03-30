@@ -1,12 +1,26 @@
 import React, { useContext } from "react";
 import { FormInput } from "../FormInput/FormInput";
 import { FormContext } from "../../contexts/FormContext";
+import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
 
-export function Login({ handleLogin, handleSwitchPopup, isOpen }) {
+export function Login({
+  handleLogin,
+  handleSwitchPopup,
+  isOpen,
+  closeAllPopups,
+}) {
   const {
     email: [email, setEmail],
     password: [password, setPassword],
   } = useContext(FormContext);
+
+  function handleLoginSubmit(e) {
+    e.preventDefault();
+    handleLogin({
+      email,
+      password,
+    });
+  }
   // const [form, setForm] = React.useState({});
   // const formRef = React.useRef();
   //
@@ -17,7 +31,15 @@ export function Login({ handleLogin, handleSwitchPopup, isOpen }) {
   // }, []);
   return (
     <>
-      {isOpen && (
+      <PopupWithForm
+        type={"login"}
+        handleSubmit={handleLoginSubmit}
+        isOpen={isOpen}
+        title={"Sign in"}
+        buttonText={"Sign in"}
+        handleSwitchPopup={handleSwitchPopup}
+        closeAllPopups={closeAllPopups}
+      >
         <div className="form__inputs">
           <FormInput
             value={email || ""}
@@ -45,7 +67,7 @@ export function Login({ handleLogin, handleSwitchPopup, isOpen }) {
             pattern=".*\S.*"
           />
         </div>
-      )}
+      </PopupWithForm>
     </>
   );
 }
