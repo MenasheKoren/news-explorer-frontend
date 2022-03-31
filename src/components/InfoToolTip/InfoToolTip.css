@@ -14,4 +14,7 @@
   color: #2f71e5;
   font-weight: 500;
   margin: 0 0 3.1875rem 2.25rem;
+  border: none;
+  padding: 0;
+  background: none;
 }

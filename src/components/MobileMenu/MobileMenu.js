@@ -8,6 +8,10 @@ export const MobileMenu = ({
   closeAllPopups,
   isDropdownMenuOpen,
   isLoggedIn,
+  handleLogout,
+  isRegistered,
+  handleLoginClick,
+  handleRegisterClick,
 }) => {
   return (
     <section
@@ -36,7 +40,16 @@ export const MobileMenu = ({
                 (isActive ? " nav__item_active" : " nav__item_inactive")
               }
             />
-            <HeaderButton />
+            <HeaderButton
+              registered={isRegistered}
+              loggedIn={isLoggedIn}
+              onLoginClick={handleLoginClick}
+              onRegisterClick={handleRegisterClick}
+              onLogoutClick={handleLogout}
+              style={{
+                filter: "invert(0)",
+              }}
+            />
           </nav>
         </div>
       </div>

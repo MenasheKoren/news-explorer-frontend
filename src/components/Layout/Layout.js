@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
 import { MobileMenu } from "../MobileMenu/MobileMenu";
+import React from "react";
 
 export function Layout({
   handleOpenDropdownMenu,
@@ -20,7 +21,6 @@ export function Layout({
   isInfoToolTipOpen,
   isLoginPopupOpen,
   isRegisterPopupOpen,
-  userName,
 }) {
   return (
     <div className="page">
@@ -41,7 +41,6 @@ export function Layout({
           handleLoginClick={handleLoginClick}
           handleRegisterClick={handleRegisterClick}
           handleSubmitInfoToolTip={handleSubmitInfoToolTip}
-          userName={userName}
         />
         <MobileMenu
           handleLogout={handleLogout}
@@ -51,6 +50,8 @@ export function Layout({
           isLoggedIn={isLoggedIn}
           isDropdownMenuOpen={isDropdownMenuOpen}
           closeAllPopups={closeAllPopups}
+          handleLoginClick={handleLoginClick}
+          handleRegisterClick={handleRegisterClick}
         />
         <Outlet />
         <Footer />

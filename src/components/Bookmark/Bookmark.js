@@ -3,8 +3,10 @@ import { useLocation } from "react-router-dom";
 
 export function Bookmark({
   isBookmarked,
-  handleToggleBookmarkIcon,
+  handleSaveBookmarkedArticles,
   isLoggedIn,
+  savedKeyword,
+  handleRegisterClick,
 }) {
   const location = useLocation();
   return (
@@ -14,7 +16,9 @@ export function Bookmark({
           <button
             className="button bookmarks__bookmark bookmarks__unselected"
             type="button"
-            onClick={handleToggleBookmarkIcon}
+            onClick={
+              isLoggedIn ? handleSaveBookmarkedArticles : handleRegisterClick
+            }
           />
           {!isLoggedIn && (
             <div className="bookmarks__tool-tip">Sign in to save articles</div>
@@ -26,7 +30,7 @@ export function Bookmark({
           <button
             className="button bookmarks__bookmark bookmarks__selected"
             type="button"
-            onClick={handleToggleBookmarkIcon}
+            onClick={handleSaveBookmarkedArticles}
           />
         </div>
       )}
@@ -35,10 +39,11 @@ export function Bookmark({
           <button
             className="button bookmarks__bookmark bookmarks__delete"
             type="button"
+            onClick={handleSaveBookmarkedArticles}
           />
           <span className="bookmarks__tool-tip">Remove from saved</span>
           <button className="button bookmarks__keyword" type="button">
-            Paint
+            {savedKeyword}
           </button>
         </div>
       )}

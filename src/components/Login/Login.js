@@ -1,45 +1,66 @@
-import React from "react";
-import { EmailInput } from "../EmailInput/EmailInput";
-import { PasswordInput } from "../PasswordInput/PasswordInput";
-import { SaveFormButton } from "../SaveFormButton/SaveFormButton";
-import { FormValidator } from "../../utils/FormValidator/FormValidator";
-import { formSettings } from "../../utils/helpers";
+import React, { useContext } from "react";
+import { FormInput } from "../FormInput/FormInput";
+import { FormContext } from "../../contexts/FormContext";
+import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
 
 export function Login({
-  handleInputEmail,
-  handleInputPassword,
-  email,
-  password,
-  handleSubmitLogin,
-  handleSwitchLoginToRegisterPopup,
+  handleLogin,
+  handleSwitchPopup,
+  isOpen,
+  closeAllPopups,
 }) {
-  const [form, setForm] = React.useState({});
-  const formRef = React.useRef();
+  const {
+    email: [email, setEmail],
+    password: [password, setPassword],
+  } = useContext(FormContext);
 
-  React.useEffect(() => {
-    const validatedForm = new FormValidator(formSettings, formRef.current);
-    validatedForm.enableValidation();
-    setForm(validatedForm);
-  }, []);
+  function handleLoginSubmit(e) {
+    e.preventDefault();
+    handleLogin({
+      email,
+      password,
+    });
+  }
+
   return (
-    <div className="entry entry_type_login">
-      <h2 className="entry__title">Log in</h2>
-      <form className="entry__form" onSubmit={handleSubmitLogin}>
+    <>
+      <PopupWithForm
+        type={"login"}
+        handleSubmit={handleLoginSubmit}
+        isOpen={isOpen}
+        title={"Sign in"}
+        buttonText={"Sign in"}
+        handleSwitchPopup={handleSwitchPopup}
+        closeAllPopups={closeAllPopups}
+      >
         <div className="form__inputs">
-          <EmailInput email={email} onChange={handleInputEmail} />
-          <PasswordInput password={password} onChange={handleInputPassword} />
+          <FormInput
+            value={email || ""}
+            handleInput={(e) => {
+              setEmail(e.target.value);
+            }}
+            type="email"
+            placeholder="Enter email"
+            id="emailInputLogin"
+            name="email"
+            label="Email"
+          />
+          <FormInput
+            label="Password"
+            handleInput={(e) => {
+              setPassword(e.target.value);
+            }}
+            type="password"
+            placeholder="Enter password"
+            id="passwordInputLogin"
+            name="password"
+            value={password || ""}
+            minLength="2"
+            maxLength="40"
+            pattern=".*\S.*"
+          />
         </div>
-        <SaveFormButton saveFormButtonText="Sign in" />
-      </form>
-      <p className="entry__redirect-text">
-        or{" "}
-        <button
-          className="link link__hover entry__redirect-link"
-          onClick={handleSwitchLoginToRegisterPopup}
-        >
-          Sign up
-        </button>
-      </p>
-    </div>
+      </PopupWithForm>
+    </>
   );
 }
